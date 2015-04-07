@@ -1,9 +1,11 @@
-package com.bikesandwheels;
+package com.bikesandwheels.model;
 
 import com.bikesandwheels.annotations.*;
 
 @SuppressWarnings({"ALL"})
-public class TestModel {
+public interface TestModel {
+    class NotAnnotatedClass {}
+
     @Revision(date = @Date(year = 2015, month = 4, day = 1))
     class RevisionAnnotatedClass {}
 
@@ -47,32 +49,32 @@ public class TestModel {
     class RevisionsHistoryAnnotatedClass {}
 
     @Revision(date = @Date(year = 2015, month = 4, day = 1))
-    public void revisionAnnotatedMethod() {}
+    public void revisionAnnotatedMethod();
 
     @Revision(
             date = @Date(year = 2015, month = 4, day = 2),
             comment = "revision comment"
     )
-    public void revisionWithCommentAnnotatedMethod() {}
+    public void revisionWithCommentAnnotatedMethod();
 
     @Revision(
             date = @Date(year = 2015, month = 4, day = 3),
             authors = {@Author("class_author")}
     )
-    public void revisionWithAuthorAnnotatedMethod() {}
+    public void revisionWithAuthorAnnotatedMethod();
 
     @Revision(
             date = @Date(year = 2015, month = 4, day = 4),
             authors = {@Author("class_author1"), @Author("class_author2")}
     )
-    public void revisionWithAuthorsAnnotatedMethod() {}
+    public void revisionWithAuthorsAnnotatedMethod();
 
     @Revision(
             date = @Date(year = 2015, month = 4, day = 5),
             comment = "revision comment",
             authors = {@Author("class_author1"), @Author("class_author2")}
     )
-    public void revisionWithCommentAndAuthorsAnnotatedMethod() {}
+    public void revisionWithCommentAndAuthorsAnnotatedMethod();
 
     @History({
             @Revision(
@@ -86,5 +88,10 @@ public class TestModel {
                     authors = {@Author("class_author2"), @Author("class_author3")}
             )
     })
-    public void revisionsHistoryAnnotatedMethod() {}
+    public void revisionsHistoryAnnotatedMethod();
+
+    class NotAnnotatedClassWithAnnotatedMethod {
+        @Revision(date = @Date(year = 2015, month = 4, day = 1))
+        public void revisionAnnotatedMethod() {}
+    }
 }
