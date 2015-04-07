@@ -55,6 +55,12 @@ public class AnnotatedClassesSearcherTest {
             Set<Class<?>> annotatedClasses = searcher.getAnnotatedClasses();
             assertThat(annotatedClasses, contains(TestModel.NotAnnotatedClassWithAnnotatedMethod.class));
         }
+
+        @Test
+        public void historyAnnotatedClass_shouldBeFound() throws Exception {
+            Set<Class<?>> annotatedClasses = searcher.getAnnotatedClasses();
+            assertThat(annotatedClasses, contains(TestModel.RevisionsHistoryAnnotatedClass.class));
+        }
     }
 
     private static final BaseMatcher<Set<Class<?>>> isEmpty = new BaseMatcher<Set<Class<?>>>() {
