@@ -1,10 +1,8 @@
 package com.bikesandwheels.annotations.wrappers;
 
-import com.bikesandwheels.annotations.*;
 import org.junit.Test;
 
-import java.lang.annotation.Annotation;
-
+import static com.bikesandwheels.annotations.wrappers.WrapperUtils.*;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -12,8 +10,13 @@ public class AuthorWrapperTest {
     private AuthorWrapper authorWrapper;
 
     @Test(expected = NullPointerException.class)
-    public void whenDateIsNull_shouldThrowException() throws Exception {
+    public void whenAuthorIsNull_shouldThrowException() throws Exception {
         authorWrapper = new AuthorWrapper(null);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void whenNameIsNull_shouldThrowException() throws Exception {
+        authorWrapper = new AuthorWrapper(createAuthor(null));
     }
 
     @Test
@@ -22,16 +25,4 @@ public class AuthorWrapperTest {
         assertThat(authorWrapper.getName(), is("John"));
     }
 
-    static Author createAuthor(final String name) {
-        return new Author() {
-            public String value() {
-                return name;
-            }
-
-            public Class<? extends Annotation> annotationType() {
-                return Author.class;
-            }
-
-        };
-    }
 }
