@@ -1,10 +1,22 @@
 package com.bikesandwheels.annotations.wrappers;
 
 import com.bikesandwheels.annotations.*;
+import com.bikesandwheels.annotations.Date;
+import org.junit.Assert;
 
 import java.lang.annotation.Annotation;
+import java.util.*;
+
+import static org.hamcrest.Matchers.is;
 
 public class WrapperUtils {
+    static final int YEAR = 2015;
+    static final int MONTH = 1;
+    static final int INVALID_MONTH = 13;
+    static final int DAY = 1;
+    static final Date DATE = createDate(YEAR, MONTH, DAY);
+    static final Date INVALID_DATE = createDate(YEAR, INVALID_MONTH, DAY);
+
     static Author createAuthor(final String name) {
         return new Author() {
             public String value() {
@@ -56,5 +68,14 @@ public class WrapperUtils {
                 return comment;
             }
         };
+    }
+
+    static void assertDate(java.util.Date date, int year, int month, int day) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        Assert.assertThat(calendar.get(Calendar.YEAR), is(year));
+        Assert.assertThat(calendar.get(Calendar.MONTH), is(month - 1)); //zero-based month
+        Assert.assertThat(calendar.get(Calendar.DAY_OF_MONTH), is(day));
     }
 }
