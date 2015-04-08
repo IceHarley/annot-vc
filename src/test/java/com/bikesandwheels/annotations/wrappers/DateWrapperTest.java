@@ -3,9 +3,9 @@ package com.bikesandwheels.annotations.wrappers;
 import com.bikesandwheels.annotations.Date;
 import org.junit.*;
 
-import java.lang.annotation.Annotation;
 import java.util.*;
 
+import static com.bikesandwheels.annotations.wrappers.WrapperUtils.*;
 import static org.hamcrest.Matchers.is;
 
 public class DateWrapperTest {
@@ -34,24 +34,4 @@ public class DateWrapperTest {
     }
 
     private final static Date INVALID_DATE = createDate(2015, 13, 1);
-
-    static Date createDate(final int year, final int month, final int day) {
-        return new Date() {
-            public Class<? extends Annotation> annotationType() {
-                return Date.class;
-            }
-
-            public int year() {
-                return year;
-            }
-
-            public int month() {
-                return month;
-            }
-
-            public int day() {
-                return day;
-            }
-        };
-    }
 }
