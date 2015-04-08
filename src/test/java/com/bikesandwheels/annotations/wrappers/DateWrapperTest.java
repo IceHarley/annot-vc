@@ -1,7 +1,6 @@
-package com.bikesandwheels.wrappers;
+package com.bikesandwheels.annotations.wrappers;
 
 import com.bikesandwheels.annotations.Date;
-import com.bikesandwheels.annotations.wrappers.DateWrapper;
 import org.junit.*;
 
 import java.lang.annotation.Annotation;
