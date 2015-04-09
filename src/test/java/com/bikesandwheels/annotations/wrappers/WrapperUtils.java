@@ -70,6 +70,18 @@ public class WrapperUtils {
         };
     }
 
+    static History createHistory(final Revision... revisions) {
+        return new History() {
+            public Revision[] value() {
+                return revisions;
+            }
+
+            public Class<? extends Annotation> annotationType() {
+                return History.class;
+            }
+        };
+    }
+
     static void assertDate(java.util.Date date, int year, int month, int day) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
