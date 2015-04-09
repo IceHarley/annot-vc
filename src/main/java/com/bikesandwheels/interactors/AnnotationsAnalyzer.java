@@ -1,4 +1,4 @@
-package com.bikesandwheels.engine;
+package com.bikesandwheels.interactors;
 
 import com.bikesandwheels.annotations.Revision;
 import com.bikesandwheels.annotations.wrappers.RevisionWrapper;

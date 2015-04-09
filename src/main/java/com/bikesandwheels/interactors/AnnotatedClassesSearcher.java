@@ -1,4 +1,4 @@
-package com.bikesandwheels.engine;
+package com.bikesandwheels.interactors;
 
 import com.bikesandwheels.annotations.*;
 import com.google.common.collect.Sets;

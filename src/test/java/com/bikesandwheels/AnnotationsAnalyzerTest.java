@@ -2,7 +2,7 @@ package com.bikesandwheels;
 
 import com.bikesandwheels.domain.RevisedObject;
 import com.bikesandwheels.emptymodel.EmptyTestModel;
-import com.bikesandwheels.engine.*;
+import com.bikesandwheels.interactors.*;
 import com.bikesandwheels.model.TestModel;
 import org.hamcrest.*;
 import org.junit.*;

@@ -1,7 +1,7 @@
 package com.bikesandwheels;
 
 import com.bikesandwheels.emptymodel.EmptyTestModel;
-import com.bikesandwheels.engine.AnnotatedClassesSearcher;
+import com.bikesandwheels.interactors.AnnotatedClassesSearcher;
 import com.bikesandwheels.model.TestModel;
 import org.hamcrest.*;
 import org.junit.*;
