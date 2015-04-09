@@ -1,9 +1,9 @@
 package com.bikesandwheels;
 
 import com.bikesandwheels.domain.RevisedObject;
-import com.bikesandwheels.emptymodel.EmptyTestModel;
 import com.bikesandwheels.interactors.*;
 import com.bikesandwheels.model.TestModel;
+import com.google.common.collect.Sets;
 import org.hamcrest.*;
 import org.junit.*;
 import org.junit.experimental.runners.Enclosed;
@@ -11,19 +11,18 @@ import org.junit.runner.RunWith;
 
 import java.util.*;
 
+import static com.bikesandwheels.model.TestModel.*;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.*;
 
 @RunWith(Enclosed.class)
 public class AnnotationsAnalyzerTest {
     private static AnnotationsAnalyzer analyzer;
-    private static AnnotatedClassesSearcher searcher;
 
     public static class GivenTestModelWithoutAnnotations {
         @Before
         public void setUp() throws Exception {
-            searcher = new AnnotatedClassesSearcher(EmptyTestModel.class);
-            analyzer = new AnnotationsAnalyzer(searcher.getAnnotatedClasses());
+            analyzer = new AnnotationsAnalyzer(Sets.<Class<?>>newHashSet());
         }
 
         @Test
@@ -35,8 +34,15 @@ public class AnnotationsAnalyzerTest {
     public static class GivenTestModelWithAnnotations {
         @Before
         public void setUp() throws Exception {
-            searcher = new AnnotatedClassesSearcher(TestModel.class);
-            analyzer = new AnnotationsAnalyzer(searcher.getAnnotatedClasses());
+            analyzer = new AnnotationsAnalyzer(Sets.newHashSet(
+                    RevisionAnnotatedClass.class,
+                    RevisionWithCommentAnnotatedClass.class,
+                    RevisionWithAuthorAnnotatedClass.class,
+                    RevisionWithAuthorsAnnotatedClass.class,
+                    RevisionWithCommentAndAuthorsAnnotatedClass.class,
+                    RevisionsHistoryAnnotatedClass.class,
+                    TestModel.class,
+                    NotAnnotatedClassWithAnnotatedMethod.class));
         }
 
         @Test
