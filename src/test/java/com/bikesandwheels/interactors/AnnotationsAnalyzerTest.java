@@ -1,4 +1,4 @@
-package com.bikesandwheels;
+package com.bikesandwheels.interactors;
 
 import com.bikesandwheels.domain.RevisedObject;
 import com.bikesandwheels.interactors.*;
@@ -36,6 +36,7 @@ public class AnnotationsAnalyzerTest {
         public void setUp() throws Exception {
             analyzer = new AnnotationsAnalyzer(Sets.newHashSet(
                     RevisionAnnotatedClass.class,
+                    DerivedRevisionAnnotatedClass.class,
                     RevisionWithCommentAnnotatedClass.class,
                     RevisionWithAuthorAnnotatedClass.class,
                     RevisionWithAuthorsAnnotatedClass.class,

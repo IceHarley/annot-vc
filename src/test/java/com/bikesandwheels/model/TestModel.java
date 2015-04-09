@@ -9,6 +9,10 @@ public interface TestModel {
     @Revision(date = @Date(year = 2015, month = 4, day = 1))
     class RevisionAnnotatedClass {}
 
+    @Revision(date = @Date(year = 2015, month = 4, day = 9))
+    class DerivedRevisionAnnotatedClass extends RevisionAnnotatedClass {}
+    class DerivedNotAnnotatedClass extends RevisionAnnotatedClass {}
+
     @Revision(
             date = @Date(year = 2015, month = 4, day = 2),
             comment = "revision comment"
