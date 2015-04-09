@@ -27,4 +27,21 @@ public class DateWrapper {
     public java.util.Date getDate() {
         return date;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DateWrapper that = (DateWrapper) o;
+
+        if (!date.equals(that.date)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return date.hashCode();
+    }
 }
