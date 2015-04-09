@@ -1,5 +1,6 @@
 package com.bikesandwheels;
 
+import com.bikesandwheels.domain.RevisedObject;
 import com.bikesandwheels.emptymodel.EmptyTestModel;
 import com.bikesandwheels.engine.*;
 import com.bikesandwheels.model.TestModel;
@@ -8,7 +9,6 @@ import org.junit.*;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
 
-import java.lang.annotation.Annotation;
 import java.util.*;
 
 import static org.hamcrest.Matchers.not;
@@ -28,8 +28,7 @@ public class AnnotationsAnalyzerTest {
 
         @Test
         public void ifNoAnnotatedFiles_AnalyzeResultIsEmpty() throws Exception {
-            Set<Annotation> revisions = analyzer.getRevisions();
-            assertThat(revisions, isEmpty);
+            assertThat(analyzer.getRevisedObjects(), isEmpty);
         }
     }
 
@@ -42,21 +41,18 @@ public class AnnotationsAnalyzerTest {
 
         @Test
         public void annotatedClass_containsRevisions() throws Exception {
-            Set<Annotation> revisions = analyzer.getRevisions();
-            assertThat(revisions, not(isEmpty));
+            assertThat(analyzer.getRevisedObjects(), not(isEmpty));
         }
 
         @Ignore @Test
-        //TODO
         public void annotatedClassRevision_containsDate() throws Exception {
-            Set<Annotation> revisions = analyzer.getRevisions();
-            Annotation revision = revisions.iterator().next();
-            //Assert.assertThat(revision., not(isEmpty));
-            assertNotNull(revision);
+            RevisedObject revisedObject = analyzer.getRevisedObjects().iterator().next();
+            //revisedObject.getRevisions()
+            assertNotNull(revisedObject);
         }
     }
 
-    private static final BaseMatcher<Set<Annotation>> isEmpty = new BaseMatcher<Set<Annotation>>() {
+    private static final BaseMatcher<Set<RevisedObject>> isEmpty = new BaseMatcher<Set<RevisedObject>>() {
         public boolean matches(Object o) {
             return ((Collection<?>) o).isEmpty();
         }
