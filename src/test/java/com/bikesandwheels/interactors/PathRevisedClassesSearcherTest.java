@@ -5,8 +5,6 @@ import org.junit.*;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
 
-import java.util.*;
-
 import static com.bikesandwheels.TestUtils.*;
 import static com.bikesandwheels.interactors.TestModel.*;
 import static com.bikesandwheels.interactors.TestModel.MethodsModel.*;
@@ -24,28 +22,23 @@ public class PathRevisedClassesSearcherTest {
         }
 
         @Test
-        public void notAnnotatedClass_shouldNotBeFound() throws Exception {
-            Set<Class<?>> annotatedClasses = revisedClassesSearcher.search();
-            assertThat(annotatedClasses, not(contains(NotAnnotatedClass.class)));
+        public void notRevisedClass_shouldNotBeFound() throws Exception {
+            assertThat(revisedClassesSearcher.search(), not(contains(NotRevisedClass.class)));
         }
 
         @Test
-        public void revisionAnnotatedClass_shouldBeFound() throws Exception {
-            Set<Class<?>> annotatedClasses = revisedClassesSearcher.search();
-            assertThat(annotatedClasses, not(IS_EMPTY));
-            assertThat(annotatedClasses, contains(RevisedClass.class));
+        public void revisedClass_shouldBeFound() throws Exception {
+            assertThat(revisedClassesSearcher.search(), contains(RevisedClass.class));
         }
 
         @Test
-        public void notAnnotatedClassWithAnnotatedMethod_shouldBeFound() throws Exception {
-            Set<Class<?>> annotatedClasses = revisedClassesSearcher.search();
-            assertThat(annotatedClasses, contains(NotRevisedClassWithRevisedMethod.class));
+        public void notRevisedClassWithAnnotatedMethod_shouldBeFound() throws Exception {
+            assertThat(revisedClassesSearcher.search(), contains(NotRevisedClassWithRevisedMethod.class));
         }
 
         @Test
-        public void historyAnnotatedClass_shouldBeFound() throws Exception {
-            Set<Class<?>> annotatedClasses = revisedClassesSearcher.search();
-            assertThat(annotatedClasses, contains(RevisionsHistoryAnnotatedClass.class));
+        public void historyRevisedClass_shouldBeFound() throws Exception {
+            assertThat(revisedClassesSearcher.search(), contains(HistoryRevisedClass.class));
         }
     }
 }

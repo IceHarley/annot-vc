@@ -21,7 +21,7 @@ public class RevisedObjectsSearcherForMethodsTest {
         }
 
         @Test
-        public void annotatedClass_containsRevisions() throws Exception {
+        public void revisedClass_containsRevisions() throws Exception {
             RevisedObjects revisedObjects = searcher.findAllRevisedObjects();
             assertThat(revisedObjects, not(IS_EMPTY_REVISED_OBJECTS_COLLECTION));
         }
@@ -50,7 +50,7 @@ public class RevisedObjectsSearcherForMethodsTest {
         }
 
         @Test
-        public void historyAnnotatedClass_HaveCorrectRevisions() throws Exception {
+        public void historyRevisedClass_HaveCorrectRevisions() throws Exception {
             assertThat(searcher.findAllRevisedObjects().getRevisions(TestModel.DerivedHistoryRevisedClass.class),
                     are(
                             new RevisionWrapper(createDefaultRevision(createDate(2015, 4, 6))),

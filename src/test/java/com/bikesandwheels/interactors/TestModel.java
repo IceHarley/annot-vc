@@ -4,7 +4,7 @@ import com.bikesandwheels.annotations.*;
 
 @SuppressWarnings({"ALL"})
 public interface TestModel {
-    class NotAnnotatedClass {}
+    class NotRevisedClass {}
 
     @Revision(date = @Date(year = 2015, month = 4, day = 1))
     class RevisedClass {}
@@ -22,26 +22,26 @@ public interface TestModel {
             date = @Date(year = 2015, month = 4, day = 2),
             comment = "revision comment"
     )
-    class RevisionWithCommentAnnotatedClass {}
+    class CommentRevisedClass {}
 
     @Revision(
             date = @Date(year = 2015, month = 4, day = 3),
             authors = {@Author("class_author")}
     )
-    class RevisionWithAuthorAnnotatedClass {}
+    class AuthorRevisedClass {}
 
     @Revision(
             date = @Date(year = 2015, month = 4, day = 4),
             authors = {@Author("class_author1"), @Author("class_author2")}
     )
-    class RevisionWithAuthorsAnnotatedClass {}
+    class AuthorsRevisedClass {}
 
     @Revision(
             date = @Date(year = 2015, month = 4, day = 5),
             comment = "revision comment",
             authors = {@Author("class_author1"), @Author("class_author2")}
     )
-    class RevisionWithCommentAndAuthorsAnnotatedClass {}
+    class CommentAndAuthorsRevisedClass {}
 
     @History({
         @Revision(
@@ -55,10 +55,10 @@ public interface TestModel {
                 authors = {@Author("class_author2"), @Author("class_author3")}
         )
     })
-    class RevisionsHistoryAnnotatedClass {}
+    class HistoryRevisedClass {}
 
     @History
-    class EmptyHistoryAnnotatedClass{};
+    class EmptyHistoryRevisedClass {};
 
     @History
     @Revision(date = @Date(year = 2015, month = 4, day = 1))

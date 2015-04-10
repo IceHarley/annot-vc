@@ -43,7 +43,7 @@ public class RevisedObjectsSearcherForClassesTest {
         }
 
         @Test
-        public void annotatedClass_containsRevisions() throws Exception {
+        public void revisedClass_containsRevisions() throws Exception {
             assertThat(searcher.findAllRevisedObjects(), not(IS_EMPTY_REVISED_OBJECTS_COLLECTION));
         }
 
@@ -69,7 +69,7 @@ public class RevisedObjectsSearcherForClassesTest {
         }
 
         @Test
-        public void historyAnnotatedClass_HaveCorrectRevisions() throws Exception {
+        public void historyRevisedClass_HaveCorrectRevisions() throws Exception {
             assertThat(searcher.findAllRevisedObjects().getRevisions(DerivedHistoryRevisedClass.class),
                 are(
                     new RevisionWrapper(createDefaultRevision(createDate(2015, 4, 6))),
@@ -80,7 +80,7 @@ public class RevisedObjectsSearcherForClassesTest {
     public static class EmptyHistoryTest {
         @Test
         public void givenEmptyHistory_NoRevisedObjects() throws Exception {
-            searcher = new RevisedObjectsSearcher(Sets.<Class<?>>newHashSet(EmptyHistoryAnnotatedClass.class));
+            searcher = new RevisedObjectsSearcher(Sets.<Class<?>>newHashSet(EmptyHistoryRevisedClass.class));
             assertThat(searcher.findAllRevisedObjects(), IS_EMPTY_REVISED_OBJECTS_COLLECTION);
         }
 
