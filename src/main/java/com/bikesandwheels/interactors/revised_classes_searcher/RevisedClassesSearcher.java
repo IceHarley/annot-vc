@@ -1,4 +1,4 @@
-package com.bikesandwheels.interactors;
+package com.bikesandwheels.interactors.revised_classes_searcher;
 
 import java.util.Set;
 

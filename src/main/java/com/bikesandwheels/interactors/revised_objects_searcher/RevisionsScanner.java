@@ -1,4 +1,4 @@
-package com.bikesandwheels.interactors;
+package com.bikesandwheels.interactors.revised_objects_searcher;
 
 import com.bikesandwheels.annotations.wrappers.RevisionWrapper;
 import java.util.Set;

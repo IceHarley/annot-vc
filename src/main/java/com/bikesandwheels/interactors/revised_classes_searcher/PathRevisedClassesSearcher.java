@@ -1,19 +1,24 @@
-package com.bikesandwheels.interactors;
+package com.bikesandwheels.interactors.revised_classes_searcher;
 
 import com.bikesandwheels.annotations.*;
 import com.google.common.collect.Sets;
 import org.reflections.*;
+import org.reflections.util.ClasspathHelper;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.net.*;
 import java.util.*;
 
-public class PackageRevisedClassesSearcher implements RevisedClassesSearcher {
+public class PathRevisedClassesSearcher implements RevisedClassesSearcher {
     protected Reflections reflections;
 
-    public PackageRevisedClassesSearcher(Class<?> baseClass) throws MalformedURLException {
-        reflections = new ReflectionsBuilder(baseClass).limitToPackage().make();
+    public PathRevisedClassesSearcher(URL path) throws MalformedURLException {
+        reflections = new ReflectionsBuilder(path).make();
+    }
+
+    public PathRevisedClassesSearcher(Class aClass) throws MalformedURLException {
+        this(ClasspathHelper.forClass(aClass));
     }
 
     public Set<Class<?>> search() {

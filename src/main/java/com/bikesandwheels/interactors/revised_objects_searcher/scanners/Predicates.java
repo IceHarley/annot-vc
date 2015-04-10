@@ -1,4 +1,4 @@
-package com.bikesandwheels.interactors;
+package com.bikesandwheels.interactors.revised_objects_searcher.scanners;
 
 import com.bikesandwheels.annotations.*;
 import com.google.common.base.Predicate;

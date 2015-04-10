@@ -1,7 +1,6 @@
 package com.bikesandwheels;
 
-import com.bikesandwheels.emptymodel.EmptyTestModel;
-import com.bikesandwheels.model.TestModel;
+import com.bikesandwheels.interactors.*;
 import org.junit.*;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
@@ -12,8 +11,8 @@ import org.reflections.util.*;
 import java.util.*;
 
 import static com.bikesandwheels.TestUtils.areDerivatives;
-import static com.bikesandwheels.emptymodel.EmptyTestModel.*;
-import static com.bikesandwheels.model.TestModel.*;
+import static com.bikesandwheels.interactors.EmptyTestModel.*;
+import static com.bikesandwheels.interactors.TestModel.*;
 import static org.junit.Assert.*;
 
 @SuppressWarnings("unchecked")

@@ -1,4 +1,4 @@
-package com.bikesandwheels.model;
+package com.bikesandwheels.interactors;
 
 import com.bikesandwheels.annotations.*;
 

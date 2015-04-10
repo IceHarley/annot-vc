@@ -1,16 +1,17 @@
-package com.bikesandwheels.interactors;
+package com.bikesandwheels.interactors.revised_objects_searcher;
 
 import com.bikesandwheels.annotations.wrappers.*;
 import com.bikesandwheels.domain.*;
+import com.bikesandwheels.interactors.revised_objects_searcher.scanners.*;
 import com.google.common.collect.Sets;
 import java.util.*;
 
-public class AnnotationsAnalyzer {
+public class RevisedObjectsSearcher {
     Set<RevisionsScanner> scanners = Sets.newHashSet();
     private Set<Class<?>> classes;
     RevisedObjects revisedObjects = null;
 
-    public AnnotationsAnalyzer(Set<Class<?>> classes) {
+    public RevisedObjectsSearcher(Set<Class<?>> classes) {
         this.classes = classes;
         registerScanners();
     }
@@ -22,7 +23,7 @@ public class AnnotationsAnalyzer {
     }
 
     @SuppressWarnings("unchecked")
-    public RevisedObjects getAllRevisedObjects() {
+    public RevisedObjects findAllRevisedObjects() {
         if (revisedObjects == null)
             analyzeRevisedObjects();
         return revisedObjects;

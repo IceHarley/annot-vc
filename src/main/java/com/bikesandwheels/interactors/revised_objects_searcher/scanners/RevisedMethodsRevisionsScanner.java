@@ -1,6 +1,7 @@
-package com.bikesandwheels.interactors;
+package com.bikesandwheels.interactors.revised_objects_searcher.scanners;
 
 import com.bikesandwheels.annotations.wrappers.RevisionWrapper;
+import com.bikesandwheels.interactors.revised_objects_searcher.RevisionsScanner;
 import com.google.common.collect.Sets;
 import org.reflections.ReflectionUtils;
 

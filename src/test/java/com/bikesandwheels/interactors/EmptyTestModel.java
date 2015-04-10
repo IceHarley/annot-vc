@@ -1,4 +1,4 @@
-package com.bikesandwheels.emptymodel;
+package com.bikesandwheels.interactors;
 
 @SuppressWarnings({"ALL"})
 public interface EmptyTestModel {

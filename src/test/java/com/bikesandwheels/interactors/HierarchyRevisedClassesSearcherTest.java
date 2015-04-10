@@ -1,22 +1,22 @@
 package com.bikesandwheels.interactors;
 
-import com.bikesandwheels.emptymodel.EmptyTestModel;
+import com.bikesandwheels.interactors.revised_classes_searcher.*;
 import org.junit.*;
 
 import java.util.Set;
 
 import static com.bikesandwheels.TestUtils.areDerivatives;
 import static com.bikesandwheels.TestUtils.IS_EMPTY;
-import static com.bikesandwheels.model.TestModel.*;
+import static com.bikesandwheels.interactors.TestModel.*;
 import static org.junit.Assert.assertThat;
 
-public class ClassRevisedClassesSearcherTest {
+public class HierarchyRevisedClassesSearcherTest {
     private static RevisedClassesSearcher revisedClassesSearcher;
 
     public static class GivenTestModelWithoutAnnotations {
         @Before
         public void setUp() throws Exception {
-            revisedClassesSearcher = new ClassRevisedClassesSearcher(EmptyTestModel.class);
+            revisedClassesSearcher = new HierarchyRevisedClassesSearcher(EmptyTestModel.class);
         }
 
         @Test
@@ -30,7 +30,7 @@ public class ClassRevisedClassesSearcherTest {
     public static class GivenTestModelWithAnnotations {
         @Before
         public void setUp() throws Exception {
-            revisedClassesSearcher = new ClassRevisedClassesSearcher(RevisedClass.class);
+            revisedClassesSearcher = new HierarchyRevisedClassesSearcher(RevisedClass.class);
         }
 
         @Test
