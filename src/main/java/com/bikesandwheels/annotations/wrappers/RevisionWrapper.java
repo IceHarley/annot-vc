@@ -3,6 +3,7 @@ package com.bikesandwheels.annotations.wrappers;
 import com.bikesandwheels.annotations.*;
 import com.google.common.collect.Sets;
 
+import java.lang.annotation.Annotation;
 import java.util.*;
 
 public class RevisionWrapper {
@@ -37,6 +38,13 @@ public class RevisionWrapper {
         return dateWrapper.getDate();
     }
 
+    public static Set<RevisionWrapper> wrapAll(Set<? extends Annotation> revision) {
+        Set<RevisionWrapper> wrappers = Sets.newHashSet();
+        for (Annotation annotation : revision)
+            wrappers.add(new RevisionWrapper((Revision) annotation));
+        return wrappers;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -46,9 +54,7 @@ public class RevisionWrapper {
 
         if (!authors.equals(that.authors)) return false;
         if (comment != null ? !comment.equals(that.comment) : that.comment != null) return false;
-        if (!dateWrapper.equals(that.dateWrapper)) return false;
-
-        return true;
+        return dateWrapper.equals(that.dateWrapper);
     }
 
     @Override

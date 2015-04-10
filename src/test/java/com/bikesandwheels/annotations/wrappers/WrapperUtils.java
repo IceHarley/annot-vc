@@ -17,7 +17,7 @@ public class WrapperUtils {
     static final Date DATE = createDate(YEAR, MONTH, DAY);
     static final Date INVALID_DATE = createDate(YEAR, INVALID_MONTH, DAY);
 
-    static Author createAuthor(final String name) {
+    public static Author createAuthor(final String name) {
         return new Author() {
             public String value() {
                 return name;
@@ -30,7 +30,7 @@ public class WrapperUtils {
         };
     }
 
-    static Date createDate(final int year, final int month, final int day) {
+    public static Date createDate(final int year, final int month, final int day) {
         return new Date() {
             public Class<? extends Annotation> annotationType() {
                 return Date.class;
@@ -50,7 +50,11 @@ public class WrapperUtils {
         };
     }
 
-    static Revision createRevision(final Date date, final String comment, final Author... author) {
+    public static Revision createDefaultRevision(final Date date) {
+        return createRevision(date, Revision.DEFAULT_COMMENT, createAuthor(Author.DEFAULT_AUTHOR));
+    }
+
+    public static Revision createRevision(final Date date, final String comment, final Author... author) {
         return new Revision() {
             public Class<? extends Annotation> annotationType() {
                 return Revision.class;
@@ -70,7 +74,7 @@ public class WrapperUtils {
         };
     }
 
-    static History createHistory(final Revision... revisions) {
+    public static History createHistory(final Revision... revisions) {
         return new History() {
             public Revision[] value() {
                 return revisions;

@@ -1,6 +1,5 @@
 package com.bikesandwheels.interactors;
 
-import com.bikesandwheels.emptymodel.EmptyTestModel;
 import com.bikesandwheels.model.TestModel;
 import org.junit.*;
 import org.junit.experimental.runners.Enclosed;
@@ -9,6 +8,8 @@ import org.junit.runner.RunWith;
 import java.util.*;
 
 import static com.bikesandwheels.TestUtils.*;
+import static com.bikesandwheels.model.TestModel.*;
+import static com.bikesandwheels.model.TestModel.MethodsModel.*;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
 
@@ -16,21 +17,7 @@ import static org.junit.Assert.assertThat;
 public class PackageRevisedClassesSearcherTest {
     private static RevisedClassesSearcher revisedClassesSearcher;
 
-    public static class GivenTestModelWithoutAnnotations {
-        @Before
-        public void setUp() throws Exception {
-            revisedClassesSearcher = new PackageRevisedClassesSearcher(EmptyTestModel.class);
-        }
-
-        @Test
-        public void searchResultIsEmptyTest() throws Exception {
-            revisedClassesSearcher = new PackageRevisedClassesSearcher(EmptyTestModel.class);
-            Set<Class<?>> annotatedClasses = revisedClassesSearcher.search();
-            assertThat(annotatedClasses, isEmpty);
-        }
-    }
-
-    public static class GivenNonEmptyTestModel {
+    public static class GivenTestModel {
         @Before
         public void setUp() throws Exception {
             revisedClassesSearcher = new PackageRevisedClassesSearcher(TestModel.class);
@@ -39,26 +26,26 @@ public class PackageRevisedClassesSearcherTest {
         @Test
         public void notAnnotatedClass_shouldNotBeFound() throws Exception {
             Set<Class<?>> annotatedClasses = revisedClassesSearcher.search();
-            assertThat(annotatedClasses, not(contains(TestModel.NotAnnotatedClass.class)));
+            assertThat(annotatedClasses, not(contains(NotAnnotatedClass.class)));
         }
 
         @Test
         public void revisionAnnotatedClass_shouldBeFound() throws Exception {
             Set<Class<?>> annotatedClasses = revisedClassesSearcher.search();
-            assertThat(annotatedClasses, not(isEmpty));
-            assertThat(annotatedClasses, contains(TestModel.RevisionAnnotatedClass.class));
+            assertThat(annotatedClasses, not(IS_EMPTY));
+            assertThat(annotatedClasses, contains(RevisedClass.class));
         }
 
         @Test
         public void notAnnotatedClassWithAnnotatedMethod_shouldBeFound() throws Exception {
             Set<Class<?>> annotatedClasses = revisedClassesSearcher.search();
-            assertThat(annotatedClasses, contains(TestModel.NotAnnotatedClassWithAnnotatedMethod.class));
+            assertThat(annotatedClasses, contains(NotRevisedClassWithRevisedMethod.class));
         }
 
         @Test
         public void historyAnnotatedClass_shouldBeFound() throws Exception {
             Set<Class<?>> annotatedClasses = revisedClassesSearcher.search();
-            assertThat(annotatedClasses, contains(TestModel.RevisionsHistoryAnnotatedClass.class));
+            assertThat(annotatedClasses, contains(RevisionsHistoryAnnotatedClass.class));
         }
     }
 }

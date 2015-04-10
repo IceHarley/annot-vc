@@ -1,7 +1,9 @@
 package com.bikesandwheels.annotations.wrappers;
 
 import com.bikesandwheels.annotations.*;
+import com.google.common.collect.Sets;
 
+import java.lang.annotation.Annotation;
 import java.util.*;
 
 public class HistoryWrapper {
@@ -15,5 +17,12 @@ public class HistoryWrapper {
 
     public List<RevisionWrapper> getRevisions() {
         return revisions;
+    }
+
+    public static Set<HistoryWrapper> wrapAll(Set<? extends Annotation> history) {
+        Set<HistoryWrapper> wrappers = Sets.newHashSet();
+        for (Annotation annotation : history)
+            wrappers.add(new HistoryWrapper((History) annotation));
+        return wrappers;
     }
 }

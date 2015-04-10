@@ -1,38 +1,52 @@
 package com.bikesandwheels.interactors;
 
-import com.bikesandwheels.annotations.Revision;
-import com.bikesandwheels.annotations.wrappers.RevisionWrapper;
-import com.bikesandwheels.domain.RevisedObject;
-import com.google.common.base.Predicate;
+import com.bikesandwheels.annotations.wrappers.*;
+import com.bikesandwheels.domain.*;
 import com.google.common.collect.Sets;
-import org.reflections.ReflectionUtils;
-
-import javax.annotation.Nullable;
-import java.lang.annotation.Annotation;
 import java.util.*;
 
 public class AnnotationsAnalyzer {
-    private static final Predicate<Annotation> REVISION_PREDICATE = new Predicate<Annotation>() {
-        public boolean apply(@Nullable Annotation annotation) {
-            return annotation instanceof Revision;
-        }
-    };
+    Set<RevisionsScanner> scanners = Sets.newHashSet();
     private Set<Class<?>> classes;
+    RevisedObjects revisedObjects = null;
 
     public AnnotationsAnalyzer(Set<Class<?>> classes) {
         this.classes = classes;
+        registerScanners();
     }
 
-    public Set<RevisedObject> getRevisedObjects() {
-        Set<RevisedObject> revisedObjects = Sets.newHashSet();
-        for (Class<?> aClass : classes) {
-            Set<Annotation> annotations = ReflectionUtils.getAnnotations(aClass, REVISION_PREDICATE);
-            Set<RevisionWrapper> revisions = Sets.newHashSet();
-            for (Annotation annotation : annotations)
-                revisions.add(new RevisionWrapper((Revision) annotation));
-            revisedObjects.add(new RevisedObject(revisions, aClass));
-        }
+    private void registerScanners() {
+        scanners.add(new RevisedClassRevisionsScanner());
+        scanners.add(new ClassWithHistoryRevisionsScanner());
+        scanners.add(new RevisedMethodsRevisionsScanner());
+    }
+
+    @SuppressWarnings("unchecked")
+    public RevisedObjects getAllRevisedObjects() {
+        if (revisedObjects == null)
+            analyzeRevisedObjects();
         return revisedObjects;
     }
 
+    private void analyzeRevisedObjects() {
+        revisedObjects = new RevisedObjects();
+        for (Class<?> aClass : classes) {
+            Set<RevisionWrapper> revisionAnnotations = getAnnotations(aClass);
+            addRevisedObject(aClass, revisionAnnotations);
+        }
+    }
+
+    private Set<RevisionWrapper> getAnnotations(Class<?> aClass) {
+        Set<RevisionWrapper> revisions = Sets.newHashSet();
+        for (RevisionsScanner scanner : scanners)
+            revisions.addAll(scanner.scan(aClass));
+        return revisions;
+    }
+
+    private void addRevisedObject(Class<?> aClass, Set<RevisionWrapper> revisions) {
+        if (!revisions.isEmpty()) {
+            RevisedObject revisedObject = new RevisedObject(revisions, aClass);
+            revisedObjects.add(revisedObject);
+        }
+    }
 }
