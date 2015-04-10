@@ -25,11 +25,11 @@ public class RevisedObjectsSearcher {
     @SuppressWarnings("unchecked")
     public RevisedObjects findAllRevisedObjects() {
         if (revisedObjects == null)
-            analyzeRevisedObjects();
+            fillRevisedObjects();
         return revisedObjects;
     }
 
-    private void analyzeRevisedObjects() {
+    private void fillRevisedObjects() {
         revisedObjects = new RevisedObjects();
         for (Class<?> aClass : classes) {
             Set<RevisionWrapper> revisionAnnotations = getAnnotations(aClass);

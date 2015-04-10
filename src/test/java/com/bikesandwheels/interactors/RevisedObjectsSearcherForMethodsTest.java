@@ -11,32 +11,32 @@ import static com.bikesandwheels.TestUtils.*;
 import static com.bikesandwheels.interactors.TestModel.MethodsModel.*;
 
 public class RevisedObjectsSearcherForMethodsTest {
-    private static RevisedObjectsSearcher analyzer;
+    private static RevisedObjectsSearcher searcher;
 
     public static class RevisedClassesTest {
         @Before
         public void setUp() throws Exception {
-            analyzer = new RevisedObjectsSearcher(Sets.<Class<?>>newHashSet(
+            searcher = new RevisedObjectsSearcher(Sets.<Class<?>>newHashSet(
                     NotRevisedClassWithRevisedMethod.class));
         }
 
         @Test
         public void annotatedClass_containsRevisions() throws Exception {
-            RevisedObjects revisedObjects = analyzer.findAllRevisedObjects();
+            RevisedObjects revisedObjects = searcher.findAllRevisedObjects();
             assertThat(revisedObjects, not(IS_EMPTY_REVISED_OBJECTS_COLLECTION));
         }
 
         @Ignore @Test
         //TODO
         public void notRevisedMethod_IsNotReturned() throws Exception {
-            RevisedObjects revisedObjects = analyzer.findAllRevisedObjects();
+            RevisedObjects revisedObjects = searcher.findAllRevisedObjects();
             assertThat(revisedObjects.getClasses(), contains(RevisedClassWithNotRevisedMethod.class));
             //assertThat(revisedObjects.getRevisions(RevisedClassWithNotRevisedMethod.class), IS_EMPTY_REVISED_OBJECTS_COLLECTION);
         }
 
         /*@Test
         public void revisedClasses_AreReturned() throws Exception {
-            assertThat(analyzer.findAllRevisedObjects().getClasses(),
+            assertThat(searcher.findAllRevisedObjects().getClasses(),
                     are(
                             TestModel.RevisedClass.class,
                             TestModel.DerivedRevisedClass.class,
@@ -45,13 +45,13 @@ public class RevisedObjectsSearcherForMethodsTest {
 
         @Test
         public void revisedClass_HaveCorrectRevision() throws Exception {
-            assertThat(analyzer.findAllRevisedObjects().getRevisions(TestModel.RevisedClass.class),
+            assertThat(searcher.findAllRevisedObjects().getRevisions(TestModel.RevisedClass.class),
                     are(new RevisionWrapper(createDefaultRevision(createDate(2015, 4, 1)))));
         }
 
         @Test
         public void historyAnnotatedClass_HaveCorrectRevisions() throws Exception {
-            assertThat(analyzer.findAllRevisedObjects().getRevisions(TestModel.DerivedHistoryRevisedClass.class),
+            assertThat(searcher.findAllRevisedObjects().getRevisions(TestModel.DerivedHistoryRevisedClass.class),
                     are(
                             new RevisionWrapper(createDefaultRevision(createDate(2015, 4, 6))),
                             new RevisionWrapper(createDefaultRevision(createDate(2015, 4, 7)))));
