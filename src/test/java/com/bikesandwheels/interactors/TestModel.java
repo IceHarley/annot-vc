@@ -7,16 +7,16 @@ public interface TestModel {
     class NotRevisedClass {}
 
     @Revision(date = @Date(year = 2015, month = 4, day = 1))
-    class RevisedClass {}
+    class BaseRevisedClass {}
 
     @Revision(date = @Date(year = 2015, month = 4, day = 9))
-    class DerivedRevisedClass extends RevisedClass {}
-    class DerivedNotRevisedClass extends RevisedClass {}
+    class DerivedRevisedClass extends BaseRevisedClass {}
+    class DerivedNotRevisedClass extends BaseRevisedClass {}
     @History({
         @Revision(date = @Date(year = 2015, month = 4, day = 6)),
         @Revision(date = @Date(year = 2015, month = 4, day = 7))
     })
-    class DerivedHistoryRevisedClass extends RevisedClass {}
+    class DerivedHistoryRevisedClass extends BaseRevisedClass {}
 
     @Revision(
             date = @Date(year = 2015, month = 4, day = 2),
@@ -112,13 +112,19 @@ public interface TestModel {
         public void revisionsHistoryAnnotatedMethod();
 
         class NotRevisedClassWithRevisedMethod {
-            @Revision(date = @Date(year = 2015, month = 4, day = 1))
+            @Revision(date = @Date(year = 2015, month = 4, day = 19))
             public void revisedMethod() {}
         }
 
-        @Revision(date = @Date(year = 2015, month = 4, day = 1))
+        @Revision(date = @Date(year = 2015, month = 4, day = 20))
         class RevisedClassWithNotRevisedMethod {
-            public void notRevisedMethod() {}
+            public void notRevisedMethod(Integer i, int j, NotRevisedClassWithRevisedMethod a) {}
+        }
+
+        @Revision(date = @Date(year = 2015, month = 4, day = 21))
+        class RevisedClassWithRevisedMethod {
+            @Revision(date = @Date(year = 2015, month = 4, day = 22))
+            public void revisedMethod(Integer i, int j, NotRevisedClassWithRevisedMethod a) {}
         }
     }
 }

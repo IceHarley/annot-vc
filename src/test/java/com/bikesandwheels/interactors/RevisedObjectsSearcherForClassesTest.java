@@ -9,7 +9,6 @@ import org.junit.*;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
 
-import static com.bikesandwheels.TestUtils.are;
 import static com.bikesandwheels.annotations.wrappers.WrapperUtils.*;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.*;
@@ -36,7 +35,7 @@ public class RevisedObjectsSearcherForClassesTest {
         @Before
         public void setUp() throws Exception {
             searcher = new RevisedObjectsSearcher(Sets.<Class<?>>newHashSet(
-                    RevisedClass.class,
+                    BaseRevisedClass.class,
                     DerivedRevisedClass.class,
                     DerivedNotRevisedClass.class,
                     DerivedHistoryRevisedClass.class));
@@ -49,7 +48,7 @@ public class RevisedObjectsSearcherForClassesTest {
 
         @Test
         public void notRevisedClass_IsNotReturned() throws Exception {
-            RevisedObjects revisedObjects = searcher.findAllRevisedObjects();
+            ClassesRevisedObjectsMap revisedObjects = searcher.findAllRevisedObjects();
             assertFalse(revisedObjects.containsClass(DerivedNotRevisedClass.class));
         }
 
@@ -57,14 +56,14 @@ public class RevisedObjectsSearcherForClassesTest {
         public void revisedClasses_AreReturned() throws Exception {
             assertThat(searcher.findAllRevisedObjects().getClasses(),
                 are(
-                    RevisedClass.class,
+                    BaseRevisedClass.class,
                     DerivedRevisedClass.class,
                     DerivedHistoryRevisedClass.class));
         }
 
         @Test
         public void revisedClass_HaveCorrectRevision() throws Exception {
-            assertThat(searcher.findAllRevisedObjects().getRevisions(RevisedClass.class),
+            assertThat(searcher.findAllRevisedObjects().getRevisions(BaseRevisedClass.class),
                     are(new RevisionWrapper(createDefaultRevision(createDate(2015, 4, 1)))));
         }
 
@@ -81,7 +80,8 @@ public class RevisedObjectsSearcherForClassesTest {
         @Test
         public void givenEmptyHistory_NoRevisedObjects() throws Exception {
             searcher = new RevisedObjectsSearcher(Sets.<Class<?>>newHashSet(EmptyHistoryRevisedClass.class));
-            assertThat(searcher.findAllRevisedObjects(), IS_EMPTY_REVISED_OBJECTS_COLLECTION);
+            ClassesRevisedObjectsMap allRevisedObjects = searcher.findAllRevisedObjects();
+            assertThat(allRevisedObjects, IS_EMPTY_REVISED_OBJECTS_COLLECTION);
         }
 
         @Test

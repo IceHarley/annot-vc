@@ -6,8 +6,8 @@ import org.reflections.util.*;
 
 import java.net.URL;
 
-public class ReflectionsBuilder {
-    private ConfigurationBuilder configurationBuilder;
+class ReflectionsBuilder {
+    private final ConfigurationBuilder configurationBuilder;
 
     public ReflectionsBuilder(URL url) {
         this.configurationBuilder = new ConfigurationBuilder()

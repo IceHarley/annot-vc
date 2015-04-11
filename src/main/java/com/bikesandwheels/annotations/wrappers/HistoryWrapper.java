@@ -7,7 +7,7 @@ import java.lang.annotation.Annotation;
 import java.util.*;
 
 public class HistoryWrapper {
-    private final List<RevisionWrapper> revisions = new ArrayList<RevisionWrapper>();
+    private final Set<RevisionWrapper> revisions = Sets.newHashSet();
 
     public HistoryWrapper(History history) {
         if (history.value() != null)
@@ -15,7 +15,7 @@ public class HistoryWrapper {
                 revisions.add(new RevisionWrapper(revision));
     }
 
-    public List<RevisionWrapper> getRevisions() {
+    public Set<RevisionWrapper> getRevisions() {
         return revisions;
     }
 
@@ -24,5 +24,9 @@ public class HistoryWrapper {
         for (Annotation annotation : history)
             wrappers.add(new HistoryWrapper((History) annotation));
         return wrappers;
+    }
+
+    public boolean isEmpty() {
+        return revisions.isEmpty();
     }
 }

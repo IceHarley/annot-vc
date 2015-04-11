@@ -17,9 +17,9 @@ public class TestUtils {
         }
     };
 
-    public static final BaseMatcher<RevisedObjects> IS_EMPTY_REVISED_OBJECTS_COLLECTION = new BaseMatcher<RevisedObjects>() {
+    public static final BaseMatcher<ClassesRevisedObjectsMap> IS_EMPTY_REVISED_OBJECTS_COLLECTION = new BaseMatcher<ClassesRevisedObjectsMap>() {
         public boolean matches(Object o) {
-            return ((RevisedObjects) o).isEmpty();
+            return ((ClassesRevisedObjectsMap) o).isEmpty();
         }
 
         public void describeTo(Description description) {
@@ -45,6 +45,16 @@ public class TestUtils {
     public static Match<Set<Class<?>>> are(final Class<?>... classes) {
         final Collection<?> c1 = Arrays.asList(classes);
         return new Match<Set<Class<?>>>() {
+            public boolean matches(Object o) {
+                Collection<?> c2 = (Collection<?>) o;
+                return c1.containsAll(c2) && c2.containsAll(c1);
+            }
+        };
+    }
+
+    public static Match<Set<RevisedObject>> are(final RevisedObject... classes) {
+        final Collection<?> c1 = Arrays.asList(classes);
+        return new Match<Set<RevisedObject>>() {
             public boolean matches(Object o) {
                 Collection<?> c2 = (Collection<?>) o;
                 return c1.containsAll(c2) && c2.containsAll(c1);

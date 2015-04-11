@@ -1,0 +1,45 @@
+package com.bikesandwheels.domain;
+
+import com.bikesandwheels.annotations.wrappers.RevisionWrapper;
+
+import java.util.Set;
+
+public class RevisedClass implements RevisedObject {
+    private final Set<RevisionWrapper> revisions;
+    private final Class aClass;
+
+    public RevisedClass(Set<RevisionWrapper> revisions, Class aClass) {
+        this.revisions = revisions;
+        this.aClass = aClass;
+    }
+
+    public Set<RevisionWrapper> getRevisions() {
+        return revisions;
+    }
+
+    public boolean hasRevisions() {
+        return !revisions.isEmpty();
+    }
+
+    public Class getObjectClass() {
+        return aClass;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        RevisedClass that = (RevisedClass) o;
+
+        return aClass.equals(that.aClass) && revisions.equals(that.revisions);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = revisions.hashCode();
+        result = 31 * result + aClass.hashCode();
+        return result;
+    }
+}

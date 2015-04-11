@@ -28,7 +28,7 @@ public class PathRevisedClassesSearcherTest {
 
         @Test
         public void revisedClass_shouldBeFound() throws Exception {
-            assertThat(revisedClassesSearcher.search(), contains(RevisedClass.class));
+            assertThat(revisedClassesSearcher.search(), contains(BaseRevisedClass.class));
         }
 
         @Test

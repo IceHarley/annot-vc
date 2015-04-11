@@ -18,5 +18,5 @@ public enum Predicates implements Predicate<Annotation> {
         public boolean apply(@Nullable Annotation annotation) {
             return annotation instanceof History;
         }
-    };
+    }
 }

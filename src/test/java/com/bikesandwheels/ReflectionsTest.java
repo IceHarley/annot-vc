@@ -12,13 +12,12 @@ import java.util.*;
 
 import static com.bikesandwheels.TestUtils.areDerivatives;
 import static com.bikesandwheels.interactors.EmptyTestModel.*;
-import static com.bikesandwheels.interactors.TestModel.*;
 import static org.junit.Assert.*;
 
 @SuppressWarnings("unchecked")
 @RunWith(Enclosed.class)
 public class ReflectionsTest {
-    static Reflections reflections;
+    private static Reflections reflections;
 
     public static class getSubTypesTestWithEmptyModel {
         @BeforeClass
@@ -44,27 +43,6 @@ public class ReflectionsTest {
         @Test
         public void givenInterface_ReturnsImplementersAndTheirDerivatives() throws Exception {
             assertThat(reflections.getSubTypesOf(I1.class), areDerivatives(C4.class, C6.class, C7.class));
-        }
-    }
-
-    public static class getSubTypesTestWithTestModel {
-        @BeforeClass
-        public static void setUp() throws Exception {
-            reflections = new Reflections(new ConfigurationBuilder()
-                    .setUrls(Collections.singletonList(ClasspathHelper.forClass(TestModel.class)))
-                    .setScanners(
-                            new SubTypesScanner(true),
-                            new TypeAnnotationsScanner(),
-                            new MethodAnnotationsScanner()));
-        }
-
-        @Test
-        public void givenTypeWithDerivatives_ReturnsDerivatives() throws Exception {
-            assertThat(reflections.getSubTypesOf(RevisedClass.class),
-                    areDerivatives(
-                            DerivedRevisedClass.class,
-                            DerivedNotRevisedClass.class,
-                            DerivedHistoryRevisedClass.class));
         }
     }
 }

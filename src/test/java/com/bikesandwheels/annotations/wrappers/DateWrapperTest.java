@@ -2,10 +2,7 @@ package com.bikesandwheels.annotations.wrappers;
 
 import org.junit.*;
 
-import java.util.*;
-
 import static com.bikesandwheels.annotations.wrappers.WrapperUtils.*;
-import static org.hamcrest.Matchers.is;
 
 public class DateWrapperTest {
     private DateWrapper dateWrapper;

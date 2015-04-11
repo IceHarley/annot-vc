@@ -1,32 +1,31 @@
 package com.bikesandwheels.domain;
 
 import com.bikesandwheels.annotations.wrappers.RevisionWrapper;
-import com.google.common.collect.*;
+import com.google.common.collect.Sets;
 
 import java.util.*;
 
 public class RevisedObjects {
-    Map<Class<?>, RevisedObject> items = Maps.newHashMap();
+    public static final RevisedObjects EMPTY = new RevisedObjects();
+    private final Set<RevisedObject> items = Sets.newHashSet();
 
     public void add(RevisedObject item) {
-        items.put(item.getObjectClass(), item);
+        if (item.hasRevisions())
+            items.add(item);
+    }
+
+    public void addAll(RevisedObjects revisedObjects) {
+        items.addAll(revisedObjects.items);
+    }
+
+    public Set<RevisionWrapper> getAllRevisions() {
+        Set<RevisionWrapper> allRevisions = Sets.newHashSet();
+        for (RevisedObject item : items)
+            allRevisions.addAll(item.getRevisions());
+        return allRevisions;
     }
 
     public boolean isEmpty() {
         return items.isEmpty();
-    }
-
-    public Set<Class<?>> getClasses() {
-        return items.keySet();
-    }
-
-    public boolean containsClass(Class<?> aClass) {
-        return items.keySet().contains(aClass);
-    }
-
-    public Set<RevisionWrapper> getRevisions(Class<?> revisedClass) {
-        if (!containsClass(revisedClass))
-            return Sets.newHashSet();
-        return items.get(revisedClass).getRevisions();
     }
 }

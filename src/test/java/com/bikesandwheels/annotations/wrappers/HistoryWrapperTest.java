@@ -1,7 +1,6 @@
 package com.bikesandwheels.annotations.wrappers;
 
 import com.bikesandwheels.annotations.Revision;
-import org.hamcrest.Matchers;
 import org.junit.*;
 
 import static com.bikesandwheels.annotations.wrappers.WrapperUtils.*;
@@ -15,6 +14,7 @@ public class HistoryWrapperTest {
         historyWrapper = new HistoryWrapper(null);
     }
 
+    @SuppressWarnings("NullArgumentToVariableArgMethod")
     @Test
     public void givenHistoryWithNoRevisions_shouldHaveEmptyRevisionList() throws Exception {
         historyWrapper = new HistoryWrapper(createHistory(null));
@@ -26,6 +26,6 @@ public class HistoryWrapperTest {
         Revision revision = createRevision(createDate(YEAR, MONTH, DAY), "", createAuthor("John"));
         historyWrapper = new HistoryWrapper(createHistory(revision));
         Assert.assertThat(historyWrapper.getRevisions().size(), is(1));
-        Assert.assertThat(historyWrapper.getRevisions().get(0), equalTo(new RevisionWrapper(revision)));
+        Assert.assertThat(historyWrapper.getRevisions(), contains(new RevisionWrapper(revision)));
     }
 }

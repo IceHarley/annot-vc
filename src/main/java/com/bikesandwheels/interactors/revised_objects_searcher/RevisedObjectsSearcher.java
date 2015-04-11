@@ -1,15 +1,14 @@
 package com.bikesandwheels.interactors.revised_objects_searcher;
 
-import com.bikesandwheels.annotations.wrappers.*;
 import com.bikesandwheels.domain.*;
 import com.bikesandwheels.interactors.revised_objects_searcher.scanners.*;
 import com.google.common.collect.Sets;
 import java.util.*;
 
 public class RevisedObjectsSearcher {
-    Set<RevisionsScanner> scanners = Sets.newHashSet();
-    private Set<Class<?>> classes;
-    RevisedObjects revisedObjects = null;
+    private final Set<RevisionsScanner> scanners = Sets.newHashSet();
+    private final Set<Class<?>> classes;
+    private ClassesRevisedObjectsMap allRevisedObjects = null;
 
     public RevisedObjectsSearcher(Set<Class<?>> classes) {
         this.classes = classes;
@@ -23,31 +22,27 @@ public class RevisedObjectsSearcher {
     }
 
     @SuppressWarnings("unchecked")
-    public RevisedObjects findAllRevisedObjects() {
-        if (revisedObjects == null)
+    public ClassesRevisedObjectsMap findAllRevisedObjects() {
+        if (allRevisedObjects == null)
             fillRevisedObjects();
-        return revisedObjects;
+        return allRevisedObjects;
     }
 
     private void fillRevisedObjects() {
-        revisedObjects = new RevisedObjects();
-        for (Class<?> aClass : classes) {
-            Set<RevisionWrapper> revisionAnnotations = getAnnotations(aClass);
-            addRevisedObject(aClass, revisionAnnotations);
-        }
+        allRevisedObjects = new ClassesRevisedObjectsMap();
+        for (Class<?> aClass : classes)
+            addClassRevisedObject(aClass, getClassRevisedObjects(aClass));
     }
 
-    private Set<RevisionWrapper> getAnnotations(Class<?> aClass) {
-        Set<RevisionWrapper> revisions = Sets.newHashSet();
+    private RevisedObjects getClassRevisedObjects(Class<?> aClass) {
+        RevisedObjects revisedObjects = new RevisedObjects();
         for (RevisionsScanner scanner : scanners)
-            revisions.addAll(scanner.scan(aClass));
-        return revisions;
+            revisedObjects.addAll(scanner.scan(aClass));
+        return revisedObjects;
     }
 
-    private void addRevisedObject(Class<?> aClass, Set<RevisionWrapper> revisions) {
-        if (!revisions.isEmpty()) {
-            RevisedObject revisedObject = new RevisedObject(revisions, aClass);
-            revisedObjects.add(revisedObject);
-        }
+    private void addClassRevisedObject(Class<?> aClass, RevisedObjects revisedObjects) {
+        if (!revisedObjects.isEmpty())
+            allRevisedObjects.add(aClass, revisedObjects);
     }
 }

@@ -1,8 +1,7 @@
 package com.bikesandwheels.interactors.revised_objects_searcher;
 
-import com.bikesandwheels.annotations.wrappers.RevisionWrapper;
-import java.util.Set;
+import com.bikesandwheels.domain.*;
 
 public interface RevisionsScanner {
-    Set<RevisionWrapper> scan(Class aClass);
+    RevisedObjects scan(Class aClass);
 }

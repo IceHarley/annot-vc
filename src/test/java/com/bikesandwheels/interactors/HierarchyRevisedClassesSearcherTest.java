@@ -30,7 +30,7 @@ public class HierarchyRevisedClassesSearcherTest {
     public static class GivenTestModelWithAnnotations {
         @Before
         public void setUp() throws Exception {
-            revisedClassesSearcher = new HierarchyRevisedClassesSearcher(RevisedClass.class);
+            revisedClassesSearcher = new HierarchyRevisedClassesSearcher(BaseRevisedClass.class);
         }
 
         @Test
@@ -38,7 +38,7 @@ public class HierarchyRevisedClassesSearcherTest {
             Set<Class<?>> revisedClasses = revisedClassesSearcher.search();
             assertThat(revisedClasses,
                     areDerivatives(
-                            RevisedClass.class,
+                            BaseRevisedClass.class,
                             DerivedRevisedClass.class,
                             DerivedNotRevisedClass.class,
                             DerivedHistoryRevisedClass.class));

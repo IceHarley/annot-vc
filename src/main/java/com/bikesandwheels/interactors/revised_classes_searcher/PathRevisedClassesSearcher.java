@@ -11,9 +11,9 @@ import java.net.*;
 import java.util.*;
 
 public class PathRevisedClassesSearcher implements RevisedClassesSearcher {
-    protected Reflections reflections;
+    private final Reflections reflections;
 
-    public PathRevisedClassesSearcher(URL path) throws MalformedURLException {
+    public PathRevisedClassesSearcher(URL path) {
         reflections = new ReflectionsBuilder(path).make();
     }
 
@@ -21,6 +21,7 @@ public class PathRevisedClassesSearcher implements RevisedClassesSearcher {
         this(ClasspathHelper.forClass(aClass));
     }
 
+    @SuppressWarnings("unchecked")
     public Set<Class<?>> search() {
         Set<Class<?>> annotatedTypes = getTypesAnnotatedWith(Revision.class, History.class);
         Set<Method> annotatedMethods = getMethodsAnnotatedWith(Revision.class, History.class);

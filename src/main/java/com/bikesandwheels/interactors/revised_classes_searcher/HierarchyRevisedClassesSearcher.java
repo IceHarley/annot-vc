@@ -33,7 +33,7 @@ public class HierarchyRevisedClassesSearcher implements RevisedClassesSearcher {
     private Predicate<Class<?>> baseOrDerivedOnly() {
         return new Predicate<Class<?>>() {
             public boolean apply(@Nullable Class<?> aClass) {
-                return derivedClasses.contains(aClass) || aClass.equals(baseClass);
+                return derivedClasses.contains(aClass) || baseClass.equals(aClass);
             }
         };
     }
