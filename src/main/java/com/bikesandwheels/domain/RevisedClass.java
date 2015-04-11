@@ -32,7 +32,7 @@ public class RevisedClass implements RevisedObject {
 
         RevisedClass that = (RevisedClass) o;
 
-        return aClass.equals(that.aClass) && revisions.equals(that.revisions);
+        return revisions.equals(that.revisions) && aClass.equals(that.aClass);
 
     }
 

@@ -118,13 +118,13 @@ public interface TestModel {
 
         @Revision(date = @Date(year = 2015, month = 4, day = 20))
         class RevisedClassWithNotRevisedMethod {
-            public void notRevisedMethod(Integer i, int j, NotRevisedClassWithRevisedMethod a) {}
+            public void notRevisedMethod() {}
         }
 
         @Revision(date = @Date(year = 2015, month = 4, day = 21))
         class RevisedClassWithRevisedMethod {
             @Revision(date = @Date(year = 2015, month = 4, day = 22))
-            public void revisedMethod(Integer i, int j, NotRevisedClassWithRevisedMethod a) {}
+            public void revisedMethod() {}
         }
     }
 }

@@ -25,4 +25,21 @@ public class RevisedMethod implements RevisedObject {
     public Class getObjectClass() {
         return method.getDeclaringClass();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        RevisedMethod that = (RevisedMethod) o;
+
+        return revisions.equals(that.revisions) && method.equals(that.method);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = revisions.hashCode();
+        result = 31 * result + method.hashCode();
+        return result;
+    }
 }

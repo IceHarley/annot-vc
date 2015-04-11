@@ -10,11 +10,11 @@ import java.lang.reflect.Method;
 import java.util.Set;
 
 public class RevisedMethodsRevisionsScanner implements RevisionsScanner {
-    @SuppressWarnings("unchecked")
     public RevisedObjects scan(Class aClass) {
         return getRevisedObjects(getRevisedMethods(aClass));
     }
 
+    @SuppressWarnings("unchecked")
     private Set<Method> getRevisedMethods(Class aClass) {
         return ReflectionUtils.getMethods(aClass);
     }

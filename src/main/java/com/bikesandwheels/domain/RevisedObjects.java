@@ -28,4 +28,12 @@ public class RevisedObjects {
     public boolean isEmpty() {
         return items.isEmpty();
     }
+
+    public boolean contains(RevisedObject revisedObject) {
+        return items.contains(revisedObject);
+    }
+
+    public boolean containsAll(RevisedObjects that) {
+        return this.items.containsAll(that.items);
+    }
 }

@@ -52,18 +52,20 @@ public class TestUtils {
         };
     }
 
-    public static Match<Set<RevisedObject>> are(final RevisedObject... classes) {
-        final Collection<?> c1 = Arrays.asList(classes);
-        return new Match<Set<RevisedObject>>() {
+    public static Match<RevisedObjects> are(final RevisedObject... revisedObjects) {
+        final RevisedObjects c1 = new RevisedObjects();
+        for (RevisedObject revisedObject : revisedObjects)
+            c1.add(revisedObject);
+        return new Match<RevisedObjects>() {
             public boolean matches(Object o) {
-                Collection<?> c2 = (Collection<?>) o;
+                RevisedObjects c2 = (RevisedObjects) o;
                 return c1.containsAll(c2) && c2.containsAll(c1);
             }
         };
     }
 
-    public static Match<Set<RevisionWrapper>> are(final RevisionWrapper... classes) {
-        final Collection<?> c1 = Arrays.asList(classes);
+    public static Match<Set<RevisionWrapper>> are(final RevisionWrapper... revisionWrappers) {
+        final Collection<?> c1 = Arrays.asList(revisionWrappers);
         return new Match<Set<RevisionWrapper>>() {
             public boolean matches(Object o) {
                 Collection<?> c2 = (Collection<?>) o;
@@ -77,6 +79,15 @@ public class TestUtils {
             public boolean matches(Object o) {
                 Collection<?> c = (Collection<?>) o;
                 return c.contains(ts);
+            }
+        };
+    }
+
+    public static Matcher<RevisedObjects> contains(final RevisedObject revisedObject) {
+        return new Match<RevisedObjects>() {
+            public boolean matches(Object o) {
+                RevisedObjects revisedObjects = (RevisedObjects) o;
+                return revisedObjects.contains(revisedObject);
             }
         };
     }

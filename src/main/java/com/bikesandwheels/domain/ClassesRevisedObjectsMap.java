@@ -28,15 +28,15 @@ public class ClassesRevisedObjectsMap {
         return items.keySet().contains(aClass);
     }
 
-    private RevisedObjects getClassRevisedObjects(Class<?> revisedClass) {
-        if (!containsClass(revisedClass))
-            return RevisedObjects.EMPTY;
-        return items.get(revisedClass);
-    }
-
     public Set<RevisionWrapper> getRevisions(Class<?> revisedClass) {
         if (!containsClass(revisedClass))
             return Sets.newHashSet();
         return getClassRevisedObjects(revisedClass).getAllRevisions();
+    }
+
+    public RevisedObjects getClassRevisedObjects(Class<?> revisedClass) {
+        if (!containsClass(revisedClass))
+            return RevisedObjects.EMPTY;
+        return items.get(revisedClass);
     }
 }
