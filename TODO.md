@@ -4,9 +4,9 @@
 +Move EmptyTestModel and TestModel to com.bikesandwheels - now there is no need to separate them into packages
 +Rename AnnotationsAnalyzer to RevisedObjectsSearcher
 +Move Scanners and Predicates to package scanners
-TODO check ClassWithHistoryRevisionsScanner should return class history only!
++check ClassWithHistoryRevisionsScanner should return class history only!
++ Inject scanners into RevisedObjectsSearcher
 TODO Use scanners in RevisedClassesSearcher
-TODO Inject scanners into RevisedObjectsSearcher
 TODO DB Schema:
     AVC_AUTHOR: AVC_AUT_ID, AVC_AUT_NAME
     AVC_CLASS: AVC_CLA_ID, AVC_CLA_CANONICAL_NAME

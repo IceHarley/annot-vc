@@ -6,13 +6,14 @@ import com.google.common.collect.Sets;
 import java.util.*;
 
 public class RevisedObjectsSearcher {
-    private final Set<RevisionsScanner> scanners = Sets.newHashSet();
     private final Set<Class<?>> classes;
+    private Set<RevisionsScanner> scanners = Sets.newHashSet();
     private ClassesRevisedObjectsMap allRevisedObjects = null;
 
-    public RevisedObjectsSearcher(Set<Class<?>> classes) {
+    public RevisedObjectsSearcher(Set<Class<?>> classes, Set<RevisionsScanner> scanners) {
         this.classes = classes;
-        registerScanners();
+        if (scanners != null)
+            this.scanners = scanners;
     }
 
     private void registerScanners() {

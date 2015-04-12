@@ -1,5 +1,6 @@
 package com.bikesandwheels.interactors;
 
+import com.bikesandwheels.RevisedObjectSearcherFactory;
 import com.bikesandwheels.annotations.wrappers.RevisionWrapper;
 import com.bikesandwheels.domain.*;
 import com.bikesandwheels.interactors.revised_objects_searcher.RevisedObjectsSearcher;
@@ -21,7 +22,7 @@ public class RevisedObjectsSearcherForMethodsTest {
     private static RevisedObjects classRevisedObjects;
 
     private static void init() {
-        RevisedObjectsSearcher searcher = new RevisedObjectsSearcher(Sets.<Class<?>>newHashSet(aClass));
+        RevisedObjectsSearcher searcher = RevisedObjectSearcherFactory.make(Sets.<Class<?>>newHashSet(aClass));
         revisedObjects = searcher.findAllRevisedObjects();
         revisions = revisedObjects.getRevisions(aClass);
         classRevisedObjects = revisedObjects.getClassRevisedObjects(aClass);
