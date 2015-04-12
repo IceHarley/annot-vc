@@ -1,7 +1,7 @@
 package com.bikesandwheels.interactors;
 
 
-import com.bikesandwheels.RevisedObjectSearcherFactory;
+import com.bikesandwheels.tools.RevisedObjectSearcherFactory;
 import com.bikesandwheels.annotations.wrappers.RevisionWrapper;
 import com.bikesandwheels.domain.*;
 import com.bikesandwheels.interactors.revised_objects_searcher.RevisedObjectsSearcher;
@@ -14,7 +14,7 @@ import static com.bikesandwheels.annotations.wrappers.WrapperUtils.*;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.*;
 import static com.bikesandwheels.interactors.TestModel.*;
-import static com.bikesandwheels.TestUtils.*;
+import static com.bikesandwheels.tools.TestUtils.*;
 
 @RunWith(Enclosed.class)
 public class RevisedObjectsSearcherForClassesTest {

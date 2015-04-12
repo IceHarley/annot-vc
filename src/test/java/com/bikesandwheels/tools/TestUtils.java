@@ -1,4 +1,4 @@
-package com.bikesandwheels;
+package com.bikesandwheels.tools;
 
 import com.bikesandwheels.annotations.wrappers.RevisionWrapper;
 import com.bikesandwheels.domain.*;

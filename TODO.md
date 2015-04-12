@@ -5,8 +5,8 @@
 +Rename AnnotationsAnalyzer to RevisedObjectsSearcher
 +Move Scanners and Predicates to package scanners
 +check ClassWithHistoryRevisionsScanner should return class history only!
-+ Inject scanners into RevisedObjectsSearcher
-TODO Use scanners in RevisedClassesSearcher
++Inject scanners into RevisedObjectsSearcher
++Use scanners in RevisedClassesSearcher
 TODO DB Schema:
     AVC_AUTHOR: AVC_AUT_ID, AVC_AUT_NAME
     AVC_CLASS: AVC_CLA_ID, AVC_CLA_CANONICAL_NAME

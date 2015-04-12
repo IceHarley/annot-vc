@@ -1,4 +1,4 @@
-package com.bikesandwheels.interactors.revised_classes_searcher;
+package com.bikesandwheels.tools;
 
 import org.reflections.Reflections;
 import org.reflections.scanners.*;

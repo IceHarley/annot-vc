@@ -1,4 +1,4 @@
-package com.bikesandwheels;
+package com.bikesandwheels.tools;
 
 import com.bikesandwheels.interactors.revised_objects_searcher.*;
 import com.bikesandwheels.interactors.revised_objects_searcher.scanners.*;

@@ -1,5 +1,6 @@
-package com.bikesandwheels.interactors.revised_classes_searcher;
+package com.bikesandwheels.tools;
 
+import com.bikesandwheels.interactors.annotated_classes_searcher.*;
 import com.google.common.base.Predicate;
 import org.reflections.Reflections;
 import org.reflections.util.ClasspathHelper;
@@ -10,14 +11,14 @@ import java.util.Set;
 
 import static com.google.common.collect.Sets.filter;
 
-public class HierarchyRevisedClassesSearcher implements RevisedClassesSearcher {
+public class HierarchyAnnotatedClassesSearcher {
     private final Class<?> baseClass;
-    private PathRevisedClassesSearcher packageSearcher;
+    private PathAnnotatedClassesSearcher packageSearcher;
     private Set<? extends Class<?>> derivedClasses;
 
-    public HierarchyRevisedClassesSearcher(Class<?> baseClass, Reflections reflections) throws MalformedURLException {
+    public HierarchyAnnotatedClassesSearcher(Class<?> baseClass, Reflections reflections, Set<AnnotatedScanner> scanners) throws MalformedURLException {
         this.baseClass = baseClass;
-        packageSearcher = new PathRevisedClassesSearcher(reflections);
+        packageSearcher = new PathAnnotatedClassesSearcher(reflections, scanners);
     }
 
     public Set<Class<?>> search() {

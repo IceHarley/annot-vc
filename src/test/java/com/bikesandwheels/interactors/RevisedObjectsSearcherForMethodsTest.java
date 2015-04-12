@@ -1,6 +1,6 @@
 package com.bikesandwheels.interactors;
 
-import com.bikesandwheels.RevisedObjectSearcherFactory;
+import com.bikesandwheels.tools.RevisedObjectSearcherFactory;
 import com.bikesandwheels.annotations.wrappers.RevisionWrapper;
 import com.bikesandwheels.domain.*;
 import com.bikesandwheels.interactors.revised_objects_searcher.RevisedObjectsSearcher;
@@ -9,7 +9,7 @@ import org.junit.*;
 
 import java.util.Set;
 
-import static com.bikesandwheels.TestUtils.*;
+import static com.bikesandwheels.tools.TestUtils.*;
 import static com.bikesandwheels.annotations.wrappers.WrapperUtils.*;
 import static com.bikesandwheels.interactors.TestModel.MethodsModel.*;
 import static org.hamcrest.Matchers.not;

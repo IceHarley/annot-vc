@@ -10,7 +10,7 @@ import org.reflections.util.*;
 
 import java.util.*;
 
-import static com.bikesandwheels.TestUtils.areDerivatives;
+import static com.bikesandwheels.tools.TestUtils.areDerivatives;
 import static com.bikesandwheels.interactors.EmptyTestModel.*;
 import static org.junit.Assert.*;
 
