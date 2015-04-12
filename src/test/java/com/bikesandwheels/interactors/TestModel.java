@@ -126,5 +126,11 @@ public interface TestModel {
             @Revision(date = @Date(year = 2015, month = 4, day = 22))
             public void revisedMethod() {}
         }
+
+        @History({@Revision(date = @Date(year = 2015, month = 4, day = 16))})
+        class HistoryRevisedClassWithHistoryRevisedMethod {
+            @History({@Revision(date = @Date(year = 2015, month = 4, day = 17))})
+            public void historyRevisedMethod() {};
+        }
     }
 }

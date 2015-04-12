@@ -17,8 +17,9 @@ public class RevisedObjectsSearcher {
 
     private void registerScanners() {
         scanners.add(new RevisedClassRevisionsScanner());
-        scanners.add(new ClassWithHistoryRevisionsScanner());
+        scanners.add(new HistoryRevisedClassRevisionsScanner());
         scanners.add(new RevisedMethodsRevisionsScanner());
+        scanners.add(new HistoryRevisedMethodsRevisionsScanner());
     }
 
     @SuppressWarnings("unchecked")

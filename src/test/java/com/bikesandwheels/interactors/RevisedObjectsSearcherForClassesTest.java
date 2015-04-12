@@ -9,6 +9,8 @@ import org.junit.*;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
 
+import java.util.Set;
+
 import static com.bikesandwheels.annotations.wrappers.WrapperUtils.*;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.*;
@@ -31,7 +33,7 @@ public class RevisedObjectsSearcherForClassesTest {
         }
     }
 
-    public static class RevisedClassesTest {
+    public static class GivenRevisedClassHierarchyTest {
         @Before
         public void setUp() throws Exception {
             searcher = new RevisedObjectsSearcher(Sets.<Class<?>>newHashSet(
@@ -55,10 +57,10 @@ public class RevisedObjectsSearcherForClassesTest {
         @Test
         public void revisedClasses_AreReturned() throws Exception {
             assertThat(searcher.findAllRevisedObjects().getClasses(),
-                are(
-                    BaseRevisedClass.class,
-                    DerivedRevisedClass.class,
-                    DerivedHistoryRevisedClass.class));
+                    are(
+                            BaseRevisedClass.class,
+                            DerivedRevisedClass.class,
+                            DerivedHistoryRevisedClass.class));
         }
 
         @Test
@@ -76,7 +78,7 @@ public class RevisedObjectsSearcherForClassesTest {
         }
     }
 
-    public static class EmptyHistoryTest {
+    public static class HistoryTest {
         @Test
         public void givenEmptyHistory_NoRevisedObjects() throws Exception {
             searcher = new RevisedObjectsSearcher(Sets.<Class<?>>newHashSet(EmptyHistoryRevisedClass.class));

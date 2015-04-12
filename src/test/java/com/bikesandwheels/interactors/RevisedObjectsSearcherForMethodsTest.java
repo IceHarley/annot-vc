@@ -17,10 +17,14 @@ import static org.junit.Assert.assertThat;
 public class RevisedObjectsSearcherForMethodsTest {
     private static ClassesRevisedObjectsMap revisedObjects;
     private static Class<?> aClass;
+    private static Set<RevisionWrapper> revisions;
+    private static RevisedObjects classRevisedObjects;
 
     private static void init() {
         RevisedObjectsSearcher searcher = new RevisedObjectsSearcher(Sets.<Class<?>>newHashSet(aClass));
         revisedObjects = searcher.findAllRevisedObjects();
+        revisions = revisedObjects.getRevisions(aClass);
+        classRevisedObjects = revisedObjects.getClassRevisedObjects(aClass);
     }
 
     public static class GivenNotRevisedClassWithRevisedMethod {
@@ -33,14 +37,13 @@ public class RevisedObjectsSearcherForMethodsTest {
 
         @Test
         public void shouldFindMethodRevision() throws Exception {
-            assertThat(revisedObjects.getRevisions(aClass),
-                    are(new RevisionWrapper(createDefaultRevision(createDate(2015, 4, 19)))));
+            assertThat(revisions, are(new RevisionWrapper(createDefaultRevision(createDate(2015, 4, 19)))));
         }
 
         @Test
         public void shouldFindMethod() throws Exception {
-            RevisedMethod revisedMethod = getRevisedMethod(revisedObjects.getRevisions(aClass), "revisedMethod");
-            assertThat(revisedObjects.getClassRevisedObjects(aClass), are(revisedMethod));
+            RevisedMethod revisedMethod = getRevisedMethod(revisions, "revisedMethod");
+            assertThat(classRevisedObjects, are(revisedMethod));
         }
 
         @Test
@@ -63,7 +66,7 @@ public class RevisedObjectsSearcherForMethodsTest {
 
         @Test
         public void givenRevisedClassWithRevisedMethod_shouldFindClassAndMethodRevisions() throws Exception {
-            assertThat(revisedObjects.getRevisions(aClass),
+            assertThat(revisions,
                     are(
                             new RevisionWrapper(createDefaultRevision(createDate(2015, 4, 21))),
                             new RevisionWrapper(createDefaultRevision(createDate(2015, 4, 22)))));
@@ -73,7 +76,7 @@ public class RevisedObjectsSearcherForMethodsTest {
         public void givenRevisedClassWithRevisedMethod_shouldFindMethod() throws Exception {
             RevisedMethod revisedMethod = getRevisedMethod(
                     Sets.newHashSet(new RevisionWrapper(createDefaultRevision(createDate(2015, 4, 22)))), "revisedMethod");
-            assertThat(revisedObjects.getClassRevisedObjects(aClass), contains(revisedMethod));
+            assertThat(classRevisedObjects, contains(revisedMethod));
         }
     }
 
@@ -87,14 +90,37 @@ public class RevisedObjectsSearcherForMethodsTest {
 
         @Test
         public void givenRevisedClassWithNotRevisedMethod_shouldFindClassRevision() throws Exception {
-            assertThat(revisedObjects.getRevisions(aClass),
-                    are(new RevisionWrapper(createDefaultRevision(createDate(2015, 4, 20)))));
+            assertThat(revisions, are(new RevisionWrapper(createDefaultRevision(createDate(2015, 4, 20)))));
         }
 
         @Test
         public void givenRevisedClassWithNotRevisedMethod_shouldNotFindMethod() throws Exception {
             RevisedMethod revisedMethod = getRevisedMethod(Sets.<RevisionWrapper>newHashSet(), "notRevisedMethod");
-            assertThat(revisedObjects.getClassRevisedObjects(aClass), not(contains(revisedMethod)));
+            assertThat(classRevisedObjects, not(contains(revisedMethod)));
+        }
+    }
+
+    public static class GivenHistoryRevisedClassWithHistoryRevisedMethod {
+        @SuppressWarnings("unchecked")
+        @Before
+        public void setUp() throws Exception {
+            aClass = HistoryRevisedClassWithHistoryRevisedMethod.class;
+            init();
+        }
+
+        @Test
+        public void historyRevisedClassWithHistoryRevisedMethod_returnsClassAndMethodsRevisions() throws Exception {
+            assertThat(revisions,
+                    are(
+                        new RevisionWrapper(createDefaultRevision(createDate(2015, 4, 16))),
+                        new RevisionWrapper(createDefaultRevision(createDate(2015, 4, 17)))));
+        }
+
+        @Test
+        public void givenRevisedClassWithNotRevisedMethod_shouldNotFindMethod() throws Exception {
+            RevisionWrapper methodRevision = new RevisionWrapper(createDefaultRevision(createDate(2015, 4, 17)));
+            RevisedMethod revisedMethod = getRevisedMethod(Sets.newHashSet(methodRevision), "historyRevisedMethod");
+            assertThat(classRevisedObjects, contains(revisedMethod));
         }
     }
 }
