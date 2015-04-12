@@ -7,7 +7,8 @@
 +check ClassWithHistoryRevisionsScanner should return class history only!
 +Inject scanners into RevisedObjectsSearcher
 +Use scanners in RevisedClassesSearcher
-TODO DB Schema:
++Hide Reflections from systems via Facade object
+TODO DB Schema: 
     AVC_AUTHOR: AVC_AUT_ID, AVC_AUT_NAME
     AVC_CLASS: AVC_CLA_ID, AVC_CLA_CANONICAL_NAME
     AVC_METHOD: AVC_MET_ID, AVC_MET_NAME, AVC_MET_PARAMS_TYPES
