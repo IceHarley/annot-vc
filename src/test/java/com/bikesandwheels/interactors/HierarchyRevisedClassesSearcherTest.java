@@ -2,6 +2,7 @@ package com.bikesandwheels.interactors;
 
 import com.bikesandwheels.interactors.revised_classes_searcher.*;
 import org.junit.*;
+import org.reflections.Reflections;
 
 import java.util.Set;
 
@@ -12,11 +13,15 @@ import static org.junit.Assert.assertThat;
 
 public class HierarchyRevisedClassesSearcherTest {
     private static RevisedClassesSearcher revisedClassesSearcher;
+    private static Reflections reflections;
+    private static Class baseClass;
 
     public static class GivenTestModelWithoutAnnotations {
         @Before
         public void setUp() throws Exception {
-            revisedClassesSearcher = new HierarchyRevisedClassesSearcher(EmptyTestModel.class);
+            baseClass = EmptyTestModel.class;
+            reflections = new ReflectionsBuilder(baseClass).make();
+            revisedClassesSearcher = new HierarchyRevisedClassesSearcher(baseClass, reflections);
         }
 
         @Test
@@ -30,7 +35,9 @@ public class HierarchyRevisedClassesSearcherTest {
     public static class GivenTestModelWithAnnotations {
         @Before
         public void setUp() throws Exception {
-            revisedClassesSearcher = new HierarchyRevisedClassesSearcher(BaseRevisedClass.class);
+            baseClass = BaseRevisedClass.class;
+            reflections = new ReflectionsBuilder(baseClass).make();
+            revisedClassesSearcher = new HierarchyRevisedClassesSearcher(baseClass, reflections);
         }
 
         @Test

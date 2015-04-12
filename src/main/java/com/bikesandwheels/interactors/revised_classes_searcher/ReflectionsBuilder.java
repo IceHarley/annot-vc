@@ -6,7 +6,7 @@ import org.reflections.util.*;
 
 import java.net.URL;
 
-class ReflectionsBuilder {
+public class ReflectionsBuilder {
     private final ConfigurationBuilder configurationBuilder;
 
     public ReflectionsBuilder(URL url) {
@@ -16,6 +16,10 @@ class ReflectionsBuilder {
                         new SubTypesScanner(true),
                         new TypeAnnotationsScanner(),
                         new MethodAnnotationsScanner());
+    }
+
+    public ReflectionsBuilder(Class aClass) {
+        this(ClasspathHelper.forClass(aClass));
     }
 
     public Reflections make() {

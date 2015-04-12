@@ -1,7 +1,6 @@
 package com.bikesandwheels.interactors.revised_objects_searcher;
 
 import com.bikesandwheels.domain.*;
-import com.bikesandwheels.interactors.revised_objects_searcher.scanners.*;
 import com.google.common.collect.Sets;
 import java.util.*;
 
@@ -14,13 +13,6 @@ public class RevisedObjectsSearcher {
         this.classes = classes;
         if (scanners != null)
             this.scanners = scanners;
-    }
-
-    private void registerScanners() {
-        scanners.add(new RevisedClassRevisionsScanner());
-        scanners.add(new HistoryRevisedClassRevisionsScanner());
-        scanners.add(new RevisedMethodsRevisionsScanner());
-        scanners.add(new HistoryRevisedMethodsRevisionsScanner());
     }
 
     @SuppressWarnings("unchecked")

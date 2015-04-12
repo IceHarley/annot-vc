@@ -15,9 +15,9 @@ public class HierarchyRevisedClassesSearcher implements RevisedClassesSearcher {
     private PathRevisedClassesSearcher packageSearcher;
     private Set<? extends Class<?>> derivedClasses;
 
-    public HierarchyRevisedClassesSearcher(Class<?> baseClass) throws MalformedURLException {
+    public HierarchyRevisedClassesSearcher(Class<?> baseClass, Reflections reflections) throws MalformedURLException {
         this.baseClass = baseClass;
-        packageSearcher = new PathRevisedClassesSearcher(baseClass);
+        packageSearcher = new PathRevisedClassesSearcher(reflections);
     }
 
     public Set<Class<?>> search() {
