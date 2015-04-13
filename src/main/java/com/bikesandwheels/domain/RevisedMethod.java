@@ -22,10 +22,6 @@ public class RevisedMethod implements RevisedObject {
         return !revisions.isEmpty();
     }
 
-    public Class getObjectClass() {
-        return method.getDeclaringClass();
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
