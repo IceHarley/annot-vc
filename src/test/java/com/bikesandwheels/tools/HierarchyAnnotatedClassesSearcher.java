@@ -1,6 +1,6 @@
 package com.bikesandwheels.tools;
 
-import com.bikesandwheels.interactors.ReflectionTools;
+import com.bikesandwheels.interactors.*;
 import com.bikesandwheels.interactors.annotated_classes_searcher.*;
 import com.google.common.base.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;

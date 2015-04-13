@@ -1,6 +1,6 @@
 package com.bikesandwheels.interactors.annotated_classes_searcher;
 
-import com.bikesandwheels.interactors.ReflectionTools;
+import com.bikesandwheels.interactors.*;
 import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

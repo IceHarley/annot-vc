@@ -1,4 +1,4 @@
-package com.bikesandwheels.interactors.annotated_classes_searcher;
+package com.bikesandwheels.interactors;
 
 import java.net.URL;
 import java.util.Set;

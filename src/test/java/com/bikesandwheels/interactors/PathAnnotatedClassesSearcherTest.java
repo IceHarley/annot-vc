@@ -1,6 +1,5 @@
 package com.bikesandwheels.interactors;
 
-import com.bikesandwheels.interactors.annotated_classes_searcher.AnnotatedClassesSearcher;
 import com.bikesandwheels.main.Config;
 import org.junit.*;
 import org.junit.runner.RunWith;
