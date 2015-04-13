@@ -1,47 +1,38 @@
 package com.bikesandwheels.interactors;
 
-import com.bikesandwheels.tools.*;
-import org.junit.*;
+import com.bikesandwheels.tools.HierarchyAnnotatedClassesSearcher;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
-import java.util.Set;
-
-import static com.bikesandwheels.tools.TestUtils.areDerivatives;
-import static com.bikesandwheels.tools.TestUtils.IS_EMPTY;
 import static com.bikesandwheels.interactors.TestModel.*;
+import static com.bikesandwheels.tools.TestUtils.*;
 import static org.junit.Assert.assertThat;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(loader = AnnotationConfigContextLoader.class, classes = {TestConfig.class})
 public class HierarchyRevisedClassesSearcherTest {
-    private static HierarchyAnnotatedClassesSearcher annotatedClassesSearcher;
+    @Autowired
+    private HierarchyAnnotatedClassesSearcher annotatedClassesSearcher;
 
-    public static class GivenTestModelWithoutAnnotations {
-        @Before
-        public void setUp() throws Exception {
-            annotatedClassesSearcher = AnnotatedClassesSearcherFactory.make(EmptyTestModel.class);
-        }
-
-        @Test
-        public void searchResultIsEmptyTest() throws Exception {
-            Set<Class<?>> revisedClasses = annotatedClassesSearcher.search();
-            assertThat(revisedClasses, IS_EMPTY);
-        }
+    @Test
+    public void searchResultIsEmptyTest() throws Exception {
+        annotatedClassesSearcher.setBaseClass(EmptyTestModel.class);
+        assertThat(annotatedClassesSearcher.search(), IS_EMPTY);
     }
 
-    @SuppressWarnings("unchecked")
-    public static class GivenTestModelWithAnnotations {
-        @Before
-        public void setUp() throws Exception {
-            annotatedClassesSearcher = AnnotatedClassesSearcherFactory.make(BaseRevisedClass.class);
-        }
-
-        @Test
-        public void revisedClasses_shouldBeFound() throws Exception {
-            Set<Class<?>> revisedClasses = annotatedClassesSearcher.search();
-            assertThat(revisedClasses,
-                    areDerivatives(
-                            BaseRevisedClass.class,
-                            DerivedRevisedClass.class,
-                            DerivedNotRevisedClass.class,
-                            DerivedHistoryRevisedClass.class));
-        }
+    @Test
+    public void revisedClasses_shouldBeFound() throws Exception {
+        annotatedClassesSearcher.setBaseClass(BaseRevisedClass.class);
+        assertThat(annotatedClassesSearcher.search(),
+                areDerivatives(
+                        BaseRevisedClass.class,
+                        DerivedRevisedClass.class,
+                        DerivedNotRevisedClass.class,
+                        DerivedHistoryRevisedClass.class));
     }
+
 }

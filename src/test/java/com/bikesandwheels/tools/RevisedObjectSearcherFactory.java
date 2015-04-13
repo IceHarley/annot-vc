@@ -12,10 +12,11 @@ public class RevisedObjectSearcherFactory {
     }
 
     private static Set<RevisionsScanner> registerAllScanners() {
+        ReflectionsFacade reflectionTools = new ReflectionsFacade();
         return Sets.newHashSet(
-                new RevisedClassRevisionsScanner(),
-                new RevisedMethodsRevisionsScanner(),
-                new HistoryRevisedClassRevisionsScanner(),
-                new HistoryRevisedMethodsRevisionsScanner());
+                new RevisedClassRevisionsScanner(reflectionTools),
+                new RevisedMethodsRevisionsScanner(reflectionTools),
+                new HistoryRevisedClassRevisionsScanner(reflectionTools),
+                new HistoryRevisedMethodsRevisionsScanner(reflectionTools));
     }
 }

@@ -1,13 +1,17 @@
 package com.bikesandwheels.interactors.revised_objects_searcher.scanners;
 
 import com.bikesandwheels.annotations.wrappers.*;
+import com.bikesandwheels.interactors.ReflectionTools;
 import com.google.common.collect.Sets;
-import org.reflections.ReflectionUtils;
 
 import java.lang.annotation.Annotation;
 import java.util.Set;
 
 public class HistoryRevisedClassRevisionsScanner extends ClassRevisionsScanner {
+    public HistoryRevisedClassRevisionsScanner(ReflectionTools reflectionTools) {
+        super(reflectionTools);
+    }
+
     @Override
     protected Set<RevisionWrapper> getWrappedRevisions(Class aClass) {
         Set<RevisionWrapper> wrappedRevisions = Sets.newHashSet();
@@ -17,7 +21,7 @@ public class HistoryRevisedClassRevisionsScanner extends ClassRevisionsScanner {
     }
 
     private Set<HistoryWrapper> getWrappedHistories(Class aClass) {
-        return wrapHistories(ReflectionUtils.getAnnotations(aClass, Predicates.HISTORY_PREDICATE));
+        return wrapHistories(getReflectionTools().getAnnotations(aClass, Predicates.HISTORY_PREDICATE));
     }
 
     private Set<HistoryWrapper> wrapHistories(Set<Annotation> histories) {

@@ -1,53 +1,54 @@
 package com.bikesandwheels.interactors;
 
-import com.bikesandwheels.annotations.*;
-import com.bikesandwheels.interactors.annotated_classes_searcher.*;
-import com.bikesandwheels.interactors.annotated_classes_searcher.scanners.*;
-import com.bikesandwheels.tools.*;
-import com.google.common.collect.Sets;
+import com.bikesandwheels.interactors.annotated_classes_searcher.AnnotatedClassesSearcher;
+import com.bikesandwheels.main.Config;
 import org.junit.*;
-import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
-import org.reflections.Reflections;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
-import static com.bikesandwheels.tools.TestUtils.*;
 import static com.bikesandwheels.interactors.TestModel.*;
-import static com.bikesandwheels.interactors.TestModel.MethodsModel.*;
+import static com.bikesandwheels.interactors.TestModel.MethodsModel.NotRevisedClassWithRevisedMethod;
+import static com.bikesandwheels.tools.TestUtils.contains;
 import static org.hamcrest.CoreMatchers.not;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
+import static org.reflections.util.ClasspathHelper.forClass;
 
-@RunWith(Enclosed.class)
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(loader = AnnotationConfigContextLoader.class, classes = {Config.class})
 public class PathAnnotatedClassesSearcherTest {
-    private static PathAnnotatedClassesSearcher annotatedClassesSearcher;
+    @Autowired
+    private AnnotatedClassesSearcher annotatedClassesSearcher;
 
-    public static class GivenTestModel {
-        @Before
-        public void setUp() throws Exception {
-            Reflections reflections = new ReflectionsBuilder(TestModel.class).make();
-            annotatedClassesSearcher = new PathAnnotatedClassesSearcher(reflections,
-                    Sets.newHashSet(
-                            new ClassesAnnotatedScanner(Revision.class, History.class),
-                            new MethodsAnnotatedScanner(Revision.class, History.class)));
-        }
+    @Before
+    public void setUp() {
+        annotatedClassesSearcher.setUrl(forClass(TestModel.class));
+    }
 
-        @Test
-        public void notRevisedClass_shouldNotBeFound() throws Exception {
-            assertThat(annotatedClassesSearcher.search(), not(contains(NotRevisedClass.class)));
-        }
+    @Test
+    public void verifyingAutoWiring() throws Exception {
+        assertNotNull(annotatedClassesSearcher);
+    }
 
-        @Test
-        public void revisedClass_shouldBeFound() throws Exception {
-            assertThat(annotatedClassesSearcher.search(), contains(BaseRevisedClass.class));
-        }
+    @Test
+    public void notRevisedClass_shouldNotBeFound() throws Exception {
+        assertThat(annotatedClassesSearcher.search(), not(contains(NotRevisedClass.class)));
+    }
 
-        @Test
-        public void notRevisedClassWithAnnotatedMethod_shouldBeFound() throws Exception {
-            assertThat(annotatedClassesSearcher.search(), contains(NotRevisedClassWithRevisedMethod.class));
-        }
+    @Test
+    public void revisedClass_shouldBeFound() throws Exception {
+        assertThat(annotatedClassesSearcher.search(), contains(BaseRevisedClass.class));
+    }
 
-        @Test
-        public void historyRevisedClass_shouldBeFound() throws Exception {
-            assertThat(annotatedClassesSearcher.search(), contains(HistoryRevisedClass.class));
-        }
+    @Test
+    public void notRevisedClassWithAnnotatedMethod_shouldBeFound() throws Exception {
+        assertThat(annotatedClassesSearcher.search(), contains(NotRevisedClassWithRevisedMethod.class));
+    }
+
+    @Test
+    public void historyRevisedClass_shouldBeFound() throws Exception {
+        assertThat(annotatedClassesSearcher.search(), contains(HistoryRevisedClass.class));
     }
 }

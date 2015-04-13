@@ -2,20 +2,26 @@ package com.bikesandwheels.interactors.revised_objects_searcher.scanners;
 
 import com.bikesandwheels.annotations.wrappers.RevisionWrapper;
 import com.bikesandwheels.domain.*;
+import com.bikesandwheels.interactors.ReflectionTools;
 import com.bikesandwheels.interactors.revised_objects_searcher.RevisionsScanner;
-import org.reflections.ReflectionUtils;
 
 import java.lang.reflect.Method;
 import java.util.Set;
 
 abstract class MethodsRevisionsScanner implements RevisionsScanner {
+    private final ReflectionTools reflectionTools;
+
+    protected MethodsRevisionsScanner(ReflectionTools reflectionTools) {
+        this.reflectionTools = reflectionTools;
+    }
+
     public RevisedObjects scan(Class aClass) {
         return getRevisedObjects(getRevisedMethods(aClass));
     }
 
     @SuppressWarnings("unchecked")
     private Set<Method> getRevisedMethods(Class aClass) {
-        return ReflectionUtils.getMethods(aClass);
+        return reflectionTools.getMethods(aClass);
     }
 
     private RevisedObjects getRevisedObjects(Set<Method> methods) {
@@ -30,4 +36,8 @@ abstract class MethodsRevisionsScanner implements RevisionsScanner {
     }
 
     protected abstract Set<RevisionWrapper> getWrappedRevisions(Method method);
+
+    protected ReflectionTools getReflectionTools() {
+        return reflectionTools;
+    }
 }

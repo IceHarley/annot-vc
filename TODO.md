@@ -8,8 +8,11 @@
 +Inject scanners into RevisedObjectsSearcher
 +Use scanners in RevisedClassesSearcher
 +Hide Reflections from systems via Facade object
+TODO Spring Dependency Injection
+TODO persistence
 TODO DB Schema: 
     AVC_AUTHOR: AVC_AUT_ID, AVC_AUT_NAME
     AVC_CLASS: AVC_CLA_ID, AVC_CLA_CANONICAL_NAME
     AVC_METHOD: AVC_MET_ID, AVC_MET_NAME, AVC_MET_PARAMS_TYPES
-    AVC_REVISION: (AVC_REV_CLASSID, AVC_REV_METHODID, AVC_REV_DATE), AVC_REV_COMMENT,
+    AVC_REVISION: (AVC_REV_CLASSID, AVC_REV_METHODID, AVC_REV_DATE), AVC_REV_COMMENT
+TODO gui

@@ -1,24 +1,36 @@
 package com.bikesandwheels.tools;
 
+import com.bikesandwheels.interactors.ReflectionTools;
 import com.bikesandwheels.interactors.annotated_classes_searcher.*;
 import com.google.common.base.Predicate;
-import org.reflections.Reflections;
-import org.reflections.util.ClasspathHelper;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Nullable;
-import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Set;
 
 import static com.google.common.collect.Sets.filter;
+import static org.reflections.util.ClasspathHelper.forClass;
 
-public class HierarchyAnnotatedClassesSearcher {
-    private final Class<?> baseClass;
+public class HierarchyAnnotatedClassesSearcher implements AnnotatedClassesSearcher {
+    @Autowired
     private PathAnnotatedClassesSearcher packageSearcher;
+    @Autowired
+    private ReflectionTools reflectionTools;
+    private Class<?> baseClass;
     private Set<? extends Class<?>> derivedClasses;
 
-    public HierarchyAnnotatedClassesSearcher(Class<?> baseClass, Reflections reflections, Set<AnnotatedScanner> scanners) throws MalformedURLException {
+    public HierarchyAnnotatedClassesSearcher() {
+    }
+
+    public void setUrl(URL url) {
+        packageSearcher.setUrl(url);
+        reflectionTools.setUrl(url);
+    }
+
+    public void setBaseClass(Class<?> baseClass) {
         this.baseClass = baseClass;
-        packageSearcher = new PathAnnotatedClassesSearcher(reflections, scanners);
+        setUrl(forClass(baseClass));
     }
 
     public Set<Class<?>> search() {
@@ -27,8 +39,7 @@ public class HierarchyAnnotatedClassesSearcher {
     }
 
     private void fillAllowedClasses() {
-        Reflections reflections = new ReflectionsBuilder(ClasspathHelper.forClass(baseClass)).make();
-        derivedClasses = reflections.getSubTypesOf(baseClass);
+        derivedClasses = reflectionTools.getSubTypesOf(baseClass);
     }
 
     private Predicate<Class<?>> baseOrDerivedOnly() {
