@@ -5,7 +5,7 @@ import com.bikesandwheels.main.Config;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.*;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
@@ -21,9 +21,10 @@ import static org.reflections.util.ClasspathHelper.forClass;
 public class PathAnnotatedClassesSearcherTest {
     @Autowired
     private AnnotatedClassesSearcher annotatedClassesSearcher;
+    private TestContextManager testContextManager;
 
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
         annotatedClassesSearcher.setUrl(forClass(TestModel.class));
     }
 

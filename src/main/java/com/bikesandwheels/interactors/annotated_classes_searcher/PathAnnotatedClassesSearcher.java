@@ -3,13 +3,16 @@ package com.bikesandwheels.interactors.annotated_classes_searcher;
 import com.bikesandwheels.interactors.ReflectionTools;
 import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.net.URL;
-import java.util.*;
+import java.util.Set;
 
+@Component
 public class PathAnnotatedClassesSearcher implements AnnotatedClassesSearcher {
     @Autowired
     private ReflectionTools reflectionTools;
+    @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
     @Autowired
     private Set<AnnotatedScanner> scanners;
 

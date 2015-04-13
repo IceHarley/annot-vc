@@ -2,17 +2,20 @@ package com.bikesandwheels.interactors.revised_objects_searcher;
 
 import com.bikesandwheels.domain.*;
 import com.google.common.collect.Sets;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.util.*;
 
-public class RevisedObjectsSearcher {
-    private final Set<Class<?>> classes;
+@Component
+public class RevisedObjectsSearcher implements com.bikesandwheels.interactors.RevisedSearcher {
+    @Autowired
     private Set<RevisionsScanner> scanners = Sets.newHashSet();
+    private Set<Class<?>> classes;
     private ClassesRevisedObjectsMap allRevisedObjects = null;
 
-    public RevisedObjectsSearcher(Set<Class<?>> classes, Set<RevisionsScanner> scanners) {
+    public void setClasses(Set<Class<?>> classes) {
         this.classes = classes;
-        if (scanners != null)
-            this.scanners = scanners;
     }
 
     @SuppressWarnings("unchecked")

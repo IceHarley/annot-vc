@@ -1,41 +1,55 @@
 package com.bikesandwheels.interactors;
 
 
-import com.bikesandwheels.tools.RevisedObjectSearcherFactory;
 import com.bikesandwheels.annotations.wrappers.RevisionWrapper;
-import com.bikesandwheels.domain.*;
-import com.bikesandwheels.interactors.revised_objects_searcher.RevisedObjectsSearcher;
+import com.bikesandwheels.domain.ClassesRevisedObjectsMap;
+import com.bikesandwheels.main.Config;
 import com.google.common.collect.Sets;
+import de.bechte.junit.runners.context.HierarchicalContextRunner;
 import org.junit.*;
-import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.*;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
-import static com.bikesandwheels.annotations.wrappers.WrapperUtils.*;
-import static org.hamcrest.Matchers.not;
-import static org.junit.Assert.*;
+import java.util.Set;
+
+import static com.bikesandwheels.annotations.wrappers.WrapperUtils.createDate;
+import static com.bikesandwheels.annotations.wrappers.WrapperUtils.createDefaultRevision;
 import static com.bikesandwheels.interactors.TestModel.*;
 import static com.bikesandwheels.tools.TestUtils.*;
+import static org.hamcrest.Matchers.not;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
 
-@RunWith(Enclosed.class)
+@RunWith(HierarchicalContextRunner.class)
+@ContextConfiguration(loader = AnnotationConfigContextLoader.class, classes = {Config.class})
 public class RevisedObjectsSearcherForClassesTest {
-    private static RevisedObjectsSearcher searcher;
+    @Autowired
+    private RevisedSearcher searcher;
+    private TestContextManager testContextManager;
 
-    public static class GivenTestModelWithoutAnnotations {
-        @Before
-        public void setUp() throws Exception {
-            searcher = RevisedObjectSearcherFactory.make(Sets.<Class<?>>newHashSet());
-        }
-
-        @Test
-        public void ifNoAnnotatedFiles_SearchResultIsEmpty() throws Exception {
-            assertThat(searcher.findAllRevisedObjects(), IS_EMPTY_REVISED_OBJECTS_COLLECTION);
-        }
+    @Before
+    public void setUp() throws Exception {
+        prepareSpringTestRunner();
     }
 
-    public static class GivenRevisedClassHierarchyTest {
+    @Test
+    public void givenEmptyFilesList_SearchResultIsEmpty() throws Exception {
+        searcher.setClasses(Sets.<Class<?>>newHashSet());
+        assertThat(searcher.findAllRevisedObjects(), IS_EMPTY_REVISED_OBJECTS_COLLECTION);
+    }
+
+    @Test
+    public void givenNoAnnotatedFiles_SearchResultIsEmpty() throws Exception {
+        searcher.setClasses(Sets.<Class<?>>newHashSet(EmptyTestModel.class));
+        assertThat(searcher.findAllRevisedObjects(), IS_EMPTY_REVISED_OBJECTS_COLLECTION);
+    }
+
+    public class GivenRevisedClassHierarchyTest {
         @Before
         public void setUp() throws Exception {
-            searcher = RevisedObjectSearcherFactory.make(Sets.<Class<?>>newHashSet(
+            searcher.setClasses(Sets.<Class<?>>newHashSet(
                     BaseRevisedClass.class,
                     DerivedRevisedClass.class,
                     DerivedNotRevisedClass.class,
@@ -57,9 +71,9 @@ public class RevisedObjectsSearcherForClassesTest {
         public void revisedClasses_AreReturned() throws Exception {
             assertThat(searcher.findAllRevisedObjects().getClasses(),
                     are(
-                            BaseRevisedClass.class,
-                            DerivedRevisedClass.class,
-                            DerivedHistoryRevisedClass.class));
+                        BaseRevisedClass.class,
+                        DerivedRevisedClass.class,
+                        DerivedHistoryRevisedClass.class));
         }
 
         @Test
@@ -77,18 +91,23 @@ public class RevisedObjectsSearcherForClassesTest {
         }
     }
 
-    public static class HistoryTest {
-        @Test
-        public void givenEmptyHistory_NoRevisedObjects() throws Exception {
-            searcher = RevisedObjectSearcherFactory.make(Sets.<Class<?>>newHashSet(EmptyHistoryRevisedClass.class));
-            ClassesRevisedObjectsMap allRevisedObjects = searcher.findAllRevisedObjects();
-            assertThat(allRevisedObjects, IS_EMPTY_REVISED_OBJECTS_COLLECTION);
-        }
+    @Test
+    public void givenEmptyHistoryAndRevision_revisionIsReturned() throws Exception {
+        searcher.setClasses(Sets.<Class<?>>newHashSet(EmptyHistoryAndRevisionAnnotatedClass.class));
+        Set<Class<?>> classes = searcher.findAllRevisedObjects().getClasses();
+        assertThat(classes, are(EmptyHistoryAndRevisionAnnotatedClass.class));
+    }
 
-        @Test
-        public void givenEmptyHistoryAndRevision_revisionIsReturned() throws Exception {
-            searcher = RevisedObjectSearcherFactory.make(Sets.<Class<?>>newHashSet(EmptyHistoryAndRevisionAnnotatedClass.class));
-            assertThat(searcher.findAllRevisedObjects().getClasses(), are(EmptyHistoryAndRevisionAnnotatedClass.class));
-        }
+    @Test
+    public void givenEmptyHistory_NoRevisedObjects() throws Exception {
+        searcher.setClasses(Sets.<Class<?>>newHashSet(EmptyHistoryRevisedClass.class));
+        ClassesRevisedObjectsMap allRevisedObjects = searcher.findAllRevisedObjects();
+        assertThat(allRevisedObjects, IS_EMPTY_REVISED_OBJECTS_COLLECTION);
+    }
+
+    //This is substitution for @RunWith(SpringJUnit4ClassRunner.class)
+    private void prepareSpringTestRunner() throws Exception {
+        this.testContextManager = new TestContextManager(getClass());
+        this.testContextManager.prepareTestInstance(this);
     }
 }

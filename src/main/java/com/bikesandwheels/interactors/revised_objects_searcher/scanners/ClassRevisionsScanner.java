@@ -4,15 +4,13 @@ import com.bikesandwheels.annotations.wrappers.*;
 import com.bikesandwheels.domain.*;
 import com.bikesandwheels.interactors.ReflectionTools;
 import com.bikesandwheels.interactors.revised_objects_searcher.RevisionsScanner;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Set;
 
 abstract class ClassRevisionsScanner implements RevisionsScanner {
-    private final ReflectionTools reflectionTools;
-
-    protected ClassRevisionsScanner(ReflectionTools reflectionTools) {
-        this.reflectionTools = reflectionTools;
-    }
+    @Autowired
+    private ReflectionTools reflectionTools;
 
     @SuppressWarnings("unchecked")
     public RevisedObjects scan(Class aClass) {

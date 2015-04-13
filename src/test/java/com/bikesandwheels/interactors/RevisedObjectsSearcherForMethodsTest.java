@@ -1,35 +1,49 @@
 package com.bikesandwheels.interactors;
 
-import com.bikesandwheels.tools.RevisedObjectSearcherFactory;
 import com.bikesandwheels.annotations.wrappers.RevisionWrapper;
 import com.bikesandwheels.domain.*;
-import com.bikesandwheels.interactors.revised_objects_searcher.RevisedObjectsSearcher;
+import com.bikesandwheels.main.Config;
 import com.google.common.collect.Sets;
+import de.bechte.junit.runners.context.HierarchicalContextRunner;
 import org.junit.*;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.*;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 import java.util.Set;
 
-import static com.bikesandwheels.tools.TestUtils.*;
 import static com.bikesandwheels.annotations.wrappers.WrapperUtils.*;
 import static com.bikesandwheels.interactors.TestModel.MethodsModel.*;
+import static com.bikesandwheels.tools.TestUtils.*;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertThat;
 
+@RunWith(HierarchicalContextRunner.class)
+@ContextConfiguration(loader = AnnotationConfigContextLoader.class, classes = {Config.class})
 public class RevisedObjectsSearcherForMethodsTest {
-    private static ClassesRevisedObjectsMap revisedObjects;
-    private static Class<?> aClass;
-    private static Set<RevisionWrapper> revisions;
-    private static RevisedObjects classRevisedObjects;
+    @Autowired
+    private RevisedSearcher searcher;
+    private TestContextManager testContextManager;
 
-    private static void init() {
-        RevisedObjectsSearcher searcher = RevisedObjectSearcherFactory.make(Sets.<Class<?>>newHashSet(aClass));
+    private ClassesRevisedObjectsMap revisedObjects;
+    private Class<?> aClass;
+    private Set<RevisionWrapper> revisions;
+    private RevisedObjects classRevisedObjects;
+
+    @Before
+    public void setUp() throws Exception {
+        prepareSpringTestRunner();
+    }
+
+    private void init() {
+        searcher.setClasses(Sets.<Class<?>>newHashSet(aClass));
         revisedObjects = searcher.findAllRevisedObjects();
         revisions = revisedObjects.getRevisions(aClass);
         classRevisedObjects = revisedObjects.getClassRevisedObjects(aClass);
     }
 
-    public static class GivenNotRevisedClassWithRevisedMethod {
-        @SuppressWarnings("unchecked")
+    public class GivenNotRevisedClassWithRevisedMethod {
         @Before
         public void setUp() throws Exception {
             aClass = NotRevisedClassWithRevisedMethod.class;
@@ -53,12 +67,11 @@ public class RevisedObjectsSearcherForMethodsTest {
         }
     }
 
-    private static RevisedMethod getRevisedMethod(Set<RevisionWrapper> revisions, String methodName) throws NoSuchMethodException {
+    private RevisedMethod getRevisedMethod(Set<RevisionWrapper> revisions, String methodName) throws NoSuchMethodException {
         return new RevisedMethod(revisions, aClass.getMethod(methodName));
     }
 
-    public static class GivenRevisedClassWithRevisedMethod {
-        @SuppressWarnings("unchecked")
+    public class GivenRevisedClassWithRevisedMethod {
         @Before
         public void setUp() throws Exception {
             aClass = RevisedClassWithRevisedMethod.class;
@@ -81,8 +94,7 @@ public class RevisedObjectsSearcherForMethodsTest {
         }
     }
 
-    public static class GivenRevisedClassWithNotRevisedMethod {
-        @SuppressWarnings("unchecked")
+    public class GivenRevisedClassWithNotRevisedMethod {
         @Before
         public void setUp() throws Exception {
             aClass = RevisedClassWithNotRevisedMethod.class;
@@ -101,8 +113,7 @@ public class RevisedObjectsSearcherForMethodsTest {
         }
     }
 
-    public static class GivenHistoryRevisedClassWithHistoryRevisedMethod {
-        @SuppressWarnings("unchecked")
+    public class GivenHistoryRevisedClassWithHistoryRevisedMethod {
         @Before
         public void setUp() throws Exception {
             aClass = HistoryRevisedClassWithHistoryRevisedMethod.class;
@@ -123,5 +134,11 @@ public class RevisedObjectsSearcherForMethodsTest {
             RevisedMethod revisedMethod = getRevisedMethod(Sets.newHashSet(methodRevision), "historyRevisedMethod");
             assertThat(classRevisedObjects, contains(revisedMethod));
         }
+    }
+
+    //This is substitution for @RunWith(SpringJUnit4ClassRunner.class)
+    private void prepareSpringTestRunner() throws Exception {
+        this.testContextManager = new TestContextManager(getClass());
+        this.testContextManager.prepareTestInstance(this);
     }
 }

@@ -1,7 +1,6 @@
 package com.bikesandwheels.interactors.revised_objects_searcher.scanners;
 
 import com.bikesandwheels.annotations.wrappers.*;
-import com.bikesandwheels.interactors.ReflectionTools;
 import com.google.common.collect.Sets;
 
 import java.lang.annotation.Annotation;
@@ -9,10 +8,6 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 public class HistoryRevisedMethodsRevisionsScanner extends MethodsRevisionsScanner {
-    public HistoryRevisedMethodsRevisionsScanner(ReflectionTools reflectionTools) {
-        super(reflectionTools);
-    }
-
     @Override
     protected Set<RevisionWrapper> getWrappedRevisions(Method method) {
         Set<RevisionWrapper> wrappedRevisions = Sets.newHashSet();

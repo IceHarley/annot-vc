@@ -4,6 +4,7 @@ import com.bikesandwheels.interactors.ReflectionTools;
 import com.bikesandwheels.interactors.annotated_classes_searcher.*;
 import com.google.common.base.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Nullable;
 import java.net.URL;
@@ -12,6 +13,7 @@ import java.util.Set;
 import static com.google.common.collect.Sets.filter;
 import static org.reflections.util.ClasspathHelper.forClass;
 
+@Component
 public class HierarchyAnnotatedClassesSearcher implements AnnotatedClassesSearcher {
     @Autowired
     private PathAnnotatedClassesSearcher packageSearcher;
