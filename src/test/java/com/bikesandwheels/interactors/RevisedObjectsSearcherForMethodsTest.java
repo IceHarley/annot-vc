@@ -24,7 +24,6 @@ import static org.junit.Assert.assertThat;
 public class RevisedObjectsSearcherForMethodsTest {
     @Autowired
     private RevisedSearcher searcher;
-    private TestContextManager testContextManager;
 
     private ClassesRevisedObjectsMap revisedObjects;
     private Class<?> aClass;
@@ -138,7 +137,7 @@ public class RevisedObjectsSearcherForMethodsTest {
 
     //This is substitution for @RunWith(SpringJUnit4ClassRunner.class)
     private void prepareSpringTestRunner() throws Exception {
-        this.testContextManager = new TestContextManager(getClass());
-        this.testContextManager.prepareTestInstance(this);
+        TestContextManager testContextManager = new TestContextManager(getClass());
+        testContextManager.prepareTestInstance(this);
     }
 }

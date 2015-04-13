@@ -1,7 +1,6 @@
 package com.bikesandwheels.interactors.revised_objects_searcher;
 
 import com.bikesandwheels.domain.*;
-import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -9,8 +8,9 @@ import java.util.*;
 
 @Component
 public class RevisedObjectsSearcher implements com.bikesandwheels.interactors.RevisedSearcher {
+    @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
     @Autowired
-    private Set<RevisionsScanner> scanners = Sets.newHashSet();
+    private Set<RevisionsScanner> scanners;
     private Set<Class<?>> classes;
     private ClassesRevisedObjectsMap allRevisedObjects = null;
 
