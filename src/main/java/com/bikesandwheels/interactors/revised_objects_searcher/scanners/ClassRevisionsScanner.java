@@ -5,9 +5,11 @@ import com.bikesandwheels.domain.*;
 import com.bikesandwheels.interactors.ReflectionTools;
 import com.bikesandwheels.interactors.revised_objects_searcher.RevisionsScanner;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Set;
 
+@Component
 abstract class ClassRevisionsScanner implements RevisionsScanner {
     @Autowired
     private ReflectionTools reflectionTools;

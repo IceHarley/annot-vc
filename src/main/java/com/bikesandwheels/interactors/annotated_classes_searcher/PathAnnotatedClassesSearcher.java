@@ -19,10 +19,8 @@ public class PathAnnotatedClassesSearcher implements AnnotatedClassesSearcher {
     @SuppressWarnings("unchecked")
     public Set<Class<?>> search() {
         Set<Class<?>> annotatedTypes = Sets.newHashSet();
-        for (AnnotatedScanner scanner : scanners) {
-            scanner.setReflectionTools(reflectionTools);
+        for (AnnotatedScanner scanner : scanners)
             annotatedTypes.addAll(scanner.scan());
-        }
         return annotatedTypes;
     }
 
