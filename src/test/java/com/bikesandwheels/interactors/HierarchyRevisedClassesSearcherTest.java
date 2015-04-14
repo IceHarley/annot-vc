@@ -24,6 +24,7 @@ public class HierarchyRevisedClassesSearcherTest {
         assertThat(annotatedClassesSearcher.search(), IS_EMPTY);
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void revisedClasses_shouldBeFound() throws Exception {
         annotatedClassesSearcher.setBaseClass(BaseRevisedClass.class);
