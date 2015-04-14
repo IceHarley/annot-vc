@@ -2,7 +2,7 @@ package com.bikesandwheels.interactors;
 
 import com.bikesandwheels.annotations.wrappers.RevisionWrapper;
 import com.bikesandwheels.domain.*;
-import com.bikesandwheels.main.Config;
+import com.bikesandwheels.config.Config;
 import com.google.common.collect.Sets;
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
 import org.junit.*;

@@ -1,4 +1,4 @@
-package com.bikesandwheels.persistance.model;
+package com.bikesandwheels.persistence.model;
 
 import javax.persistence.*;
 import java.io.Serializable;

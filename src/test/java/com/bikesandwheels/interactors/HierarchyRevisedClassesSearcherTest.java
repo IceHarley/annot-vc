@@ -1,5 +1,6 @@
 package com.bikesandwheels.interactors;
 
+import com.bikesandwheels.config.TestConfig;
 import com.bikesandwheels.tools.HierarchyAnnotatedClassesSearcher;
 import org.junit.Test;
 import org.junit.runner.RunWith;

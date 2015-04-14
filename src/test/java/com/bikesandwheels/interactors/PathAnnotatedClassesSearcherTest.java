@@ -1,6 +1,6 @@
 package com.bikesandwheels.interactors;
 
-import com.bikesandwheels.main.Config;
+import com.bikesandwheels.config.Config;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

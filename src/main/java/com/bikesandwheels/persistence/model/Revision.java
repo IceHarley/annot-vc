@@ -1,4 +1,4 @@
-package com.bikesandwheels.persistance.model;
+package com.bikesandwheels.persistence.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -17,6 +17,7 @@ public class Revision implements Serializable {
     @Column(name = "AVC_REV_METHODID")
     private Method revisedMethod;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "AVC_REV_DATE")
     private Date date;
 
