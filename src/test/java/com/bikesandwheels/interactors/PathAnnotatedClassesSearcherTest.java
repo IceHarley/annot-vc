@@ -20,7 +20,6 @@ import static org.reflections.util.ClasspathHelper.forClass;
 public class PathAnnotatedClassesSearcherTest {
     @Autowired
     private AnnotatedClassesSearcher annotatedClassesSearcher;
-    private TestContextManager testContextManager;
 
     @Before
     public void setUp() throws Exception {

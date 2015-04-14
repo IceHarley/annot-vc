@@ -12,13 +12,10 @@ import java.util.Set;
 
 @Component
 public class MethodsAnnotatedScanner implements AnnotatedScanner {
+    @Autowired
     private Class<? extends Annotation>[] annotations;
     @Autowired
     private ReflectionTools reflectionTools;
-
-    public MethodsAnnotatedScanner(Class<? extends Annotation>... annotations) {
-        this.annotations = annotations;
-    }
 
     public Set<Class<?>> scan() {
         return getDeclaringClasses(getAnnotatedMethods());

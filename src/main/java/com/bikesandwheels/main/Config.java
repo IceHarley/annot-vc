@@ -10,20 +10,28 @@ import com.bikesandwheels.tools.ReflectionsFacade;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.*;
 
+import java.lang.annotation.Annotation;
+
 @Configuration
 public class Config {
     @Bean
+    public Class<? extends Annotation> revisionAnnotation() {
+        return Revision.class;
+    }
+
+    @Bean
+    public Class<? extends Annotation> historyAnnotation() {
+        return History.class;
+    }
+
+    @Bean
     public AnnotatedScanner classesAnnotatedScanner() {
-        return new ClassesAnnotatedScanner(getRevisionAnnotations());
+        return new ClassesAnnotatedScanner();
     }
 
     @Bean
     public AnnotatedScanner MethodsAnnotatedScanner() {
-        return new MethodsAnnotatedScanner(getRevisionAnnotations());
-    }
-
-    private Class[] getRevisionAnnotations() {
-        return new Class[]{Revision.class, History.class};
+        return new MethodsAnnotatedScanner();
     }
 
     @Bean
