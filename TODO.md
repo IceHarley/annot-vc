@@ -18,7 +18,7 @@
 
 +Hide Reflections from systems via Facade object
 
-#### TODO Spring Dependency Injection
++TODO Spring Dependency Injection
 #### TODO persistence
 #### TODO DB Schema:
 
