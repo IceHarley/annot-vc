@@ -1,11 +1,11 @@
 package com.bikesandwheels.interactors;
 
-import com.bikesandwheels.config.TestConfig;
+import com.bikesandwheels.config.*;
 import com.bikesandwheels.tools.HierarchyAnnotatedClassesSearcher;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.*;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
@@ -14,7 +14,8 @@ import static com.bikesandwheels.tools.TestUtils.*;
 import static org.junit.Assert.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(loader = AnnotationConfigContextLoader.class, classes = {TestConfig.class})
+@ContextConfiguration(loader = AnnotationConfigContextLoader.class, classes = {AppConfig.class, TestClassSearcherConfig.class})
+@ActiveProfiles({"test"})
 public class HierarchyRevisedClassesSearcherTest {
     @Autowired
     private HierarchyAnnotatedClassesSearcher annotatedClassesSearcher;

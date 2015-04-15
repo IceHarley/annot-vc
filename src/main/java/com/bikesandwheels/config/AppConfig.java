@@ -15,9 +15,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import java.lang.annotation.Annotation;
 
 @Configuration
-//@EnableJpaRepositories("com.bikesandwheels.persistence.dao")
-@Import(value = RepositoryConfig.class)
-public class Config {
+@Import(value = {RepositoryConfig.class, ClassSearcherConfig.class})
+public class AppConfig {
     @Bean
     public Class<? extends Annotation> revisionAnnotation() {
         return Revision.class;
@@ -36,11 +35,6 @@ public class Config {
     @Bean
     public AnnotatedScanner methodsAnnotatedScanner() {
         return new MethodsAnnotatedScanner();
-    }
-
-    @Bean
-    public AnnotatedClassesSearcher annotatedClassesSearcher() {
-        return new PathAnnotatedClassesSearcher();
     }
 
     @Bean

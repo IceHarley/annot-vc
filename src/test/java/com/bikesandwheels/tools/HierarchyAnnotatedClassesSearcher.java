@@ -6,7 +6,6 @@ import com.google.common.base.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Nullable;
 import java.net.URL;
 import java.util.Set;
 
@@ -46,7 +45,7 @@ public class HierarchyAnnotatedClassesSearcher implements AnnotatedClassesSearch
 
     private Predicate<Class<?>> baseOrDerivedOnly() {
         return new Predicate<Class<?>>() {
-            public boolean apply(@Nullable Class<?> aClass) {
+            public boolean apply(Class<?> aClass) {
                 return derivedClasses.contains(aClass) || baseClass.equals(aClass);
             }
         };

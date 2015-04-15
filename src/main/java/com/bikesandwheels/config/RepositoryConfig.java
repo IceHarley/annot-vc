@@ -4,11 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.*;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.jdbc.datasource.embedded.*;
 import org.springframework.orm.jpa.*;
 import org.springframework.orm.jpa.vendor.*;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
@@ -16,22 +14,22 @@ import java.util.Properties;
 //
 @Configuration
 @EnableJpaRepositories("com.bikesandwheels.persistence.dao")
-//@EnableTransactionManagement
 @ComponentScan(basePackages = "com.bikesandwheels.persistence.model")
-//@Import(value = { LocalRepositoryConfig.class })
+@Profile("db")
+@Import(value = { LocalRepositoryConfig.class })
 public class RepositoryConfig {
-//    //@Autowired
-//    private DataSource dataSource = getDataSource();
+    @Autowired
+    private DataSource dataSource;
 //    @Autowired
 //    private Database database;
     @Autowired
     private EntityManagerFactory entityManagerFactory;
 
-    @Bean
-    private static DataSource getDataSource() {
-        EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
-        return builder.setType(EmbeddedDatabaseType.HSQL).build();
-    }
+//    @Bean
+//    private static DataSource getDataSource() {
+//        EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
+//        return builder.setType(EmbeddedDatabaseType.HSQL).build();
+//    }
 
     @Bean
     @Scope(BeanDefinition.SCOPE_SINGLETON)
@@ -40,7 +38,7 @@ public class RepositoryConfig {
             LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
             entityManagerFactory.setJpaVendorAdapter(jpaVendorAdapter());
             entityManagerFactory.setPackagesToScan("com.bikesandwheels.persistence.model");
-            entityManagerFactory.setDataSource(getDataSource());
+            entityManagerFactory.setDataSource(dataSource);
             entityManagerFactory.afterPropertiesSet();
             entityManagerFactory.setPersistenceUnitName("avc");
             entityManagerFactory.setJpaProperties(jpaProperties());
