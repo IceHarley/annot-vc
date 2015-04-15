@@ -9,7 +9,7 @@ public class Method implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "AVC_MET_ID")
-    private int methodId;
+    private Long methodId;
 
     @Column(name = "AVC_MET_NAME")
     private String name;
@@ -17,14 +17,15 @@ public class Method implements Serializable {
     @Column(name = "AVC_MET_SIGNATURE")
     private String signature;
 
-    @Column(name = "AVC_MET_CLASSID")
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="AVC_MET_CLASSID")
     private Class declaringClass;
 
-    public int getMethodId() {
+    public Long getMethodId() {
         return methodId;
     }
 
-    public void setMethodId(int methodId) {
+    public void setMethodId(Long methodId) {
         this.methodId = methodId;
     }
 

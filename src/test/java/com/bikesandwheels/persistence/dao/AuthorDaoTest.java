@@ -1,38 +1,34 @@
 package com.bikesandwheels.persistence.dao;
 
-import com.bikesandwheels.config.TestConfig;
+import com.bikesandwheels.config.Config;
 import com.bikesandwheels.persistence.model.Author;
-import org.hibernate.*;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
+import static org.hamcrest.Matchers.contains;
+import static org.junit.Assert.assertThat;
+
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(loader = AnnotationConfigContextLoader.class, classes = {TestConfig.class})
+@ContextConfiguration(loader = AnnotationConfigContextLoader.class, classes = {Config.class})
 public class AuthorDaoTest {
     @Autowired
-    private SessionFactory sessionFactory;
-    @Autowired
     private AuthorDao authorDao;
+    Author author;
+
+    @Before
+    public void setUp() throws Exception {
+        author = new Author();
+        author.setName("John");
+        author.setAuthorId(1L);
+    }
 
     @Test
     public void saveTest() throws Exception {
-        Author author = new Author();
-        author.setName("John");
-        Session session = (Session) sessionFactory.openSession();
-        //Transaction tx = null;
-        try {
-            //tx = session.beginTransaction();
-            authorDao.saveOrUpdate(author);
-            //tx.commit();
-        } catch (Exception e) {
-            //if (tx != null) tx.rollback();
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
+        authorDao.save(author);
+        assertThat(authorDao.findAll(), contains(author));
     }
 }

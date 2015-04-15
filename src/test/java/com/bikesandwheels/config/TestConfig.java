@@ -28,14 +28,14 @@ public class TestConfig extends Config {
         return new HierarchyAnnotatedClassesSearcher();
     }
 
-    @Override
-    @Bean(name = "dataSource")
-    public DataSource getDataSource() {
-        JDBCDataSource dataSource = new JDBCDataSource();
-        dataSource.setUrl("jdbc:hsqldb:mem:avc-test");
-        dataSource.setDatabaseName("AVC-TEST");
-        dataSource.setUser("sa");
-        dataSource.setPassword("");
-        return dataSource;
-    }
+//    @Override
+//    @Bean(name = "dataSource")
+//    public DataSource getDataSource() {
+//        JDBCDataSource dataSource = new JDBCDataSource();
+//        dataSource.setUrl("jdbc:hsqldb:mem:avc");
+//        dataSource.setDatabaseName("avc");
+//        dataSource.setUser("sa");
+//        dataSource.setPassword("");
+//        return dataSource;
+//    }
 }

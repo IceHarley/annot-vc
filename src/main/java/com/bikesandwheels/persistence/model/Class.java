@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class Class implements Serializable {
     @Id @GeneratedValue
     @Column(name = "AVC_CLA_ID")
-    private int classId;
+    private Long classId;
 
     @Column(name = "AVC_CLA_CANONICAL_NAME")
     private String canonicalName;
@@ -16,11 +16,11 @@ public class Class implements Serializable {
     public Class() {
     }
 
-    public int getClassId() {
+    public Long getClassId() {
         return classId;
     }
 
-    public void setClassId(int classId) {
+    public void setClassId(Long classId) {
         this.classId = classId;
     }
 

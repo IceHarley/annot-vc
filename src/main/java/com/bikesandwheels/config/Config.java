@@ -6,21 +6,17 @@ import com.bikesandwheels.interactors.annotated_classes_searcher.*;
 import com.bikesandwheels.interactors.annotated_classes_searcher.scanners.*;
 import com.bikesandwheels.interactors.revised_objects_searcher.*;
 import com.bikesandwheels.interactors.revised_objects_searcher.scanners.*;
-import com.bikesandwheels.persistence.dao.*;
+import com.bikesandwheels.persistence.dao.AuthorDao;
 import com.bikesandwheels.tools.ReflectionsFacade;
-import org.hibernate.SessionFactory;
-import org.hsqldb.jdbc.JDBCDataSource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.*;
-import org.springframework.orm.hibernate4.*;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-import javax.sql.DataSource;
 import java.lang.annotation.Annotation;
 
 @Configuration
-@EnableTransactionManagement
+//@EnableJpaRepositories("com.bikesandwheels.persistence.dao")
+@Import(value = RepositoryConfig.class)
 public class Config {
     @Bean
     public Class<? extends Annotation> revisionAnnotation() {
@@ -38,7 +34,7 @@ public class Config {
     }
 
     @Bean
-    public AnnotatedScanner MethodsAnnotatedScanner() {
+    public AnnotatedScanner methodsAnnotatedScanner() {
         return new MethodsAnnotatedScanner();
     }
 
@@ -78,11 +74,12 @@ public class Config {
         return new HistoryRevisedMethodsRevisionsScanner();
     }
 
-    @Bean(name = "dataSource")
+    /*@Bean(name = "dataSource")
     public DataSource getDataSource() {
         JDBCDataSource dataSource = new JDBCDataSource();
-        dataSource.setUrl("jdbc:hsqldb:file:db/avc");
-        dataSource.setDatabaseName("AVC");
+        dataSource.setUrl("jdbc:hsqldb:file:avc");
+        dataSource.setDatabaseName("avc");
+        dataSource.setDatabase("avc");
         dataSource.setUser("sa");
         dataSource.setPassword("");
         return dataSource;
@@ -93,17 +90,12 @@ public class Config {
     public SessionFactory getSessionFactory(DataSource dataSource) {
         LocalSessionFactoryBuilder sessionBuilder = new LocalSessionFactoryBuilder(dataSource);
         sessionBuilder.scanPackages("com.bikesandwheels.persistence.model");
+        sessionBuilder.setProperty("hibernate.hbm2ddl.auto", "create");
         return sessionBuilder.buildSessionFactory();
-    }
+    }*/
 
-    @Autowired
-    @Bean
-    public HibernateTransactionManager getTransactionManager(SessionFactory sessionFactory) {
-        return new HibernateTransactionManager(sessionFactory);
-    }
-
-    @Bean
-    public AuthorDao authorDao() {
-        return new AuthorDaoImpl();
-    }
+//    @Bean
+//    public AuthorDao authorDao() {
+//        return new AuthorDaoImpl();
+//    }
 }

@@ -9,12 +9,14 @@ import java.util.Date;
 public class Revision implements Serializable {
     @Id @GeneratedValue
     @Column(name = "AVC_REV_ID")
-    private int Id;
+    private Long Id;
 
-    @Column(name = "AVC_REV_CLASSID")
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="AVC_REV_CLASSID")
     private Class revisedClass;
 
-    @Column(name = "AVC_REV_METHODID")
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="AVC_REV_METHODID")
     private Method revisedMethod;
 
     @Temporal(TemporalType.DATE)
@@ -24,11 +26,11 @@ public class Revision implements Serializable {
     @Column(name = "AVC_REV_COMMENT")
     private String comment;
 
-    public int getId() {
+    public Long getId() {
         return Id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         Id = id;
     }
 

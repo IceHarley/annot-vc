@@ -20,6 +20,8 @@
 
 +TODO Spring Dependency Injection
 #### TODO persistence
+#### TODO move hibernate properties to properties file
+#### TODO divide configurations into separate files and use @Import(value = {conf1.class, conf2.class }) to import
 #### TODO DB Schema:
 
     
@@ -29,6 +31,6 @@
     
     AVC_METHOD: AVC_MET_ID, AVC_MET_NAME, AVC_MET_PARAMS_TYPES
     
-    AVC_REVISION: (AVC_REV_CLASSID, AVC_REV_METHODID, AVC_REV_DATE), AVC_REV_COMMENT
+    AVC_REVISION: AVC_REV_ID, AVC_REV_CLASSID, AVC_REV_METHODID, AVC_REV_DATE, AVC_REV_COMMENT
 
 #### TODO gui
