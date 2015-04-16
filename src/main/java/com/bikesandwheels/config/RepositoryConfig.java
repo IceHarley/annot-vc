@@ -10,10 +10,10 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
-import java.util.Properties;
+
 //
 @Configuration
-@EnableJpaRepositories("com.bikesandwheels.persistence.dao")
+@EnableJpaRepositories("com.bikesandwheels.persistence.repositories")
 @ComponentScan(basePackages = "com.bikesandwheels.persistence.model")
 @Profile({"db-file", "db-in-memory"})
 @Import(value = { LocalRepositoryConfig.class, InMemoryRepositoryConfig.class })

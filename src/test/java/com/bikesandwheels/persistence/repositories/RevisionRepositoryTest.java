@@ -1,9 +1,9 @@
-package com.bikesandwheels.persistence.dao;
+package com.bikesandwheels.persistence.repositories;
 
 import com.bikesandwheels.config.AppConfig;
 import com.bikesandwheels.persistence.model.*;
 import com.bikesandwheels.persistence.model.Class;
-import com.google.common.collect.Lists;
+import com.google.common.collect.*;
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
 import org.junit.*;
 import org.junit.runner.RunWith;
@@ -12,6 +12,7 @@ import org.springframework.test.context.*;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 import java.text.SimpleDateFormat;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -21,23 +22,20 @@ import static org.junit.Assert.*;
 public class RevisionRepositoryTest {
     private static final String DATE_FORMAT = "dd.MM.yyyy";
     @Autowired
-    RevisionRepository revisionRepository;
+    private RevisionRepository revisionRepository;
     @Autowired
-    ClassRepository classRepository;
+    private ClassRepository classRepository;
     @Autowired
-    MethodRepository methodRepository;
+    private MethodRepository methodRepository;
+    @Autowired
+    private AuthorRepository authorRepository;
 
-    Revision revision;
-    Class aClass;
-    Method method;
-//    Author author;
+    private Revision revision;
+    private Class aClass;
 
     @Before
     public void setUp() throws Exception {
         prepareSpringTestRunner();
-
-//        author = new Author();
-//        author.setName("Mike");
 
         aClass = new Class();
         aClass.setCanonicalName("com.test.RevisedClass");
@@ -45,6 +43,12 @@ public class RevisionRepositoryTest {
         revision = new Revision();
         revision.setComment("comment");
         revision.setDate(new SimpleDateFormat(DATE_FORMAT).parse(String.format("%d.%d.%d", 1, 1, 2015)));
+    }
+
+    @Test(expected = Exception.class)
+    public void noClassAndMethodSpecifiedTest() throws Exception {
+        revisionRepository.save(revision);
+        //TODO
     }
 
     public class ClassRevisionTest {
@@ -65,7 +69,7 @@ public class RevisionRepositoryTest {
 
         @Test
         public void revisionPersistTest() throws Exception {
-            assertTrue(Lists.newArrayList(revisionRepository.findAll()).contains(revision));
+            assertTrue(Sets.newHashSet(revisionRepository.findAll()).contains(revision));
         }
 
         @Test
@@ -75,6 +79,8 @@ public class RevisionRepositoryTest {
     }
 
     public class MethodRevisionTest {
+        private Method method;
+
         @Before
         public void setUp() throws Exception {
             method = new Method();
@@ -110,6 +116,49 @@ public class RevisionRepositoryTest {
         @Test
         public void classIsNotLinkedToRevisionTest() throws Exception {
             assertFalse(aClass.getRevisions().contains(revision));
+        }
+    }
+
+
+    public class RevisionsAuthorsTest {
+        private Author author1;
+        private Author author2;
+        private List<Author> authors;
+        private List<Revision> revisions;
+        @Before
+        public void setUp() throws Exception {
+            author1 = new Author();
+            author1.setName("Mike");
+
+            author2 = new Author();
+            author2.setName("Jack");
+
+
+            authors = Lists.newArrayList(author1, author2);
+            revisions = Lists.newArrayList(revision);
+
+            revision.setRevisedClass(aClass);
+            aClass.setRevisions(revisions);
+
+            revision.getAuthors().addAll(authors);
+            author1.setRevisions(revisions);
+            author2.setRevisions(revisions);
+
+            classRepository.save(aClass);
+            authorRepository.save(authors);
+            revisionRepository.save(revision);
+        }
+
+        @Test
+        public void idsGeneratedTest() throws Exception {
+            assertNotNull(revision.getId());
+            assertNotNull(author1.getAuthorId());
+            assertNotNull(author2.getAuthorId());
+        }
+
+        @Test
+        public void revisionWithSeveralAuthorsTest() throws Exception {
+            assertTrue(revision.getAuthors().containsAll(authors));
         }
     }
 

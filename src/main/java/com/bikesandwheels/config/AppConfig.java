@@ -6,11 +6,9 @@ import com.bikesandwheels.interactors.annotated_classes_searcher.*;
 import com.bikesandwheels.interactors.annotated_classes_searcher.scanners.*;
 import com.bikesandwheels.interactors.revised_objects_searcher.*;
 import com.bikesandwheels.interactors.revised_objects_searcher.scanners.*;
-import com.bikesandwheels.persistence.dao.AuthorDao;
 import com.bikesandwheels.tools.ReflectionsFacade;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.*;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.lang.annotation.Annotation;
 
@@ -89,7 +87,7 @@ public class AppConfig {
     }*/
 
 //    @Bean
-//    public AuthorDao authorDao() {
+//    public AuthorRepository authorDao() {
 //        return new AuthorDaoImpl();
 //    }
 }

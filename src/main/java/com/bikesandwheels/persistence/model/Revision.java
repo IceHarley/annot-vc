@@ -1,5 +1,7 @@
 package com.bikesandwheels.persistence.model;
 
+import com.google.common.collect.Lists;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
@@ -19,9 +21,9 @@ public class Revision implements Serializable {
     @JoinColumn(name="AVC_REV_METHODID")
     private Method revisedMethod;
 
-//    @ManyToMany
-//    @JoinTable(name="AVC_REVISION_AUTHORS")
-//    private Collection<Author> authors;
+    @ManyToMany
+    @JoinTable(name="AVC_REVISION_AUTHORS")
+    private List<Author> authors = Lists.newArrayList();
 
     @Temporal(TemporalType.DATE)
     @Column(name = "AVC_REV_DATE")
@@ -70,6 +72,14 @@ public class Revision implements Serializable {
         this.comment = comment;
     }
 
+    public List<Author> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(List<Author> authors) {
+        this.authors = authors;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -77,13 +87,12 @@ public class Revision implements Serializable {
 
         Revision revision = (Revision) o;
 
-        if (!Id.equals(revision.Id)) return false;
+        return !(Id != null ? !Id.equals(revision.Id) : revision.Id != null);
 
-        return true;
     }
 
     @Override
     public int hashCode() {
-        return Id.hashCode();
+        return Id != null ? Id.hashCode() : 0;
     }
 }

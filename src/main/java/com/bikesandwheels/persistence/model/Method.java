@@ -66,4 +66,20 @@ public class Method implements Serializable {
     public void setRevisions(List<Revision> revisions) {
         this.revisions = revisions;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Method method = (Method) o;
+
+        return !(methodId != null ? !methodId.equals(method.methodId) : method.methodId != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return methodId != null ? methodId.hashCode() : 0;
+    }
 }

@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "AVC_CLASS")
@@ -44,5 +44,21 @@ public class Class implements Serializable {
 
     public void setRevisions(List<Revision> revisions) {
         this.revisions = revisions;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Class aClass = (Class) o;
+
+        return !(classId != null ? !classId.equals(aClass.classId) : aClass.classId != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return classId != null ? classId.hashCode() : 0;
     }
 }

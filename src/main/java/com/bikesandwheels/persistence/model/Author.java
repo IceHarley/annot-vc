@@ -1,7 +1,10 @@
 package com.bikesandwheels.persistence.model;
 
+import com.google.common.collect.Lists;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "AVC_AUTHOR")
@@ -12,6 +15,9 @@ public class Author implements Serializable {
 
     @Column(name = "AVC_AUT_NAME")
     private String name;
+
+    @ManyToMany(mappedBy = "authors")
+    private List<Revision> revisions = Lists.newArrayList();
 
     public Author() {
     }
@@ -32,6 +38,14 @@ public class Author implements Serializable {
         this.name = name;
     }
 
+    public List<Revision> getRevisions() {
+        return revisions;
+    }
+
+    public void setRevisions(List<Revision> revisions) {
+        this.revisions = revisions;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -39,16 +53,12 @@ public class Author implements Serializable {
 
         Author author = (Author) o;
 
-        if (!authorId.equals(author.authorId)) return false;
-        if (name != null ? !name.equals(author.name) : author.name != null) return false;
+        return !(authorId != null ? !authorId.equals(author.authorId) : author.authorId != null);
 
-        return true;
     }
 
     @Override
     public int hashCode() {
-        int result = authorId.hashCode();
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        return result;
+        return authorId != null ? authorId.hashCode() : 0;
     }
 }
