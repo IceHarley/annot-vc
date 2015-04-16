@@ -1,7 +1,10 @@
 package com.bikesandwheels.persistence.model;
 
+import com.google.common.collect.Lists;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "AVC_METHOD")
@@ -17,9 +20,12 @@ public class Method implements Serializable {
     @Column(name = "AVC_MET_SIGNATURE")
     private String signature;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name="AVC_MET_CLASSID")
     private Class declaringClass;
+
+    @OneToMany(mappedBy = "revisedMethod")
+    private List<Revision> revisions = Lists.newArrayList();
 
     public Long getMethodId() {
         return methodId;
@@ -51,5 +57,13 @@ public class Method implements Serializable {
 
     public void setDeclaringClass(Class declaringClass) {
         this.declaringClass = declaringClass;
+    }
+
+    public List<Revision> getRevisions() {
+        return revisions;
+    }
+
+    public void setRevisions(List<Revision> revisions) {
+        this.revisions = revisions;
     }
 }

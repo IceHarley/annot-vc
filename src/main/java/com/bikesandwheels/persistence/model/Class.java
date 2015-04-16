@@ -1,7 +1,10 @@
 package com.bikesandwheels.persistence.model;
 
+import com.google.common.collect.Lists;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "AVC_CLASS")
@@ -12,6 +15,9 @@ public class Class implements Serializable {
 
     @Column(name = "AVC_CLA_CANONICAL_NAME")
     private String canonicalName;
+
+    @OneToMany(mappedBy = "revisedClass")
+    private List<Revision> revisions = Lists.newArrayList();
 
     public Class() {
     }
@@ -30,5 +36,13 @@ public class Class implements Serializable {
 
     public void setCanonicalName(String canonicalName) {
         this.canonicalName = canonicalName;
+    }
+
+    public List<Revision> getRevisions() {
+        return revisions;
+    }
+
+    public void setRevisions(List<Revision> revisions) {
+        this.revisions = revisions;
     }
 }

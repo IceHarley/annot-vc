@@ -2,7 +2,7 @@ package com.bikesandwheels.persistence.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.util.*;
 
 @Entity
 @Table(name = "AVC_REVISION")
@@ -11,13 +11,17 @@ public class Revision implements Serializable {
     @Column(name = "AVC_REV_ID")
     private Long Id;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name="AVC_REV_CLASSID")
     private Class revisedClass;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name="AVC_REV_METHODID")
     private Method revisedMethod;
+
+//    @ManyToMany
+//    @JoinTable(name="AVC_REVISION_AUTHORS")
+//    private Collection<Author> authors;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "AVC_REV_DATE")
@@ -64,5 +68,22 @@ public class Revision implements Serializable {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Revision revision = (Revision) o;
+
+        if (!Id.equals(revision.Id)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return Id.hashCode();
     }
 }

@@ -1,20 +1,19 @@
 package com.bikesandwheels.config;
 
+import org.hsqldb.jdbc.JDBCDataSource;
 import org.springframework.context.annotation.*;
-import org.springframework.jdbc.datasource.embedded.*;
 
 import javax.sql.DataSource;
 
 @Configuration
-@Profile({"db-local", "db"})
+@Profile({"db-file"})
 public class LocalRepositoryConfig {
     @Bean
     public DataSource dataSource() {
-        return new EmbeddedDatabaseBuilder()
-                .addScript("classpath:database-schema.sql")
-                .setType(EmbeddedDatabaseType.HSQL)
-                .setName("avc")
-                //.addScript("/hsqldb/database-data.sql")
-                .build();
+        JDBCDataSource dataSource = new JDBCDataSource();
+        dataSource.setUrl("jdbc:hsqldb:file:hsqldb/avcdb");
+        dataSource.setUser("SA");
+        dataSource.setPassword("");
+        return dataSource;
     }
 }
