@@ -17,7 +17,7 @@ import static org.reflections.util.ClasspathHelper.forClass;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class, classes = {AppConfig.class})
-@ActiveProfiles({Profiles.LIVE})
+@ActiveProfiles(Profiles.LIVE)
 public class PathAnnotatedClassesSearcherTest {
     @SuppressWarnings("SpringJavaAutowiringInspection")
     @Autowired

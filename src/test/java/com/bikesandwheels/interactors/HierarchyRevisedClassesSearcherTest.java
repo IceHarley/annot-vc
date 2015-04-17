@@ -15,7 +15,7 @@ import static org.junit.Assert.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class, classes = {AppConfig.class, TestClassSearcherConfig.class})
-@ActiveProfiles({Profiles.TEST})
+@ActiveProfiles(Profiles.TEST)
 public class HierarchyRevisedClassesSearcherTest {
     @Autowired
     private HierarchyAnnotatedClassesSearcher annotatedClassesSearcher;

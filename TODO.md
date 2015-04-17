@@ -36,4 +36,4 @@
     AVC_REVISION_AUTHORS:
 
 #### TODO gui
-+TODO ManyToMany Revisions <-> Authors
++ManyToMany Revisions <-> Authors

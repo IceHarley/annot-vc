@@ -21,7 +21,7 @@ import static org.junit.Assert.assertThat;
 
 @RunWith(HierarchicalContextRunner.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class, classes = {AppConfig.class})
-@ActiveProfiles({Profiles.LIVE})
+@ActiveProfiles(Profiles.LIVE)
 public class RevisedObjectsSearcherForMethodsTest {
     @Autowired
     private RevisedSearcher searcher;
