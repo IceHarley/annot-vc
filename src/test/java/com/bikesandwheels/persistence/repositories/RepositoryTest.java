@@ -1,6 +1,6 @@
 package com.bikesandwheels.persistence.repositories;
 
-import com.bikesandwheels.config.AppConfig;
+import com.bikesandwheels.config.*;
 import com.bikesandwheels.persistence.model.*;
 import com.bikesandwheels.persistence.model.Class;
 import com.google.common.collect.*;
@@ -18,8 +18,8 @@ import static org.junit.Assert.*;
 
 @RunWith(HierarchicalContextRunner.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class, classes = {AppConfig.class})
-@ActiveProfiles({"live", "db-in-memory"})
-public class RevisionRepositoryTest {
+@ActiveProfiles({Profiles.LIVE, Profiles.DB_IN_MEMORY})
+public class RepositoryTest {
     private static final String DATE_FORMAT = "dd.MM.yyyy";
     @Autowired
     private RevisionRepository revisionRepository;
@@ -45,10 +45,21 @@ public class RevisionRepositoryTest {
         revision.setDate(new SimpleDateFormat(DATE_FORMAT).parse(String.format("%d.%d.%d", 1, 1, 2015)));
     }
 
-    @Test(expected = Exception.class)
-    public void noClassAndMethodSpecifiedTest() throws Exception {
-        revisionRepository.save(revision);
-        //TODO
+    public class AuthorRepositoryTest {
+        private Author author;
+
+        @Before
+        public void setUp() throws Exception {
+            author = new Author();
+            author.setName("John");
+        }
+
+        @Test
+        public void saveTest() throws Exception {
+            authorRepository.save(author);
+            assertNotNull(author.getAuthorId());
+            assertTrue(Sets.newHashSet(authorRepository.findAll()).contains(author));
+        }
     }
 
     public class ClassRevisionTest {

@@ -20,9 +20,9 @@
 
 +TODO Spring Dependency Injection
 #### TODO persistence
-#### TODO move hibernate properties to properties file
-+TODO divide configurations into separate files and use @Import and @Profile to set up 
-+TODO DB Schema:
++move hibernate properties to properties file
++divide configurations into separate files and use @Import and @Profile to set up 
++DB Schema:
 
     
     AVC_AUTHOR: AVC_AUT_ID, AVC_AUT_NAME

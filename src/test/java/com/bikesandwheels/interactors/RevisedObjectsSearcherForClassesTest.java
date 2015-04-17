@@ -2,8 +2,8 @@ package com.bikesandwheels.interactors;
 
 
 import com.bikesandwheels.annotations.wrappers.RevisionWrapper;
+import com.bikesandwheels.config.*;
 import com.bikesandwheels.domain.ClassesRevisedObjectsMap;
-import com.bikesandwheels.config.AppConfig;
 import com.google.common.collect.Sets;
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
 import org.junit.*;
@@ -24,7 +24,7 @@ import static org.junit.Assert.assertThat;
 
 @RunWith(HierarchicalContextRunner.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class, classes = {AppConfig.class})
-@ActiveProfiles({"live"})
+@ActiveProfiles({Profiles.LIVE})
 public class RevisedObjectsSearcherForClassesTest {
     @Autowired
     private RevisedSearcher searcher;

@@ -1,6 +1,6 @@
 package com.bikesandwheels.interactors;
 
-import com.bikesandwheels.config.AppConfig;
+import com.bikesandwheels.config.*;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import static org.reflections.util.ClasspathHelper.forClass;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class, classes = {AppConfig.class})
-@ActiveProfiles({"live"})
+@ActiveProfiles({Profiles.LIVE})
 public class PathAnnotatedClassesSearcherTest {
     @SuppressWarnings("SpringJavaAutowiringInspection")
     @Autowired

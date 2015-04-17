@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.*;
 
 @Configuration
-@Profile("test")
+@Profile(Profiles.TEST)
 public class TestClassSearcherConfig {
     @Bean
     public AnnotatedClassesSearcher annotatedClassesSearcher() {

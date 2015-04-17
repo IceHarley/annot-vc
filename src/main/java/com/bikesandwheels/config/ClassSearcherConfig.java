@@ -5,7 +5,7 @@ import com.bikesandwheels.interactors.annotated_classes_searcher.PathAnnotatedCl
 import org.springframework.context.annotation.*;
 
 @Configuration
-@Profile("live")
+@Profile(Profiles.LIVE)
 public class ClassSearcherConfig {
     @Bean
     public AnnotatedClassesSearcher annotatedClassesSearcher() {
