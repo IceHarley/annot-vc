@@ -6,4 +6,5 @@ public interface BaseService <T> {
     T save(T entity);
     Iterable<T> save(Iterable<T> entities);
     Set<T> getAll();
+    void deleteAll();
 }

@@ -26,7 +26,7 @@ public class Revision implements Serializable {
     private List<Author> authors = Lists.newArrayList();
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "AVC_REV_DATE")
+    @Column(name = "AVC_REV_DATE", nullable = false)
     private Date date;
 
     @Column(name = "AVC_REV_COMMENT")

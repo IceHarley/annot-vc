@@ -9,6 +9,8 @@ import org.springframework.test.context.*;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
+import javax.persistence.PersistenceException;
+
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
@@ -25,6 +27,17 @@ public class ClassServiceTest {
     public void setUp() throws Exception {
         aClass = new Class();
         aClass.setCanonicalName("com.test.TestClass");
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        classService.deleteAll();
+    }
+
+    @Test(expected = PersistenceException.class)
+    public void classWithoutNameTest() throws Exception {
+        aClass.setCanonicalName(null);
+        classService.save(aClass);
     }
 
     @Test

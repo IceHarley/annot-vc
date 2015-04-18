@@ -14,14 +14,14 @@ public class Method implements Serializable {
     @Column(name = "AVC_MET_ID")
     private Long methodId;
 
-    @Column(name = "AVC_MET_NAME")
+    @Column(name = "AVC_MET_NAME", nullable = false)
     private String name;
 
     @Column(name = "AVC_MET_SIGNATURE")
     private String signature;
 
     @ManyToOne
-    @JoinColumn(name="AVC_MET_CLASSID")
+    @JoinColumn(name="AVC_MET_CLASSID", nullable = false)
     private Class declaringClass;
 
     @OneToMany(mappedBy = "revisedMethod")

@@ -10,6 +10,8 @@ import org.springframework.test.context.*;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
+import javax.persistence.PersistenceException;
+
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
@@ -21,12 +23,34 @@ public class MethodServiceTest {
     private MethodService methodService;
 
     private Method method;
+    private Class aClass;
 
     @Before
     public void setUp() throws Exception {
+        aClass = new Class();
+        aClass.setCanonicalName("com.test.TestClass");
+
         method = new Method();
-        method.setName("com.test.TestClass");
+        method.setName("com.test.TestClass.testMethod");
         method.setSignature("Integer i, String s");
+        method.setDeclaringClass(aClass);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        methodService.deleteAll();
+    }
+
+    @Test(expected = PersistenceException.class)
+    public void methodWithoutNameTest() throws Exception {
+        method.setName(null);
+        methodService.save(method);
+    }
+
+    @Test(expected = Exception.class)
+    public void methodWithoutDeclaringClassTest() throws Exception {
+        method.setDeclaringClass(null);
+        methodService.save(method);
     }
 
     @Test
@@ -37,9 +61,15 @@ public class MethodServiceTest {
     }
 
     @Test
-    public void mergeClassesWithSameNameTest() throws Exception {
+    public void mergeMethodsWithSameNameTest() throws Exception {
         methodService.save(method);
         methodService.save(method);
         assertThat(methodService.getAll().size(), is(1));
+    }
+
+    @Test
+    public void declaringClassIsSavedTest() throws Exception {
+        methodService.save(method);
+        assertNotNull(method.getDeclaringClass().getClassId());
     }
 }

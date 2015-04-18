@@ -9,6 +9,8 @@ import org.springframework.test.context.*;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
+import javax.persistence.PersistenceException;
+
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
@@ -25,6 +27,17 @@ public class AuthorServiceTest {
     public void setUp() throws Exception {
         author = new Author();
         author.setName("John");
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        authorService.deleteAll();
+    }
+
+    @Test(expected = PersistenceException.class)
+    public void authorWithoutNameTest() throws Exception {
+        author.setName(null);
+        authorService.save(author);
     }
 
     @Test

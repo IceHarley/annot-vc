@@ -22,7 +22,7 @@ public class ClassServiceImpl extends BaseServiceImpl<Class> implements ClassSer
     }
 
     protected void fillIdIfExists(Class aClass) {
-        if (aClass.getClassId() == null) {
+        if (aClass != null && aClass.getClassId() == null) {
             Class existedClass = getByName(aClass.getCanonicalName());
             if (existedClass != null)
                 aClass.setClassId(existedClass.getClassId());

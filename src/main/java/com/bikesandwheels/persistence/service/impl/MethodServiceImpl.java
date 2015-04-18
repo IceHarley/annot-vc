@@ -2,13 +2,15 @@ package com.bikesandwheels.persistence.service.impl;
 
 import com.bikesandwheels.persistence.model.Method;
 import com.bikesandwheels.persistence.repositories.MethodRepository;
-import com.bikesandwheels.persistence.service.MethodService;
+import com.bikesandwheels.persistence.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 
 public class MethodServiceImpl extends BaseServiceImpl<Method> implements MethodService {
     @Autowired
     private MethodRepository methodRepository;
+    @Autowired
+    ClassService classService;
 
     @Override
     protected CrudRepository<Method, Long> getRepository() {
@@ -26,5 +28,11 @@ public class MethodServiceImpl extends BaseServiceImpl<Method> implements Method
             if (existedMethod != null)
                 method.setMethodId(existedMethod.getMethodId());
         }
+    }
+
+    @Override
+    public Method save(Method method) {
+        classService.save(method.getDeclaringClass());
+        return super.save(method);
     }
 }

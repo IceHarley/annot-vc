@@ -13,7 +13,7 @@ public class Class implements Serializable {
     @Column(name = "AVC_CLA_ID")
     private Long classId;
 
-    @Column(name = "AVC_CLA_CANONICAL_NAME")
+    @Column(name = "AVC_CLA_CANONICAL_NAME", nullable = false)
     private String canonicalName;
 
     @OneToMany(mappedBy = "revisedClass")

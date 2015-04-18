@@ -13,7 +13,7 @@ public class Author implements Serializable {
     @Id @Column(name = "AVC_AUT_ID")
     private Long authorId;
 
-    @Column(name = "AVC_AUT_NAME", unique = true)
+    @Column(name = "AVC_AUT_NAME", unique = true, nullable = false)
     private String name;
 
     @ManyToMany(mappedBy = "authors")
