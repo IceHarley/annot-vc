@@ -3,6 +3,8 @@ package com.bikesandwheels.persistence.repositories;
 import com.bikesandwheels.config.*;
 import com.bikesandwheels.persistence.model.*;
 import com.bikesandwheels.persistence.model.Class;
+import com.bikesandwheels.persistence.service.AuthorService;
+import com.bikesandwheels.persistence.service.impl.AuthorServiceImpl;
 import com.google.common.collect.*;
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
 import org.junit.*;
@@ -14,6 +16,7 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
 @RunWith(HierarchicalContextRunner.class)
@@ -27,6 +30,8 @@ public class RepositoryTest {
     private ClassRepository classRepository;
     @Autowired
     private MethodRepository methodRepository;
+    @Autowired
+    private AuthorService authorService;
     @Autowired
     private AuthorRepository authorRepository;
 
@@ -43,23 +48,6 @@ public class RepositoryTest {
         revision = new Revision();
         revision.setComment("comment");
         revision.setDate(new SimpleDateFormat(DATE_FORMAT).parse(String.format("%d.%d.%d", 1, 1, 2015)));
-    }
-
-    public class AuthorRepositoryTest {
-        private Author author;
-
-        @Before
-        public void setUp() throws Exception {
-            author = new Author();
-            author.setName("John");
-        }
-
-        @Test
-        public void saveTest() throws Exception {
-            authorRepository.save(author);
-            assertNotNull(author.getAuthorId());
-            assertTrue(Sets.newHashSet(authorRepository.findAll()).contains(author));
-        }
     }
 
     public class ClassRevisionTest {
@@ -156,7 +144,7 @@ public class RepositoryTest {
             author2.setRevisions(revisions);
 
             classRepository.save(aClass);
-            authorRepository.save(authors);
+            authorService.save(authors);
             revisionRepository.save(revision);
         }
 

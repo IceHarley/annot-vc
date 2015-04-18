@@ -2,7 +2,7 @@ package com.bikesandwheels.config;
 
 import com.bikesandwheels.annotations.*;
 import com.bikesandwheels.interactors.*;
-import com.bikesandwheels.interactors.annotated_classes_searcher.*;
+import com.bikesandwheels.interactors.annotated_classes_searcher.AnnotatedScanner;
 import com.bikesandwheels.interactors.annotated_classes_searcher.scanners.*;
 import com.bikesandwheels.interactors.revised_objects_searcher.*;
 import com.bikesandwheels.interactors.revised_objects_searcher.scanners.*;
@@ -13,7 +13,7 @@ import org.springframework.context.annotation.*;
 import java.lang.annotation.Annotation;
 
 @Configuration
-@Import(value = {RepositoryConfig.class, ClassSearcherConfig.class})
+@Import(value = {RepositoryConfig.class, ClassSearcherConfig.class, ServiceConfig.class})
 public class AppConfig {
     @Bean
     public Class<? extends Annotation> revisionAnnotation() {
@@ -65,29 +65,4 @@ public class AppConfig {
     public RevisionsScanner historyRevisedMethodsRevisionsScanner() {
         return new HistoryRevisedMethodsRevisionsScanner();
     }
-
-    /*@Bean(name = "dataSource")
-    public DataSource getDataSource() {
-        JDBCDataSource dataSource = new JDBCDataSource();
-        dataSource.setUrl("jdbc:hsqldb:file:avc");
-        dataSource.setDatabaseName("avc");
-        dataSource.setDatabase("avc");
-        dataSource.setUser("sa");
-        dataSource.setPassword("");
-        return dataSource;
-    }
-
-    @Autowired
-    @Bean(name = "sessionFactory")
-    public SessionFactory getSessionFactory(DataSource dataSource) {
-        LocalSessionFactoryBuilder sessionBuilder = new LocalSessionFactoryBuilder(dataSource);
-        sessionBuilder.scanPackages("com.bikesandwheels.persistence.model");
-        sessionBuilder.setProperty("hibernate.hbm2ddl.auto", "create");
-        return sessionBuilder.buildSessionFactory();
-    }*/
-
-//    @Bean
-//    public AuthorRepository authorDao() {
-//        return new AuthorDaoImpl();
-//    }
 }

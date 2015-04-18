@@ -9,11 +9,11 @@ import java.util.List;
 @Entity
 @Table(name = "AVC_AUTHOR")
 public class Author implements Serializable {
-    @Id @GeneratedValue
-    @Column(name = "AVC_AUT_ID")
+    @GeneratedValue
+    @Id @Column(name = "AVC_AUT_ID")
     private Long authorId;
 
-    @Column(name = "AVC_AUT_NAME")
+    @Column(name = "AVC_AUT_NAME", unique = true)
     private String name;
 
     @ManyToMany(mappedBy = "authors")
