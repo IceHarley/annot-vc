@@ -21,4 +21,9 @@ public class ServiceConfig {
     public MethodService methodService() {
         return new MethodServiceImpl();
     }
+
+    @Bean
+    public RevisionService RevisionService() {
+        return new RevisionServiceImpl();
+    }
 }
