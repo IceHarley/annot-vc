@@ -16,4 +16,9 @@ public class ServiceConfig {
     public ClassService classService() {
         return new ClassServiceImpl();
     }
+
+    @Bean
+    public MethodService methodService() {
+        return new MethodServiceImpl();
+    }
 }

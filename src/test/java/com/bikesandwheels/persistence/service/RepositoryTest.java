@@ -1,10 +1,9 @@
-package com.bikesandwheels.persistence.repositories;
+package com.bikesandwheels.persistence.service;
 
 import com.bikesandwheels.config.*;
 import com.bikesandwheels.persistence.model.*;
 import com.bikesandwheels.persistence.model.Class;
-import com.bikesandwheels.persistence.service.AuthorService;
-import com.bikesandwheels.persistence.service.impl.AuthorServiceImpl;
+import com.bikesandwheels.persistence.repositories.*;
 import com.google.common.collect.*;
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
 import org.junit.*;

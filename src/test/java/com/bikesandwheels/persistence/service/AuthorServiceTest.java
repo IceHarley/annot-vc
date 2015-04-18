@@ -1,8 +1,7 @@
-package com.bikesandwheels.persistence.repositories;
+package com.bikesandwheels.persistence.service;
 
 import com.bikesandwheels.config.*;
-import com.bikesandwheels.persistence.model.Class;
-import com.bikesandwheels.persistence.service.ClassService;
+import com.bikesandwheels.persistence.model.Author;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,29 +15,29 @@ import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class, classes = {AppConfig.class})
 @ActiveProfiles({Profiles.LIVE, Profiles.DB_IN_MEMORY})
-public class ClassServiceTest {
+public class AuthorServiceTest {
     @Autowired
-    private ClassService classService;
+    private AuthorService authorService;
 
-    private Class aClass;
+    private Author author;
 
     @Before
     public void setUp() throws Exception {
-        aClass = new Class();
-        aClass.setCanonicalName("com.test.TestClass");
+        author = new Author();
+        author.setName("John");
     }
 
     @Test
     public void saveTest() throws Exception {
-        classService.save(aClass);
-        assertNotNull(aClass.getClassId());
-        assertTrue(classService.getAll().contains(aClass));
+        authorService.save(author);
+        assertNotNull(author.getAuthorId());
+        assertTrue(authorService.getAll().contains(author));
     }
 
     @Test
-    public void mergeClassesWithSameNameTest() throws Exception {
-        classService.save(aClass);
-        classService.save(aClass);
-        assertThat(classService.getAll().size(), is(1));
+    public void mergeAuthorsWithSameNameTest() throws Exception {
+        authorService.save(author);
+        authorService.save(author);
+        assertThat(authorService.getAll().size(), is(1));
     }
 }
