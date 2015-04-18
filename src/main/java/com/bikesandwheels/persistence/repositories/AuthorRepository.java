@@ -6,7 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 public interface AuthorRepository extends CrudRepository<Author, Long> {
-    @SuppressWarnings("JpaQlInspection")
     @Query("select a from Author a where a.name = :name")
     Author findByName(@Param("name") String name);
 }
