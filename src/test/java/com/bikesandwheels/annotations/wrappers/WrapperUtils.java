@@ -13,10 +13,14 @@ public class WrapperUtils {
     public static final int MONTH = 1;
     static final int INVALID_MONTH = 13;
     public static final int DAY = 1;
+    public static final int DAY2 = 2;
     public static final Date DATE = createDate(YEAR, MONTH, DAY);
+    public static final Date DATE2 = createDate(YEAR, MONTH, DAY2);
     static final Date INVALID_DATE = createDate(YEAR, INVALID_MONTH, DAY);
     public static final Revision DEFAULT_REVISION = createRevision(DATE, Revision.DEFAULT_COMMENT, createAuthor(Author.DEFAULT_AUTHOR));
+    public static final Revision DEFAULT_REVISION2 = createRevision(DATE2, Revision.DEFAULT_COMMENT, createAuthor(Author.DEFAULT_AUTHOR));
     public static final RevisionWrapper DEFAULT_WRAPPED_REVISION = new RevisionWrapper(DEFAULT_REVISION);
+    public static final RevisionWrapper DEFAULT_WRAPPED_REVISION2 = new RevisionWrapper(DEFAULT_REVISION2);
 
     public static Author createAuthor(final String name) {
         return new Author() {

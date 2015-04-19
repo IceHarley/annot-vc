@@ -36,4 +36,8 @@ public class RevisedObjects {
     public boolean containsAll(RevisedObjects that) {
         return this.items.containsAll(that.items);
     }
+
+    public Set<RevisedObject> getAll() {
+        return Sets.newHashSet(items);
+    }
 }

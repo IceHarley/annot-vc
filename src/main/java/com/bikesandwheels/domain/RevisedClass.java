@@ -21,6 +21,10 @@ public class RevisedClass implements RevisedObject {
         return !revisions.isEmpty();
     }
 
+    public void accept(RevisedObjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
     public String getClassName() {
         return aClass.getCanonicalName();
     }
@@ -33,7 +37,6 @@ public class RevisedClass implements RevisedObject {
         RevisedClass that = (RevisedClass) o;
 
         return revisions.equals(that.revisions) && aClass.equals(that.aClass);
-
     }
 
     @Override

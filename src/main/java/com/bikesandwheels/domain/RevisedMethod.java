@@ -24,6 +24,10 @@ public class RevisedMethod implements RevisedObject {
         return !revisions.isEmpty();
     }
 
+    public void accept(RevisedObjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
     public String getMethodName() {
         return method.getName();
     }
