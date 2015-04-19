@@ -1,9 +1,11 @@
 package com.bikesandwheels.domain;
 
 import com.bikesandwheels.annotations.wrappers.RevisionWrapper;
+import com.bikesandwheels.tools.StringUtils;
+import com.google.common.collect.Lists;
 
 import java.lang.reflect.Method;
-import java.util.Set;
+import java.util.*;
 
 public class RevisedMethod implements RevisedObject {
     private final Set<RevisionWrapper> revisions;
@@ -20,6 +22,21 @@ public class RevisedMethod implements RevisedObject {
 
     public boolean hasRevisions() {
         return !revisions.isEmpty();
+    }
+
+    public String getMethodName() {
+        return method.getName();
+    }
+
+    public String getMethodSignature() {
+        List<String> types = Lists.newArrayList();
+        for (Class<?> type : method.getParameterTypes())
+            types.add(type.getCanonicalName());
+        return StringUtils.join(types, ",");
+    }
+
+    public String getDeclaringClassName() {
+        return method.getDeclaringClass().getCanonicalName();
     }
 
     @Override

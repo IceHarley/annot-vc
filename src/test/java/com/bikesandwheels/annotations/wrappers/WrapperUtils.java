@@ -1,21 +1,22 @@
 package com.bikesandwheels.annotations.wrappers;
 
 import com.bikesandwheels.annotations.*;
-import com.bikesandwheels.annotations.Date;
 import org.junit.Assert;
 
 import java.lang.annotation.Annotation;
-import java.util.*;
+import java.util.Calendar;
 
 import static org.hamcrest.Matchers.is;
 
 public class WrapperUtils {
-    static final int YEAR = 2015;
-    static final int MONTH = 1;
+    public static final int YEAR = 2015;
+    public static final int MONTH = 1;
     static final int INVALID_MONTH = 13;
-    static final int DAY = 1;
-    static final Date DATE = createDate(YEAR, MONTH, DAY);
+    public static final int DAY = 1;
+    public static final Date DATE = createDate(YEAR, MONTH, DAY);
     static final Date INVALID_DATE = createDate(YEAR, INVALID_MONTH, DAY);
+    public static final Revision DEFAULT_REVISION = createRevision(DATE, Revision.DEFAULT_COMMENT, createAuthor(Author.DEFAULT_AUTHOR));
+    public static final RevisionWrapper DEFAULT_WRAPPED_REVISION = new RevisionWrapper(DEFAULT_REVISION);
 
     public static Author createAuthor(final String name) {
         return new Author() {
@@ -86,7 +87,7 @@ public class WrapperUtils {
         };
     }
 
-    static void assertDate(java.util.Date date, int year, int month, int day) {
+    public static void assertDate(java.util.Date date, int year, int month, int day) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
 

@@ -21,6 +21,10 @@ public class RevisedClass implements RevisedObject {
         return !revisions.isEmpty();
     }
 
+    public String getClassName() {
+        return aClass.getCanonicalName();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
