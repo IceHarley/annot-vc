@@ -2,11 +2,14 @@ package com.bikesandwheels.main;
 
 import com.bikesandwheels.annotations.Author;
 import com.bikesandwheels.config.*;
+import com.bikesandwheels.gui.MainFrame;
 import com.bikesandwheels.main.commandline.*;
 import org.apache.commons.cli.*;
 import org.springframework.context.*;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.core.env.AbstractEnvironment;
+
+import javax.swing.*;
 
 public class Application {
 
@@ -50,7 +53,7 @@ public class Application {
     }
 
     private static void startGui() {
-        //TODO
+        SwingUtilities.invokeLater(new MainFrame());
     }
 
 

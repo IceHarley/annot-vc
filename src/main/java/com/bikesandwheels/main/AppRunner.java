@@ -9,12 +9,13 @@ import java.util.Calendar;
 
 @Component
 public class AppRunner implements Runnable {
-//    @Autowired
-//    AuthorService authorService;
+    @Autowired
+    AuthorService authorService;
 
     public void run() {
-//        Author author = new Author();
-//        author.setName("John" + Long.toString(Calendar.getInstance().getTimeInMillis()));
-//        authorService.save(author);
+        Author author = new Author();
+        author.setName("John" + Long.toString(Calendar.getInstance().getTimeInMillis()));
+        authorService.save(author);
+
     }
 }
