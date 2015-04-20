@@ -1,9 +1,10 @@
 package com.bikesandwheels.main;
 
+import com.bikesandwheels.annotations.Author;
 import com.bikesandwheels.config.*;
 import com.bikesandwheels.main.commandline.*;
 import org.apache.commons.cli.*;
-import org.springframework.context.ApplicationContext;
+import org.springframework.context.*;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.core.env.AbstractEnvironment;
 
@@ -12,13 +13,7 @@ public class Application {
     private static AvcParser parser;
 
     public static void main(String... args) {
-
-        System.setProperty(AbstractEnvironment.ACTIVE_PROFILES_PROPERTY_NAME, String.format("%s, %s", Profiles.LIVE, Profiles.DB_FILE));
-        ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
-
         parseArgsAndSelectAction(args);
-
-        ((AnnotationConfigApplicationContext) context).close();
     }
 
     private static void parseArgsAndSelectAction(String[] args) {
@@ -42,7 +37,16 @@ public class Application {
     }
 
     private static void scan(String scanPath) {
-        //TODO
+        System.setProperty(AbstractEnvironment.ACTIVE_PROFILES_PROPERTY_NAME, String.format("%s, %s", Profiles.LIVE, Profiles.DB_FILE));
+        ConfigurableApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+
+        try {
+            context.start();
+            context.getBean("appRunner", Runnable.class).run();
+        }
+        finally {
+            context.close();
+        }
     }
 
     private static void startGui() {

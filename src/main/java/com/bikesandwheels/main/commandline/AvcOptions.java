@@ -10,7 +10,7 @@ public class AvcOptions {
         Option gui = new Option("gui", "[Default] open Annotations Version Control GUI");
         Option path   = OptionBuilder.withArgName( "path" )
                 .hasArg()
-                .withDescription("class path for revision annotation scanning. Revision will be saved to DB")
+                .withDescription("scan given path for revised classes/methods. Revisions will be saved to DB")
                 .create( "scan" );
         options.addOption(help);
         options.addOption(gui);

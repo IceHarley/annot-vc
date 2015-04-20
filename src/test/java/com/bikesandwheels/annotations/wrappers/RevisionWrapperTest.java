@@ -33,7 +33,7 @@ public class RevisionWrapperTest {
     @SuppressWarnings("NullArgumentToVariableArgMethod")
     @Test
     public void whenRevisionWithoutAuthor_shouldHaveEmptyAuthorsList() throws Exception {
-        revisionWrapper = new RevisionWrapper(createRevision(DATE, "", null));
+        revisionWrapper = new RevisionWrapper(createRevision(DATE, ""));
         assertThat(revisionWrapper.getAuthors(), is(empty()));
     }
 

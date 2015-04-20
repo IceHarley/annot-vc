@@ -6,6 +6,7 @@ import com.bikesandwheels.interactors.annotated_classes_searcher.AnnotatedScanne
 import com.bikesandwheels.interactors.annotated_classes_searcher.scanners.*;
 import com.bikesandwheels.interactors.revised_objects_searcher.*;
 import com.bikesandwheels.interactors.revised_objects_searcher.scanners.*;
+import com.bikesandwheels.main.AppRunner;
 import com.bikesandwheels.tools.ReflectionsFacade;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.*;
@@ -15,6 +16,11 @@ import java.lang.annotation.Annotation;
 @Configuration
 @Import(value = {RepositoryConfig.class, ClassSearcherConfig.class, ServiceConfig.class})
 public class AppConfig {
+    @Bean
+    public Runnable appRunner() {
+        return new AppRunner();
+    }
+
     @Bean
     public Class<? extends Annotation> revisionAnnotation() {
         return Revision.class;

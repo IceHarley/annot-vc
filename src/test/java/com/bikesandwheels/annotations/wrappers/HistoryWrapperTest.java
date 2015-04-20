@@ -17,7 +17,7 @@ public class HistoryWrapperTest {
     @SuppressWarnings("NullArgumentToVariableArgMethod")
     @Test
     public void givenHistoryWithNoRevisions_shouldHaveEmptyRevisionList() throws Exception {
-        historyWrapper = new HistoryWrapper(createHistory(null));
+        historyWrapper = new HistoryWrapper(createEmptyHistory());
         Assert.assertThat(historyWrapper.getRevisions(), is(empty()));
     }
 

@@ -68,15 +68,7 @@ public class ConverterTest {
     @Test
     public void givenRevisedMethodWithTwoRevisions_returnTwoRevisions() throws Exception {
         RevisedMethod revisedMethod = new RevisedMethod(Sets.newHashSet(DEFAULT_WRAPPED_REVISION, DEFAULT_WRAPPED_REVISION2), method);
-
-        Revision revisionEntity = converter.convert(revisedMethod).get(1);
-        Revision revisionEntity2 = converter.convert(revisedMethod).get(0);
-        assertDate(revisionEntity.getDate(), YEAR, MONTH, DAY);
-        assertThat(revisionEntity.getComment(), is(DEFAULT_COMMENT));
-        assertEquals(revisionEntity.getRevisedMethod().getName(), method.getName());
-        assertDate(revisionEntity2.getDate(), YEAR, MONTH, DAY2);
-        assertThat(revisionEntity2.getComment(), is(DEFAULT_COMMENT));
-        assertEquals(revisionEntity2.getRevisedMethod().getName(), method.getName());
+        assertThat(converter.convert(revisedMethod).size(), is(2));
     }
 
     @Test

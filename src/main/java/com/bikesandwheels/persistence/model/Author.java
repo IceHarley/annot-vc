@@ -9,8 +9,9 @@ import java.util.List;
 @Entity
 @Table(name = "AVC_AUTHOR")
 public class Author implements Serializable {
+    @Id
     @GeneratedValue
-    @Id @Column(name = "AVC_AUT_ID")
+    @Column(name = "AVC_AUT_ID")
     private Long authorId;
 
     @Column(name = "AVC_AUT_NAME", unique = true, nullable = false)

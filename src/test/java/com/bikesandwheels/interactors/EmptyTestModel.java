@@ -2,7 +2,7 @@ package com.bikesandwheels.interactors;
 
 @SuppressWarnings({"ALL"})
 public interface EmptyTestModel {
-    public class C1 {};
+    public class C1 {}
 
     class C2 {
         void M1() {}

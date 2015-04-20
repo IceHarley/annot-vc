@@ -79,6 +79,10 @@ public class WrapperUtils {
         };
     }
 
+    public static History createEmptyHistory() {
+        return createHistory();
+    }
+
     public static History createHistory(final Revision... revisions) {
         return new History() {
             public Revision[] value() {

@@ -21,6 +21,7 @@ public class MethodsAnnotatedScanner implements AnnotatedScanner {
         return getDeclaringClasses(getAnnotatedMethods());
     }
 
+    @SuppressWarnings({"unchecked"})
     private Set<Method> getAnnotatedMethods() {
         Set<Method> annotatedMethods = Sets.newHashSet();
         for (Object annotation : annotations)

@@ -9,7 +9,8 @@ import java.util.*;
 @Entity
 @Table(name = "AVC_REVISION")
 public class Revision implements Serializable {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     @Column(name = "AVC_REV_ID")
     private Long Id;
 

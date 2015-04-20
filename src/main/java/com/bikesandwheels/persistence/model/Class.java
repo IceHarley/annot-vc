@@ -9,7 +9,8 @@ import java.util.*;
 @Entity
 @Table(name = "AVC_CLASS")
 public class Class implements Serializable {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     @Column(name = "AVC_CLA_ID")
     private Long classId;
 

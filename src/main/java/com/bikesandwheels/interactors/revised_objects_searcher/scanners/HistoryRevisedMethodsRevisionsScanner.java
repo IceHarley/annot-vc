@@ -16,6 +16,7 @@ public class HistoryRevisedMethodsRevisionsScanner extends MethodsRevisionsScann
         return wrappedRevisions;
     }
 
+    @SuppressWarnings({"unchecked"})
     private Set<HistoryWrapper> getWrappedHistories(Method method) {
         return wrapHistories(getReflectionTools().getAnnotations(method, Predicates.HISTORY_PREDICATE));
     }

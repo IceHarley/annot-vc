@@ -12,6 +12,7 @@ public class RevisedMethodsRevisionsScanner extends MethodsRevisionsScanner {
         return wrapRevisions(getRevisions(method));
     }
 
+    @SuppressWarnings({"unchecked"})
     private Set<Annotation> getRevisions(Method method) {
         return getReflectionTools().getAnnotations(method, Predicates.REVISION_PREDICATE);
     }
