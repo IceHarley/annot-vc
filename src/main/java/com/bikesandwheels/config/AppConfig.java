@@ -7,6 +7,7 @@ import com.bikesandwheels.interactors.annotated_classes_searcher.scanners.*;
 import com.bikesandwheels.interactors.revised_objects_searcher.*;
 import com.bikesandwheels.interactors.revised_objects_searcher.scanners.*;
 import com.bikesandwheels.main.AppRunner;
+import com.bikesandwheels.persistence.converter.Converter;
 import com.bikesandwheels.tools.ReflectionsFacade;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.*;
@@ -70,5 +71,15 @@ public class AppConfig {
     @Bean
     public RevisionsScanner historyRevisedMethodsRevisionsScanner() {
         return new HistoryRevisedMethodsRevisionsScanner();
+    }
+
+    @Bean
+    public Scanner scanner() {
+        return new Scanner();
+    }
+
+    @Bean
+    public Converter converter() {
+        return new Converter();
     }
 }

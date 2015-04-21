@@ -1,18 +1,15 @@
 package com.bikesandwheels.main;
 
-import com.bikesandwheels.annotations.Author;
 import com.bikesandwheels.config.*;
 import com.bikesandwheels.gui.MainFrame;
-import com.bikesandwheels.main.commandline.*;
-import org.apache.commons.cli.*;
-import org.springframework.context.*;
+import com.bikesandwheels.interactors.*;
+import com.bikesandwheels.main.commandline.AvcParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.core.env.AbstractEnvironment;
 
-import javax.swing.*;
-
 public class Application {
-
     private static AvcParser parser;
 
     public static void main(String... args) {
@@ -45,7 +42,8 @@ public class Application {
 
         try {
             context.start();
-            context.getBean("appRunner", Runnable.class).run();
+            Scanner scanner = (Scanner)context.getBean("scanner");
+            scanner.scanAndSave(scanPath);
         }
         finally {
             context.close();
@@ -53,7 +51,19 @@ public class Application {
     }
 
     private static void startGui() {
-        SwingUtilities.invokeLater(new MainFrame());
+        System.setProperty(AbstractEnvironment.ACTIVE_PROFILES_PROPERTY_NAME, "live, db-file");
+        ConfigurableApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+
+        try {
+            context.start();
+            MainFrame.create("Annotations Version Control");
+            AnnotatedClassesSearcher s = (AnnotatedClassesSearcher) context.getBean("annotatedClassesSearcher");
+            s.search();
+        }
+        finally {
+            //context.close();
+        }
+
     }
 
 
