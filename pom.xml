@@ -31,6 +31,22 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>annotations</id>
+                        <goals><goal>jar</goal></goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <classifier>annotations</classifier>
+                            <includes>
+                                <include>**/annotations/*</include>
+                            </includes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
