@@ -1,6 +1,6 @@
 package com.bikesandwheels.interactors.revised_objects_searcher.scanners;
 
-import com.bikesandwheels.annotations.wrappers.*;
+import com.bikesandwheels.interactors.annotation_wrappers.*;
 import com.google.common.collect.Sets;
 
 import java.lang.annotation.Annotation;

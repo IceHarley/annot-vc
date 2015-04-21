@@ -1,6 +1,6 @@
 package com.bikesandwheels.domain;
 
-import com.bikesandwheels.annotations.wrappers.RevisionWrapper;
+import com.bikesandwheels.interactors.annotation_wrappers.RevisionWrapper;
 import com.bikesandwheels.tools.StringUtils;
 import com.google.common.collect.Lists;
 

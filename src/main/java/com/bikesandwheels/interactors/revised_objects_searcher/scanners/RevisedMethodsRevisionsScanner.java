@@ -1,6 +1,6 @@
 package com.bikesandwheels.interactors.revised_objects_searcher.scanners;
 
-import com.bikesandwheels.annotations.wrappers.RevisionWrapper;
+import com.bikesandwheels.interactors.annotation_wrappers.RevisionWrapper;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;

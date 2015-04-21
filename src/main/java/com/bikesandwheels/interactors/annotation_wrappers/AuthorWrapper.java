@@ -1,4 +1,4 @@
-package com.bikesandwheels.annotations.wrappers;
+package com.bikesandwheels.interactors.annotation_wrappers;
 
 import com.bikesandwheels.annotations.Author;
 

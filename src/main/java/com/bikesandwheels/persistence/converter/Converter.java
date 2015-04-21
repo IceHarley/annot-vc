@@ -1,6 +1,6 @@
 package com.bikesandwheels.persistence.converter;
 
-import com.bikesandwheels.annotations.wrappers.RevisionWrapper;
+import com.bikesandwheels.interactors.annotation_wrappers.RevisionWrapper;
 import com.bikesandwheels.domain.*;
 import com.bikesandwheels.persistence.model.Class;
 import com.bikesandwheels.persistence.model.*;

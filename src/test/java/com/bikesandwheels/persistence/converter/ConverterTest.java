@@ -1,6 +1,6 @@
 package com.bikesandwheels.persistence.converter;
 
-import com.bikesandwheels.annotations.wrappers.RevisionWrapper;
+import com.bikesandwheels.interactors.annotation_wrappers.RevisionWrapper;
 import com.bikesandwheels.domain.*;
 import com.bikesandwheels.persistence.model.Revision;
 import com.google.common.collect.Sets;
@@ -9,7 +9,7 @@ import org.junit.*;
 import java.lang.reflect.Method;
 
 import static com.bikesandwheels.annotations.Revision.DEFAULT_COMMENT;
-import static com.bikesandwheels.annotations.wrappers.WrapperUtils.*;
+import static com.bikesandwheels.interactors.annotation_wrappers.WrapperUtils.*;
 import static com.bikesandwheels.interactors.TestModel.BaseRevisedClass;
 import static com.bikesandwheels.interactors.TestModel.MethodsModel.NotRevisedClassWithRevisedMethod;
 import static org.hamcrest.Matchers.*;

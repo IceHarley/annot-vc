@@ -10,16 +10,6 @@ import org.springframework.context.annotation.*;
 @Profile(Profiles.TEST)
 public class TestClassSearcherConfig {
     @Bean
-    public AnnotatedClassesSearcher annotatedClassesSearcher() {
-        return new HierarchyAnnotatedClassesSearcher();
-    }
-
-    @Bean
-    public PathAnnotatedClassesSearcher pathAnnotatedClassesSearcher() {
-        return new PathAnnotatedClassesSearcher();
-    }
-
-    @Bean
     @Qualifier("Hierarchy")
     public HierarchyAnnotatedClassesSearcher hierarchyAnnotatedClassesSearcher() {
         return new HierarchyAnnotatedClassesSearcher();

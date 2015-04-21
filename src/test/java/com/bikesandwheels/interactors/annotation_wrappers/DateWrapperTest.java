@@ -1,8 +1,8 @@
-package com.bikesandwheels.annotations.wrappers;
+package com.bikesandwheels.interactors.annotation_wrappers;
 
 import org.junit.*;
 
-import static com.bikesandwheels.annotations.wrappers.WrapperUtils.*;
+import static com.bikesandwheels.interactors.annotation_wrappers.WrapperUtils.*;
 
 public class DateWrapperTest {
     private DateWrapper dateWrapper;

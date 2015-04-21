@@ -3,7 +3,7 @@ package com.bikesandwheels.interactors;
 import com.bikesandwheels.config.*;
 import org.junit.*;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.*;
 import org.springframework.test.context.*;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
@@ -17,10 +17,11 @@ import static org.reflections.util.ClasspathHelper.forClass;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class, classes = {AppConfig.class})
-@ActiveProfiles(Profiles.LIVE)
+@ActiveProfiles(Profiles.TEST)
 public class PathAnnotatedClassesSearcherTest {
     @SuppressWarnings("SpringJavaAutowiringInspection")
     @Autowired
+    @Qualifier("PathAnnotatedSearcher")
     private AnnotatedClassesSearcher annotatedClassesSearcher;
 
     @Before

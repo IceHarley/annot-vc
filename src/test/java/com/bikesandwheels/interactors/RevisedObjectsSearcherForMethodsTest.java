@@ -1,6 +1,6 @@
 package com.bikesandwheels.interactors;
 
-import com.bikesandwheels.annotations.wrappers.RevisionWrapper;
+import com.bikesandwheels.interactors.annotation_wrappers.RevisionWrapper;
 import com.bikesandwheels.config.*;
 import com.bikesandwheels.domain.*;
 import com.google.common.collect.Sets;
@@ -13,7 +13,7 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 import java.util.Set;
 
-import static com.bikesandwheels.annotations.wrappers.WrapperUtils.*;
+import static com.bikesandwheels.interactors.annotation_wrappers.WrapperUtils.*;
 import static com.bikesandwheels.interactors.TestModel.MethodsModel.*;
 import static com.bikesandwheels.tools.TestUtils.*;
 import static org.hamcrest.Matchers.not;
@@ -21,7 +21,7 @@ import static org.junit.Assert.assertThat;
 
 @RunWith(HierarchicalContextRunner.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class, classes = {AppConfig.class})
-@ActiveProfiles(Profiles.LIVE)
+@ActiveProfiles(Profiles.TEST)
 public class RevisedObjectsSearcherForMethodsTest {
     @Autowired
     private RevisedSearcher searcher;

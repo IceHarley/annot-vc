@@ -2,24 +2,25 @@ package com.bikesandwheels.config;
 
 import com.bikesandwheels.annotations.*;
 import com.bikesandwheels.interactors.*;
-import com.bikesandwheels.interactors.annotated_classes_searcher.AnnotatedScanner;
+import com.bikesandwheels.interactors.annotated_classes_searcher.*;
 import com.bikesandwheels.interactors.annotated_classes_searcher.scanners.*;
 import com.bikesandwheels.interactors.revised_objects_searcher.*;
 import com.bikesandwheels.interactors.revised_objects_searcher.scanners.*;
-import com.bikesandwheels.main.AppRunner;
 import com.bikesandwheels.persistence.converter.Converter;
 import com.bikesandwheels.tools.ReflectionsFacade;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.*;
 
 import java.lang.annotation.Annotation;
 
 @Configuration
-@Import(value = {RepositoryConfig.class, ClassSearcherConfig.class, ServiceConfig.class})
+@Import(value = {RepositoryConfig.class, ServiceConfig.class, ScannerConfig.class})
 public class AppConfig {
     @Bean
-    public Runnable appRunner() {
-        return new AppRunner();
+    @Qualifier("PathAnnotatedSearcher")
+    public AnnotatedClassesSearcher annotatedClassesSearcher() {
+        return new PathAnnotatedClassesSearcher();
     }
 
     @Bean
@@ -71,11 +72,6 @@ public class AppConfig {
     @Bean
     public RevisionsScanner historyRevisedMethodsRevisionsScanner() {
         return new HistoryRevisedMethodsRevisionsScanner();
-    }
-
-    @Bean
-    public Scanner scanner() {
-        return new Scanner();
     }
 
     @Bean

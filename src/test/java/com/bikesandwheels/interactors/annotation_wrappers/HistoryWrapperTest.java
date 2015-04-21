@@ -1,9 +1,9 @@
-package com.bikesandwheels.annotations.wrappers;
+package com.bikesandwheels.interactors.annotation_wrappers;
 
 import com.bikesandwheels.annotations.Revision;
 import org.junit.*;
 
-import static com.bikesandwheels.annotations.wrappers.WrapperUtils.*;
+import static com.bikesandwheels.interactors.annotation_wrappers.WrapperUtils.*;
 import static org.hamcrest.Matchers.*;
 
 public class HistoryWrapperTest {

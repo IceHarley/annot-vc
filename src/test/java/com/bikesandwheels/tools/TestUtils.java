@@ -1,6 +1,6 @@
 package com.bikesandwheels.tools;
 
-import com.bikesandwheels.annotations.wrappers.RevisionWrapper;
+import com.bikesandwheels.interactors.annotation_wrappers.RevisionWrapper;
 import com.bikesandwheels.domain.*;
 import org.hamcrest.*;
 
