@@ -94,6 +94,7 @@ public class MainFrame implements Runnable {
     private void scan() {
         try {
             scanner.scanAndSave(selectedFile.toURI().toURL());
+            revisionsTable.refresh();
         }
         catch (MalformedURLException e) {
             e.printStackTrace();

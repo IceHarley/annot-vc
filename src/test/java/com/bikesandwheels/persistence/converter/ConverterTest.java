@@ -1,5 +1,6 @@
 package com.bikesandwheels.persistence.converter;
 
+import com.bikesandwheels.annotations.Author;
 import com.bikesandwheels.interactors.annotation_wrappers.RevisionWrapper;
 import com.bikesandwheels.domain.*;
 import com.bikesandwheels.persistence.model.Revision;
@@ -54,6 +55,14 @@ public class ConverterTest {
         assertDate(revisionEntity.getDate(), YEAR, MONTH, DAY);
         assertThat(revisionEntity.getComment(), is(DEFAULT_COMMENT));
         assertEquals(revisionEntity.getRevisedClass().getCanonicalName(), BaseRevisedClass.class.getCanonicalName());
+    }
+
+    @Test
+    public void givenRevisionWithAuthor_returnRevisionWithAuthor() throws Exception {
+        RevisedClass revisedClass = new RevisedClass(Sets.newHashSet(DEFAULT_WRAPPED_REVISION), BaseRevisedClass.class);
+        Revision revisionEntity = converter.convert(revisedClass).get(0);
+        assertThat(revisionEntity.getAuthors().size(), is(1));
+        assertThat(revisionEntity.getAuthors().get(0).getName(), is(Author.DEFAULT_AUTHOR));
     }
 
     @Test

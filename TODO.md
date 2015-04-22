@@ -18,10 +18,14 @@
 
 +Hide Reflections from systems via Facade object
 
-+TODO Spring Dependency Injection
-#### TODO persistence
++Spring Dependency Injection
+
++persistence
+
 +move hibernate properties to properties file
-+divide configurations into separate files and use @Import and @Profile to set up 
+
++divide configurations into separate files and use @Import and @Profile to set up
+ 
 +DB Schema:
 
     
@@ -29,11 +33,19 @@
     
     AVC_CLASS: AVC_CLA_ID, AVC_CLA_CANONICAL_NAME
     
-    AVC_METHOD: AVC_MET_ID, AVC_MET_NAME, AVC_MET_PARAMS_TYPES
+    AVC_METHOD: AVC_MET_ID, AVC_MET_NAME, AVC_MET_PARAMS_TYPES, AVC_MET_RETURN_TYPE
     
     AVC_REVISION: AVC_REV_ID, AVC_REV_CLASSID, AVC_REV_METHODID, AVC_REV_DATE, AVC_REV_COMMENT
 
     AVC_REVISION_AUTHORS:
 
 #### TODO gui
+
 +ManyToMany Revisions <-> Authors
+
+#### TODO repaint mainFrame after scan
+#### TODO refactor gui to MVC
+#### TODO method signature is not saved to DB
+#### TODO add return type for method
+#### TODO methods are equivalent when they have same declaring class, name, signature and return type
+#### TODO do not reload equivalent revisions

@@ -42,8 +42,19 @@ public class Converter implements RevisedObjectVisitor {
         revision = new Revision();
         revision.setDate(wrapped.getDate());
         revision.setComment(wrapped.getComment());
+        fillAuthors(wrapped);
         revisedObject.accept(this);
         return revision;
+    }
+
+    private void fillAuthors(RevisionWrapper wrapped) {
+        List<Author> authors = Lists.newArrayList();
+        for (String name : wrapped.getAuthors()) {
+            Author author = new Author();
+            author.setName(name);
+            authors.add(author);
+        }
+        revision.setAuthors(authors);
     }
 
     private Method getMethod(String declaringClassName, String methodName, String methodSignature) {

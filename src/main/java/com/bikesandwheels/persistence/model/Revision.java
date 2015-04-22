@@ -22,7 +22,7 @@ public class Revision implements Serializable {
     @JoinColumn(name="AVC_REV_METHODID")
     private Method revisedMethod;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name="AVC_REVISION_AUTHORS")
     private List<Author> authors = Lists.newArrayList();
 
