@@ -45,4 +45,9 @@ public class RevisedClass implements RevisedObject {
         result = 31 * result + aClass.hashCode();
         return result;
     }
+
+    @Override
+    public String toString() {
+        return aClass.getSimpleName();
+    }
 }

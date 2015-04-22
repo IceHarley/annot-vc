@@ -15,7 +15,7 @@ import org.springframework.context.annotation.*;
 import java.lang.annotation.Annotation;
 
 @Configuration
-@Import(value = {RepositoryConfig.class, ServiceConfig.class, ScannerConfig.class})
+@Import(value = {RepositoryConfig.class, ServiceConfig.class, GuiConfig.class})
 public class AppConfig {
     @Bean
     @Qualifier("PathAnnotatedSearcher")

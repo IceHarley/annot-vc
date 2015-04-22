@@ -1,13 +1,17 @@
 package com.bikesandwheels.interactors.revised_objects_searcher;
 
 import com.bikesandwheels.domain.*;
+import com.bikesandwheels.interactors.RevisedSearcher;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.Set;
 
 @Component
-public class RevisedObjectsSearcher implements com.bikesandwheels.interactors.RevisedSearcher {
+public class RevisedObjectsSearcher implements RevisedSearcher {
+    private static Logger log = Logger.getLogger(RevisedObjectsSearcher.class);
+
     @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
     @Autowired
     private Set<RevisionsScanner> scanners;
@@ -35,6 +39,7 @@ public class RevisedObjectsSearcher implements com.bikesandwheels.interactors.Re
         RevisedObjects revisedObjects = new RevisedObjects();
         for (RevisionsScanner scanner : scanners)
             revisedObjects.addAll(scanner.scan(aClass));
+        log.info(String.format("Revised objects in class %s: %s", aClass.getSimpleName(), revisedObjects.toString()));
         return revisedObjects;
     }
 

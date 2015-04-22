@@ -59,4 +59,9 @@ public class RevisedMethod implements RevisedObject {
         result = 31 * result + method.hashCode();
         return result;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s.%s(%s)", method.getDeclaringClass().getSimpleName(), getMethodName(), getMethodSignature());
+    }
 }

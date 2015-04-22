@@ -1,7 +1,8 @@
 package com.bikesandwheels.domain;
 
 import com.bikesandwheels.interactors.annotation_wrappers.RevisionWrapper;
-import com.google.common.collect.Sets;
+import com.bikesandwheels.tools.StringUtils;
+import com.google.common.collect.*;
 
 import java.util.*;
 
@@ -39,5 +40,13 @@ public class RevisedObjects {
 
     public Set<RevisedObject> getAll() {
         return Sets.newHashSet(items);
+    }
+
+    @Override
+    public String toString() {
+        List<String> convertedItems = Lists.newArrayList();
+        for (RevisedObject item : Lists.newArrayList(items))
+            convertedItems.add(item.toString());
+        return StringUtils.join(convertedItems, ", ");
     }
 }

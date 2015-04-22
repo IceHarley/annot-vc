@@ -2,6 +2,7 @@ package com.bikesandwheels.interactors.annotated_classes_searcher;
 
 import com.bikesandwheels.interactors.*;
 import com.google.common.collect.Sets;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -10,6 +11,8 @@ import java.util.Set;
 
 @Component
 public class PathAnnotatedClassesSearcher implements AnnotatedClassesSearcher {
+    private static Logger log = Logger.getLogger(PathAnnotatedClassesSearcher.class);
+
     @Autowired
     private ReflectionTools reflectionTools;
     @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
@@ -21,6 +24,7 @@ public class PathAnnotatedClassesSearcher implements AnnotatedClassesSearcher {
         Set<Class<?>> annotatedTypes = Sets.newHashSet();
         for (AnnotatedScanner scanner : scanners)
             annotatedTypes.addAll(scanner.scan());
+        log.info(String.format("%d annotated classes was found.", annotatedTypes.size()));
         return annotatedTypes;
     }
 

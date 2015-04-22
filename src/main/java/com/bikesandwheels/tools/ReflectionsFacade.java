@@ -8,7 +8,7 @@ import org.reflections.util.*;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.*;
-import java.net.URL;
+import java.net.*;
 import java.util.Set;
 
 public class ReflectionsFacade implements ReflectionTools {
@@ -47,12 +47,14 @@ public class ReflectionsFacade implements ReflectionTools {
         private final ConfigurationBuilder configurationBuilder;
 
         public ReflectionsBuilder(URL url) {
+            URL[] urls = new URL[]{ url };
             this.configurationBuilder = new ConfigurationBuilder()
                     .setUrls(url)
                     .setScanners(
                             new SubTypesScanner(true),
                             new TypeAnnotationsScanner(),
-                            new MethodAnnotationsScanner());
+                            new MethodAnnotationsScanner())
+                    .addClassLoader(new URLClassLoader(urls));
         }
 
         public Reflections make() {

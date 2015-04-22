@@ -1,38 +1,43 @@
 package com.bikesandwheels.gui;
 
 import com.bikesandwheels.interactors.Scanner;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
+import java.net.MalformedURLException;
 import java.nio.file.Paths;
 
 public class MainFrame implements Runnable {
-    private final String caption;
+    private String caption;
     private JTextField pathTextField;
     private JFrame mainFrame;
     private JButton selectPathButton;
     private JButton scanButton;
     private JPanel topPanel;
-    private JPanel topLeftPanel;
-    private JPanel topRightPanel;
     private JPanel areaPanel;
-    private JTable table;
     private File selectedFile;
+    @Autowired
+    private Scanner scanner;
+    @Autowired
+    private RevisionsTable revisionsTable;
+    private String defaultSearchPath = "";
 
-    public MainFrame(String caption) {
+    public void setCaption(String caption) {
         this.caption = caption;
     }
 
     public void run() {
-        selectedFile = Paths.get("").toFile();
+        selectedFile = Paths.get(defaultSearchPath).toFile();
 
         mainFrame = new JFrame(caption);
         mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        pathTextField = new JTextField(50);
-        pathTextField.setText(selectedFile.getPath());
+        mainFrame.getContentPane().setLayout(new BorderLayout());
+        mainFrame.setLocationByPlatform(true);
 
         selectPathButton = new JButton("...");
         selectPathButton.addActionListener(
@@ -42,9 +47,10 @@ public class MainFrame implements Runnable {
                     }
                 });
 
-        topLeftPanel = new JPanel(true);
-        topLeftPanel.add(pathTextField, BorderLayout.WEST);
-        topLeftPanel.add(selectPathButton, BorderLayout.EAST);
+        pathTextField = new JTextField(40);
+        pathTextField.setText(selectedFile.getPath());
+        pathTextField.setLayout(new BorderLayout());
+        pathTextField.add(selectPathButton, BorderLayout.EAST);
 
         scanButton = new JButton("Scan");
         scanButton.addActionListener(
@@ -54,45 +60,62 @@ public class MainFrame implements Runnable {
                     }
                 });
 
-        topRightPanel = new JPanel(true);
-        topRightPanel.add(scanButton, BorderLayout.CENTER);
+        JPanel pathPanel = new JPanel(true);
+        pathPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 0));
+        pathPanel.add(pathTextField);
+        pathPanel.add(scanButton);
 
         topPanel = new JPanel(true);
-        topPanel.add(topLeftPanel, BorderLayout.WEST);
-        topPanel.add(topRightPanel, BorderLayout.EAST);
-
-
-        table = new JTable();
-        table.setSize(1000, 500);
-        table.setAutoscrolls(true);
+        topPanel.setLayout(new BorderLayout());
+        JLabel pathTitle = new JLabel("Select assembly:");
+        JLabel pathFooter = new JLabel(" ");
+        pathTitle.setPreferredSize(new Dimension(0, 30));
+        topPanel.add(pathTitle, BorderLayout.NORTH);
+        topPanel.add(pathPanel);
+        topPanel.add(pathFooter, BorderLayout.SOUTH);
 
         areaPanel = new JPanel(true);
-        areaPanel.add(table, BorderLayout.CENTER);
-        areaPanel.setSize(1000, 500);
+        areaPanel.setLayout(new BorderLayout());
+        JLabel tableTitle = new JLabel("Revisions log:");
+        tableTitle.setPreferredSize(new Dimension(0, 30));
+        areaPanel.add(tableTitle, BorderLayout.NORTH);
+        areaPanel.add(revisionsTable);
 
-        mainFrame.add(topPanel, BorderLayout.BEFORE_FIRST_LINE);
-        mainFrame.add(areaPanel, BorderLayout.CENTER);
+        revisionsTable.init();
+
+        mainFrame.getContentPane().add(topPanel, BorderLayout.NORTH);
+        mainFrame.getContentPane().add(areaPanel, BorderLayout.CENTER);
         mainFrame.pack();
 
+        mainFrame.setSize(1000, 500);
         mainFrame.setVisible(true);
     }
 
     private void scan() {
-        new Scanner().scanAndSave(selectedFile.getPath());
+        try {
+            scanner.scanAndSave(selectedFile.toURI().toURL());
+        }
+        catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
     }
 
     private void selectPath() {
         JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Jar files", "jar"));
         fileChooser.setSelectedFile(Paths.get("").toAbsolutePath().toFile());
-        if (fileChooser.showDialog(mainFrame, "Select class path") == JFileChooser.APPROVE_OPTION) {
+        if (fileChooser.showDialog(mainFrame, "Select jar") == JFileChooser.APPROVE_OPTION) {
             selectedFile = fileChooser.getSelectedFile();
             pathTextField.setText(selectedFile.getPath());
         }
     }
 
-    public static void create(String caption) {
-        MainFrame runnable = new MainFrame(caption);
-        SwingUtilities.invokeLater(runnable);
+    public void startInEventDispatchThread() {
+        SwingUtilities.invokeLater(this);
+    }
+
+    public void setDefaultSearchPath(String defaultSearchPath) {
+        this.defaultSearchPath = defaultSearchPath;
     }
 }
