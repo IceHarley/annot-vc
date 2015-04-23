@@ -57,11 +57,12 @@ public class Converter implements RevisedObjectVisitor {
         revision.setAuthors(authors);
     }
 
-    private Method getMethod(String declaringClassName, String methodName, String methodSignature) {
+    private Method getMethod(String declaringClassName, String methodName, String signature, String returnType) {
         Class declaringClassEntity = createClass(declaringClassName);
         Method methodEntity = new Method();
         methodEntity.setName(methodName);
-        methodEntity.setSignature(methodSignature);
+        methodEntity.setSignature(signature);
+        methodEntity.setReturnType(returnType);
         methodEntity.setDeclaringClass(declaringClassEntity);
         return methodEntity;
     }
@@ -78,7 +79,11 @@ public class Converter implements RevisedObjectVisitor {
     }
 
     public void visit(RevisedMethod revisedMethod) {
-        Method methodEntity = getMethod(revisedMethod.getDeclaringClassName(), revisedMethod.getMethodName(), revisedMethod.getMethodSignature());
+        Method methodEntity = getMethod(
+                revisedMethod.getDeclaringClassName(),
+                revisedMethod.getMethodName(),
+                revisedMethod.getMethodSignature(),
+                revisedMethod.getMethodReturnType());
         revision.setRevisedMethod(methodEntity);
     }
 }

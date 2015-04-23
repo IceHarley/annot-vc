@@ -36,7 +36,11 @@ public class RevisedMethod implements RevisedObject {
         List<String> types = Lists.newArrayList();
         for (Class<?> type : method.getParameterTypes())
             types.add(type.getCanonicalName());
-        return StringUtils.join(types, ",");
+        return StringUtils.join(types, ", ");
+    }
+
+    public String getMethodReturnType() {
+        return method.getReturnType().getCanonicalName();
     }
 
     public String getDeclaringClassName() {
@@ -62,6 +66,10 @@ public class RevisedMethod implements RevisedObject {
 
     @Override
     public String toString() {
-        return String.format("%s.%s(%s)", method.getDeclaringClass().getSimpleName(), getMethodName(), getMethodSignature());
+        return String.format("%s %s.%s(%s)",
+                method.getReturnType(),
+                method.getDeclaringClass().getSimpleName(),
+                getMethodName(),
+                getMethodSignature());
     }
 }

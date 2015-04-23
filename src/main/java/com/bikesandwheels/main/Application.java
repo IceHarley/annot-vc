@@ -1,7 +1,7 @@
 package com.bikesandwheels.main;
 
 import com.bikesandwheels.config.*;
-import com.bikesandwheels.gui.MainFrame;
+import com.bikesandwheels.gui.view.MainFrame;
 import com.bikesandwheels.interactors.*;
 import com.bikesandwheels.main.commandline.AvcParser;
 import com.bikesandwheels.tools.FileUtils;

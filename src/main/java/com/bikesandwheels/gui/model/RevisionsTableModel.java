@@ -40,6 +40,7 @@ public class RevisionsTableModel extends AbstractTableModel {
 
     public void refresh() {
         data = Lists.newArrayList(revisionService.getAll());
+        fireTableDataChanged();
     }
 
     public int getColumnCount() {
@@ -71,7 +72,10 @@ public class RevisionsTableModel extends AbstractTableModel {
         Method revisedMethod = revision.getRevisedMethod();
         if (revisedMethod == null)
             return "";
-        return String.format("%s(%s)", revisedMethod.getName(), revisedMethod.getSignature());
+        return String.format("%s %s(%s)",
+                revisedMethod.getReturnType(),
+                revisedMethod.getName(),
+                revisedMethod.getSignature());
     }
 
     private String getClass(Revision revision) {
@@ -90,7 +94,9 @@ public class RevisionsTableModel extends AbstractTableModel {
     }
 
     public java.lang.Class getColumnClass(int c) {
-        java.lang.Class<?> aClass = getValueAt(0, c).getClass();
+        java.lang.Class<?> aClass = Object.class;
+        if (!data.isEmpty())
+            aClass = getValueAt(0, c).getClass();
         return aClass;
     }
 }

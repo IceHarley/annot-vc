@@ -20,6 +20,9 @@ public class Method implements Serializable {
     @Column(name = "AVC_MET_SIGNATURE")
     private String signature;
 
+    @Column(name = "AVC_MET_RETURN_TYPE")
+    private String returnType;
+
     @ManyToOne
     @JoinColumn(name="AVC_MET_CLASSID", nullable = false)
     private Class declaringClass;
@@ -65,6 +68,14 @@ public class Method implements Serializable {
 
     public void setRevisions(List<Revision> revisions) {
         this.revisions = revisions;
+    }
+
+    public String getReturnType() {
+        return returnType;
+    }
+
+    public void setReturnType(String returnType) {
+        this.returnType = returnType;
     }
 
     @Override

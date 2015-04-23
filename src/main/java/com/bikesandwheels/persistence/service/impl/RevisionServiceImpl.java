@@ -43,20 +43,21 @@ public class RevisionServiceImpl extends BaseServiceImpl<Revision> implements Re
         processAuthors(revision);
         processRevisedClass(revision);
         processRevisedMethod(revision);
+        fillIdIfExists(revision);
         return super.save(revision);
     }
 
     private void processRevisedMethod(Revision revision) {
         if (revision.getRevisedMethod() != null) {
-            methodService.save(revision.getRevisedMethod());
             addToMethod(revision);
+            methodService.save(revision.getRevisedMethod());
         }
     }
 
     private void processRevisedClass(Revision revision) {
         if (revision.getRevisedClass() != null) {
-            classService.save(revision.getRevisedClass());
             addToClass(revision);
+            classService.save(revision.getRevisedClass());
         }
     }
 

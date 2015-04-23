@@ -39,13 +39,18 @@
 
     AVC_REVISION_AUTHORS:
 
-#### TODO gui
++gui
 
 +ManyToMany Revisions <-> Authors
 
-#### TODO repaint mainFrame after scan
-#### TODO refactor gui to MVC
-#### TODO method signature is not saved to DB
-#### TODO add return type for method
-#### TODO methods are equivalent when they have same declaring class, name, signature and return type
-#### TODO do not reload equivalent revisions
++repaint mainFrame after scan
+
++refactor gui to MVC
+
++method signature is not saved to DB
+
++add return type for method
+
++methods are equivalent when they have same declaring class, name, signature and return type
+
++do not reload equivalent revisions
