@@ -3,7 +3,7 @@ package com.bikesandwheels.gui.model;
 import com.bikesandwheels.persistence.model.*;
 import com.bikesandwheels.persistence.model.Class;
 import com.bikesandwheels.persistence.service.*;
-import com.bikesandwheels.tools.StringUtils;
+import com.bikesandwheels.tools.*;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -95,7 +95,7 @@ public class RevisionsTableModel extends AbstractTableModel {
         List<String> names = Lists.newArrayList();
         for (Author author : revision.getAuthors())
             names.add(author.getName());
-        return StringUtils.join(names, ", ");
+        return StringUtils.join(names);
     }
 
     public java.lang.Class getColumnClass(int c) {

@@ -1,8 +1,8 @@
-package com.bikesandwheels.interactors.annotation_wrappers;
+package com.bikesandwheels.domain.annotation_wrappers;
 
 import org.junit.Test;
 
-import static com.bikesandwheels.interactors.annotation_wrappers.WrapperUtils.*;
+import static com.bikesandwheels.domain.annotation_wrappers.WrapperUtils.*;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 

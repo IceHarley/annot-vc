@@ -1,7 +1,7 @@
 package com.bikesandwheels.domain;
 
-import com.bikesandwheels.interactors.annotation_wrappers.RevisionWrapper;
-import com.bikesandwheels.tools.StringUtils;
+import com.bikesandwheels.domain.annotation_wrappers.RevisionWrapper;
+import com.bikesandwheels.tools.*;
 import com.google.common.collect.*;
 
 import java.util.*;
@@ -47,6 +47,6 @@ public class RevisedObjects {
         List<String> convertedItems = Lists.newArrayList();
         for (RevisedObject item : Lists.newArrayList(items))
             convertedItems.add(item.toString());
-        return StringUtils.join(convertedItems, ", ");
+        return StringUtils.join(convertedItems);
     }
 }

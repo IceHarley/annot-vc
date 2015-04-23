@@ -6,7 +6,7 @@ import com.bikesandwheels.interactors.annotated_classes_searcher.*;
 import com.bikesandwheels.interactors.annotated_classes_searcher.scanners.*;
 import com.bikesandwheels.interactors.revised_objects_searcher.*;
 import com.bikesandwheels.interactors.revised_objects_searcher.scanners.*;
-import com.bikesandwheels.persistence.converter.Converter;
+import com.bikesandwheels.persistence.converter.*;
 import com.bikesandwheels.tools.ReflectionsFacade;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -76,6 +76,6 @@ public class AppConfig {
 
     @Bean
     public Converter converter() {
-        return new Converter();
+        return new ConverterImpl();
     }
 }

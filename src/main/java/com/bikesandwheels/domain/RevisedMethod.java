@@ -1,7 +1,7 @@
 package com.bikesandwheels.domain;
 
-import com.bikesandwheels.interactors.annotation_wrappers.RevisionWrapper;
-import com.bikesandwheels.tools.StringUtils;
+import com.bikesandwheels.domain.annotation_wrappers.RevisionWrapper;
+import com.bikesandwheels.tools.*;
 import com.google.common.collect.Lists;
 
 import java.lang.reflect.Method;
@@ -36,7 +36,7 @@ public class RevisedMethod implements RevisedObject {
         List<String> types = Lists.newArrayList();
         for (Class<?> type : method.getParameterTypes())
             types.add(type.getCanonicalName());
-        return StringUtils.join(types, ", ");
+        return StringUtils.join(types);
     }
 
     public String getMethodReturnType() {

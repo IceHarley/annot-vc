@@ -1,6 +1,5 @@
 package com.bikesandwheels.gui.model;
 
-import com.bikesandwheels.gui.view.ScanModelListener;
 import com.bikesandwheels.interactors.Scanner;
 import org.springframework.beans.factory.annotation.Autowired;
 

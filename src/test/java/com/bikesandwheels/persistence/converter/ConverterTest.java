@@ -1,8 +1,9 @@
 package com.bikesandwheels.persistence.converter;
 
 import com.bikesandwheels.annotations.Author;
-import com.bikesandwheels.interactors.annotation_wrappers.RevisionWrapper;
+import com.bikesandwheels.domain.annotation_wrappers.RevisionWrapper;
 import com.bikesandwheels.domain.*;
+import com.bikesandwheels.interactors.Converter;
 import com.bikesandwheels.persistence.model.Revision;
 import com.google.common.collect.Sets;
 import org.junit.*;
@@ -10,14 +11,14 @@ import org.junit.*;
 import java.lang.reflect.Method;
 
 import static com.bikesandwheels.annotations.Revision.DEFAULT_COMMENT;
-import static com.bikesandwheels.interactors.annotation_wrappers.WrapperUtils.*;
+import static com.bikesandwheels.domain.annotation_wrappers.WrapperUtils.*;
 import static com.bikesandwheels.interactors.TestModel.BaseRevisedClass;
 import static com.bikesandwheels.interactors.TestModel.MethodsModel.NotRevisedClassWithRevisedMethod;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 public class ConverterTest {
-    private Converter converter = new Converter();
+    private Converter converter = new ConverterImpl();
     private Method method = null;
 
     @Before

@@ -1,6 +1,6 @@
 package com.bikesandwheels.interactors.revised_objects_searcher.scanners;
 
-import com.bikesandwheels.interactors.annotation_wrappers.*;
+import com.bikesandwheels.domain.annotation_wrappers.*;
 import com.bikesandwheels.domain.*;
 import com.bikesandwheels.interactors.ReflectionTools;
 import com.bikesandwheels.interactors.revised_objects_searcher.RevisionsScanner;

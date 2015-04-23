@@ -1,7 +1,6 @@
 package com.bikesandwheels.interactors;
 
 import com.bikesandwheels.domain.ClassesRevisedObjectsMap;
-import com.bikesandwheels.persistence.converter.Converter;
 import com.bikesandwheels.persistence.model.Revision;
 import com.bikesandwheels.persistence.service.RevisionService;
 import org.springframework.beans.factory.annotation.Autowired;

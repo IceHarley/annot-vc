@@ -1,6 +1,6 @@
 package com.bikesandwheels.domain;
 
-import com.bikesandwheels.interactors.annotation_wrappers.RevisionWrapper;
+import com.bikesandwheels.domain.annotation_wrappers.RevisionWrapper;
 
 import java.util.Set;
 

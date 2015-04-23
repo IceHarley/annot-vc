@@ -1,4 +1,4 @@
-package com.bikesandwheels.interactors.annotation_wrappers;
+package com.bikesandwheels.domain.annotation_wrappers;
 
 import com.bikesandwheels.annotations.Date;
 

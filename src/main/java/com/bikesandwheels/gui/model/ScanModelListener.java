@@ -1,4 +1,4 @@
-package com.bikesandwheels.gui.view;
+package com.bikesandwheels.gui.model;
 
 import java.util.EventListener;
 

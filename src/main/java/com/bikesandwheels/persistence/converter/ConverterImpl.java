@@ -1,16 +1,18 @@
 package com.bikesandwheels.persistence.converter;
 
-import com.bikesandwheels.interactors.annotation_wrappers.RevisionWrapper;
+import com.bikesandwheels.domain.annotation_wrappers.RevisionWrapper;
 import com.bikesandwheels.domain.*;
+import com.bikesandwheels.interactors.Converter;
 import com.bikesandwheels.persistence.model.Class;
 import com.bikesandwheels.persistence.model.*;
 import com.google.common.collect.Lists;
 
 import java.util.*;
 
-public class Converter implements RevisedObjectVisitor {
+public class ConverterImpl implements RevisedObjectVisitor, Converter {
     private Revision revision;
 
+    @Override
     public List<Revision> convert(ClassesRevisedObjectsMap revisedObjectsMap) {
         List<Revision> revisions = Lists.newArrayList();
         for (java.lang.Class<?> aClass : revisedObjectsMap.getClasses())
@@ -18,6 +20,7 @@ public class Converter implements RevisedObjectVisitor {
         return revisions;
     }
 
+    @Override
     public Collection<? extends Revision> convert(RevisedObjects revisedObjects) {
         List<Revision> revisions = Lists.newArrayList();
         for (RevisedObject revisedObject : revisedObjects.getAll())
@@ -25,6 +28,7 @@ public class Converter implements RevisedObjectVisitor {
         return revisions;
     }
 
+    @Override
     public List<Revision> convert(RevisedObject revisedObject) {
         if (revisedObject == null)
             return Lists.newArrayList();

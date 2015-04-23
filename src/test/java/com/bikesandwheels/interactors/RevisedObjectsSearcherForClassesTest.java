@@ -1,7 +1,7 @@
 package com.bikesandwheels.interactors;
 
 
-import com.bikesandwheels.interactors.annotation_wrappers.RevisionWrapper;
+import com.bikesandwheels.domain.annotation_wrappers.RevisionWrapper;
 import com.bikesandwheels.config.*;
 import com.bikesandwheels.domain.ClassesRevisedObjectsMap;
 import com.google.common.collect.Sets;
@@ -14,8 +14,8 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 import java.util.Set;
 
-import static com.bikesandwheels.interactors.annotation_wrappers.WrapperUtils.createDate;
-import static com.bikesandwheels.interactors.annotation_wrappers.WrapperUtils.createDefaultRevision;
+import static com.bikesandwheels.domain.annotation_wrappers.WrapperUtils.createDate;
+import static com.bikesandwheels.domain.annotation_wrappers.WrapperUtils.createDefaultRevision;
 import static com.bikesandwheels.interactors.TestModel.*;
 import static com.bikesandwheels.tools.TestUtils.*;
 import static org.hamcrest.Matchers.not;
