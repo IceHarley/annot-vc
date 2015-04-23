@@ -22,23 +22,25 @@ Several examples of possible annotations:
 
 * Revised class with date only:
 
-
+```
     @Revision(date = @Date(year = 2015, month = 4, day = 1)
     public class RevisedClass {}
+```
 
 * Revised class with date, author and comment:
 
-
+```
     @Revision(
         date = @Date(year = 2015, month = 4, day = 1),
         authors = @Author("John"),
         comment = "RevisedClass implemented"
         )
     public class RevisedClass {}
+```
 
 * Class with history of its revisions:
 
-
+```
     @History({
             @Revision(
                     date = @Date(year = 2015, month = 4, day = 6),
@@ -52,16 +54,18 @@ Several examples of possible annotations:
             )
     })
     public class HistoryRevisedClass {}
+```
 
 * Revised method:
 
-
+```
     @Revision(date = @Date(year = 2015, month = 4, day = 22))
     public void revisedMethod(Object... objects) {}
+```
 
 * History revised method:
 
-
+```
         @History({
                 @Revision(
                     date = @Date(year = 2015, month = 4, day = 17),
@@ -73,6 +77,7 @@ Several examples of possible annotations:
                     comment = "bug fixed")
         })
         public Integer historyRevisedMethod(String s) {return 0;}
+```
 
 ### Requirements
 
@@ -83,7 +88,7 @@ Several examples of possible annotations:
 ### Algorithm
 
 
-1.  Provided .jar is scanned for annotated classes/method with `AnnotatedClassesSearcher`. 
+1.  Provided .jar is scanned for annotated classes/methods with `AnnotatedClassesSearcher`. 
     *   `AnnotatedClassesSearcher` is configured with set of scanners. For example `ClassesAnnotatedScanner` scans for revised classes, while `MethodsAnnotatedScanner` scans for revised methods
     *   It is possible to implement, inject and use more scanners to make `AnnotatedClassesSearcher` more flexible
     *   Output of `AnnotatedClassesSearcher` is list of classes which have at least one revision or revised method.
@@ -99,5 +104,5 @@ Several examples of possible annotations:
     *   Entities are annotated with hibernate annotations for automation of persisting
     *   There are repositories for each type of entities. Default CRUD operations are provided by spring, additional queries are configured with HQL
     *   Services use repositories and implement business rules. 
-    For example if revision has same date and class/method with already existing revision it will update that revision in DB. 
-    Otherwise it will be saved as new revision. Thus you may update comment or author of already existing revision.
+    For example if revision has same date and class/method with already existing revision, on save it will update that revision in DB. 
+    Otherwise, it will be inserted as new revision. Thus you may update comment or author of already existing revision.
