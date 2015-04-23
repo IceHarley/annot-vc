@@ -50,7 +50,7 @@ public class RevisionsTable extends JPanel {
 
     private void setSorting() {
         table.setAutoCreateRowSorter(true);
-        TableRowSorter<TableModel> sorter = new TableRowSorter(table.getModel());
+        TableRowSorter sorter = new TableRowSorter(table.getModel());
         table.setRowSorter(sorter);
         ArrayList<RowSorter.SortKey> sortKeys = Lists.newArrayList(new RowSorter.SortKey(0, SortOrder.ASCENDING));
         sorter.setSortKeys(sortKeys);

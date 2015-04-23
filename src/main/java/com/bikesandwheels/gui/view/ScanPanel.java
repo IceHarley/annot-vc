@@ -10,6 +10,8 @@ import java.awt.event.*;
 import java.io.File;
 
 public class ScanPanel extends JPanel {
+    private static final String SCAN_SUCCESSFUL = "Scan completed successfully";
+    private static final String SCAN_UNSUCCESSFUL = "Scan failed. Jar file doesn't exist or corrupted";
     @Autowired
     private ScanModel model;
     @Autowired
@@ -65,6 +67,7 @@ public class ScanPanel extends JPanel {
     private void initPathTextField() {
         selectPathButton = new JButton("...");
         pathTextField = new JTextField(40);
+        pathTextField.setEditable(false);
         pathTextField.setLayout(new BorderLayout());
         pathTextField.add(selectPathButton, BorderLayout.EAST);
     }
@@ -88,7 +91,10 @@ public class ScanPanel extends JPanel {
         scanButton.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
-                        controller.scan();
+                        String text = SCAN_SUCCESSFUL;
+                        if (!controller.scan())
+                            text = SCAN_UNSUCCESSFUL;
+                        JOptionPane.showMessageDialog(null, text);
                     }
                 });
     }

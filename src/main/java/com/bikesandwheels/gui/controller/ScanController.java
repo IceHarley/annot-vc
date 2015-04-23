@@ -2,6 +2,7 @@ package com.bikesandwheels.gui.controller;
 
 import com.bikesandwheels.gui.model.*;
 import com.bikesandwheels.gui.view.ScanPanel;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.swing.*;
@@ -9,6 +10,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.nio.file.Paths;
 
 public class ScanController {
+    private static Logger log = Logger.getLogger(ScanController.class);
     @Autowired
     private ScanPanel view;
     @Autowired
@@ -16,9 +18,22 @@ public class ScanController {
     @Autowired
     private RevisionsTableModel tableModel;
 
-    public void scan() {
-        model.scan();
-        tableModel.refresh();
+    public boolean scan() {
+        try {
+            if (!validateSelectedFile())
+                return false;
+            model.scan();
+            tableModel.refresh();
+            return true;
+        }
+        catch (Exception e) {
+            log.error("Scan error: ", e);
+            return false;
+        }
+    }
+
+    private boolean validateSelectedFile() {
+        return !(model.getSelectedFile() == null || !model.getSelectedFile().exists());
     }
 
     public void selectPath() {
