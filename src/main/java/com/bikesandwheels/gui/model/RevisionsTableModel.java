@@ -18,8 +18,8 @@ public class RevisionsTableModel extends AbstractTableModel {
         METHOD(3, "Method"),
         COMMENT(4, "Comment");
 
-        private int index;
-        private String title;
+        private final int index;
+        private final String title;
 
         Column(int index, String title) {
             this.index = index;
@@ -52,12 +52,17 @@ public class RevisionsTableModel extends AbstractTableModel {
     }
 
     public String getColumnName(int col) {
-        return Column.getByIndex(col).title;
+        Column column = Column.getByIndex(col);
+        if (column == null)
+            return "";
+        return column.title;
     }
 
     public Object getValueAt(int row, int col) {
         Revision revision = data.get(row);
         Column column = Column.getByIndex(col);
+        if (column == null)
+            return null;
         switch (column) {
             case DATE: return revision.getDate();
             case AUTHORS: return getAuthors(revision);

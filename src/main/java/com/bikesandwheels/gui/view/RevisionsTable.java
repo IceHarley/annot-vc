@@ -12,6 +12,8 @@ import java.util.ArrayList;
 
 @Component
 public class RevisionsTable extends JPanel {
+    public static final int TABLE_WIDTH = 1000;
+    public static final int FOOTER_HEIGHT = 30;
     @Autowired
     private TableModel tableModel;
     private JScrollPane scrollPane;
@@ -27,18 +29,18 @@ public class RevisionsTable extends JPanel {
         initPanel();
 
         initScrollPane();
-        setColumnsWidth(1000, 10, 10, 40, 30, 10);
+        setColumnsWidth(TABLE_WIDTH, 10, 10, 40, 30, 10);
     }
 
     private void initTable() {
         table = new JTable(tableModel);
-        table.setPreferredScrollableViewportSize(new Dimension(1000, 0));
+        table.setPreferredScrollableViewportSize(new Dimension(TABLE_WIDTH, 0));
         setSorting();
     }
 
     private void initPanel() {
         JLabel tableTitle = new JLabel("Revisions log:");
-        tableTitle.setPreferredSize(new Dimension(0, 30));
+        tableTitle.setPreferredSize(new Dimension(0, FOOTER_HEIGHT));
         add(tableTitle, BorderLayout.NORTH);
         initScrollPane();
     }
@@ -48,6 +50,7 @@ public class RevisionsTable extends JPanel {
         add(scrollPane, BorderLayout.CENTER);
     }
 
+    @SuppressWarnings("unchecked")
     private void setSorting() {
         table.setAutoCreateRowSorter(true);
         TableRowSorter sorter = new TableRowSorter(table.getModel());

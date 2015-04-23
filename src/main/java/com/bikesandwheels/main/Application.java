@@ -15,6 +15,7 @@ import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 
 public class Application {
+    private static final String APP_CAPTION = "Annotations Version Control";
     private static Logger log = Logger.getLogger("AVC");
     private static AvcParser parser;
 
@@ -73,7 +74,7 @@ public class Application {
 
         context.start();
         MainFrame mainFrame = (MainFrame)context.getBean("mainFrame");
-        mainFrame.setCaption("Annotations Version Control");
+        mainFrame.setCaption(APP_CAPTION);
         mainFrame.startInEventDispatchThread();
     }
 

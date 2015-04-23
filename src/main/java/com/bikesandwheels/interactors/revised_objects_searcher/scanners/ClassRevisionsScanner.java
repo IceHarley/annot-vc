@@ -29,7 +29,7 @@ abstract class ClassRevisionsScanner implements RevisionsScanner {
         return revisedObjects;
     }
 
-    protected ReflectionTools getReflectionTools() {
+    ReflectionTools getReflectionTools() {
         return reflectionTools;
     }
 }

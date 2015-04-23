@@ -9,7 +9,7 @@ import java.io.File;
 import java.net.MalformedURLException;
 
 public class ScanModel {
-    protected EventListenerList listenerList = new EventListenerList();
+    protected final EventListenerList listenerList = new EventListenerList();
     @Autowired
     private Scanner scanner;
     private File selectedFile;

@@ -12,6 +12,7 @@ import java.util.Set;
 
 @Component
 public class MethodsAnnotatedScanner implements AnnotatedScanner {
+    @SuppressWarnings("MismatchedReadAndWriteOfArray")
     @Autowired
     private Class<? extends Annotation>[] annotations;
     @Autowired

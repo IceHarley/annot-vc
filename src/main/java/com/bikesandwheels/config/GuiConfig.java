@@ -14,8 +14,7 @@ public class GuiConfig {
 
     @Bean
     public MainFrame mainFrame(Environment environment) {
-        MainFrame mainFrame = new MainFrame();
-        return mainFrame;
+        return new MainFrame();
     }
 
     @Bean

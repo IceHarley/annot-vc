@@ -3,7 +3,7 @@ package com.bikesandwheels.main.commandline;
 import org.apache.commons.cli.*;
 
 public class AvcOptions {
-    private Options options = new Options();
+    private final Options options = new Options();
 
     public AvcOptions() {
         Option help = new Option("help", "print this message");

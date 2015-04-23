@@ -4,7 +4,7 @@ import org.apache.commons.cli.*;
 
 public class AvcParser {
     private final Options options;
-    private String[] args;
+    private final String[] args;
     private CommandLine commandLine;
 
     public AvcParser(String[] args) {

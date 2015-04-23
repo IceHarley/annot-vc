@@ -6,7 +6,9 @@ import com.bikesandwheels.persistence.repositories.MethodRepository;
 import com.bikesandwheels.persistence.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class MethodServiceImpl extends BaseServiceImpl<Method> implements MethodService {
     @Autowired
     private MethodRepository methodRepository;
