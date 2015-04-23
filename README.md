@@ -22,14 +22,14 @@ Several examples of possible annotations:
 
 * Revised class with date only:
 
-```
+```java
     @Revision(date = @Date(year = 2015, month = 4, day = 1)
     public class RevisedClass {}
 ```
 
 * Revised class with date, author and comment:
 
-```
+```java
     @Revision(
         date = @Date(year = 2015, month = 4, day = 1),
         authors = @Author("John"),
@@ -40,43 +40,43 @@ Several examples of possible annotations:
 
 * Class with history of its revisions:
 
-```
+```java
     @History({
-            @Revision(
-                    date = @Date(year = 2015, month = 4, day = 6),
-                    comment = "class implemented",
-                    authors = {@Author("John"), @Author("Jack")}
-            ),
-            @Revision(
-                    date = @Date(year = 2015, month = 4, day = 7),
-                    comment = "class modified",
-                    authors = {@Author("Jack"), @Author("Mike")}
-            )
+        @Revision(
+            date = @Date(year = 2015, month = 4, day = 6),
+            comment = "class implemented",
+            authors = {@Author("John"), @Author("Jack")}
+        ),
+        @Revision(
+            date = @Date(year = 2015, month = 4, day = 7),
+            comment = "class modified",
+            authors = {@Author("Jack"), @Author("Mike")}
+        )
     })
     public class HistoryRevisedClass {}
 ```
 
 * Revised method:
 
-```
+```java
     @Revision(date = @Date(year = 2015, month = 4, day = 22))
     public void revisedMethod(Object... objects) {}
 ```
 
 * History revised method:
 
-```
-        @History({
-                @Revision(
-                    date = @Date(year = 2015, month = 4, day = 17),
-                    authors = @Author("Paul"),
-                    comment = "algorithm implemented"),
-                @Revision(
-                    date = @Date(year = 2015, month = 4, day = 18),
-                    authors = @Author("Paul"),
-                    comment = "bug fixed")
-        })
-        public Integer historyRevisedMethod(String s) {return 0;}
+```java
+    @History({
+        @Revision(
+            date = @Date(year = 2015, month = 4, day = 17),
+            authors = @Author("Paul"),
+            comment = "algorithm implemented"),
+        @Revision(
+            date = @Date(year = 2015, month = 4, day = 18),
+            authors = @Author("Paul"),
+            comment = "bug fixed")
+    })
+    public Integer historyRevisedMethod(String s) {return 0;}
 ```
 
 ### Requirements
